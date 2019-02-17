@@ -1,0 +1,3 @@
+[submodule "wiki"]
+	path = wiki
+	url = https://github.com/NikolaosPattelakis/SDU-SE-ST-18-2.-Semester-Gruppe-15.wiki.git
