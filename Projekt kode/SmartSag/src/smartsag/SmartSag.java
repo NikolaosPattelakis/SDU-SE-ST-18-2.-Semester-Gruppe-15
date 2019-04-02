@@ -11,11 +11,50 @@ package smartsag;
  */
 public class SmartSag {
 
-    /**
-     * @param args the command line arguments
-     */
+    public final static String ROLES_XML_FILEPATH = "data/roles.xml";
+    public static int CURRENT_ROLE_ID;
+    public static Role currentRole;
+    
     public static void main(String[] args) {
-        // TODO code application logic here
+        
+        DataHandler dataHandler = new DataHandler(ROLES_XML_FILEPATH);
+        
+        
+        Role role = new Role();
+        role = createAdministrator();
+        
+        try{
+        dataHandler.createRolesXML(role);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        
+        
+        
     }
     
+    private static Role createAdministrator(){
+        Role role = new Role();
+        
+        role.setID(0);
+        role.setName("Administrator");
+        
+        role.setRoleCanCreate(true);
+        role.setRoleCanEdit(false);
+        role.setRoleCanRead(true);
+        role.setRoleCanDelete(true);
+        
+        role.setUserCanCreate(true);
+        role.setUserCanEdit(false);
+        role.setUserCanRead(false);
+        role.setUserCanDelete(true);
+        
+        role.setCaseCanCreate(false);
+        role.setCaseCanEdit(false);
+        role.setCaseCanRead(false);
+        role.setCaseCanDelete(true);
+        
+        return role;
+    }
 }
