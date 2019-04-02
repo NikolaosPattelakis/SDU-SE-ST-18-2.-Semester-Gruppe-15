@@ -1,4 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><roles>
   
 
-<role RoleID="0"><Name>Administrator</Name><RoleCanCreate>true</RoleCanCreate><RoleCanEdit>false</RoleCanEdit><RoleCanEdit>true</RoleCanEdit><CaseCanDelete>true</CaseCanDelete><UserCanCreate>true</UserCanCreate><UserCanEdit>false</UserCanEdit><UserCanRead>false</UserCanRead><UserCanDelete>true</UserCanDelete><CaseCanCreate>false</CaseCanCreate><CaseCanEdit>false</CaseCanEdit><CaseCanRead>false</CaseCanRead><CaseCanDelete>true</CaseCanDelete></role></roles>
+<role RoleID="0">
+    <Name>Administrator</Name>
+    <RoleCanCreate>true</RoleCanCreate>
+    <RoleCanEdit>false</RoleCanEdit>
+    <RoleCanRead>true</RoleCanRead>
+    <RoleCanDelete>true</RoleCanDelete>
+    <UserCanCreate>true</UserCanCreate>
+    <UserCanEdit>false</UserCanEdit>
+    <UserCanRead>false</UserCanRead>
+    <UserCanDelete>true</UserCanDelete>
+    <CaseCanCreate>false</CaseCanCreate>
+    <CaseCanEdit>false</CaseCanEdit>
+    <CaseCanRead>false</CaseCanRead>
+    <CaseCanDelete>true</CaseCanDelete>
+</role>
+</roles>

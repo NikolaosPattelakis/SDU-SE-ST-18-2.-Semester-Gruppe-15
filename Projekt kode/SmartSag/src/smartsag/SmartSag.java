@@ -15,44 +15,44 @@ public class SmartSag {
     public static int CURRENT_ROLE_ID;
     public static Role currentRole;
     
-    public static void main(String[] args) {
+    public static void main(String[] args)throws Exception {
         
         DataHandler dataHandler = new DataHandler(ROLES_XML_FILEPATH);
+        CURRENT_ROLE_ID = 0;
+        currentRole = dataHandler.getRole(CURRENT_ROLE_ID);
         
+        int lastIDonFile = Integer.parseInt(dataHandler.getLastID());
+        System.out.println("Last role on roles xml file is= ");
+        System.out.println(dataHandler.getRole(lastIDonFile).toString());
         
-        Role role = new Role();
-        role = createAdministrator();
-        
-        try{
-        dataHandler.createRolesXML(role);
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
-        
-        
+        RoleHandler roleHandler = new RoleHandler();
+        roleHandler.createRole(currentRole, ROLES_XML_FILEPATH, createNewRole());
+
+        lastIDonFile = Integer.parseInt(dataHandler.getLastID());
+        System.out.println("Last role on roles xml file is= ");
+        System.out.println(dataHandler.getRole(lastIDonFile).toString());      
         
     }
     
-    private static Role createAdministrator(){
+    private static Role createNewRole(){
+        
         Role role = new Role();
         
-        role.setID(0);
-        role.setName("Administrator");
+        role.setName("SagsBehandler");
         
         role.setRoleCanCreate(true);
-        role.setRoleCanEdit(false);
+        role.setRoleCanEdit(true);
         role.setRoleCanRead(true);
         role.setRoleCanDelete(true);
         
         role.setUserCanCreate(true);
-        role.setUserCanEdit(false);
-        role.setUserCanRead(false);
+        role.setUserCanEdit(true);
+        role.setUserCanRead(true);
         role.setUserCanDelete(true);
         
-        role.setCaseCanCreate(false);
-        role.setCaseCanEdit(false);
-        role.setCaseCanRead(false);
+        role.setCaseCanCreate(true);
+        role.setCaseCanEdit(true);
+        role.setCaseCanRead(true);
         role.setCaseCanDelete(true);
         
         return role;

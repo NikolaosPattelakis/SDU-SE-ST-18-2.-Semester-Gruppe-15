@@ -19,15 +19,11 @@ public class Role {
     
     private boolean caseCanCreate, caseCanEdit, caseCanRead, caseCanDelete;
 
+    
     public Role(){}
     
-    public Role(int newRoleID, String newName, boolean canCreate, boolean canEdit,boolean canRead, boolean canDelete){
-        this.roleID = newRoleID;
+    public Role(String newName){
         this.name = newName;
-        this.roleCanCreate = canCreate;
-        this.roleCanEdit = canEdit;
-        this.roleCanRead = canRead;
-        this.RoleCanDelete = canDelete;
     }
     
     @Override

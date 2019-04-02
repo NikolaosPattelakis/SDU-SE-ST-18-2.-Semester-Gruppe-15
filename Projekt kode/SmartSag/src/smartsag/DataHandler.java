@@ -202,8 +202,8 @@ public class DataHandler {
 
         Element roleCanCreate = document.createElement(this.roleCanCreateTag);
         Element roleCanEdit = document.createElement(this.roleCanEditTag);
-        Element roleCanRead = document.createElement(this.roleCanEditTag);
-        Element roleCanDelete = document.createElement(this.caseCanDeleteTag);
+        Element roleCanRead = document.createElement(this.roleCanReadTag);
+        Element roleCanDelete = document.createElement(this.roleCanDeleteTag);
 
         Element userCanCreate = document.createElement(this.userCanCreateTag);
         Element userCanEdit = document.createElement(this.userCanEditTag);

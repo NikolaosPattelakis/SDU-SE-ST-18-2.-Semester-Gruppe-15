@@ -12,6 +12,7 @@ public class RoleHandler {
         
         if(currentRole.getRoleCanCreate()==true){
             try{
+            newRole.setID(Integer.parseInt(dataHandler.getLastID())+1);
             dataHandler.createRolesXML(newRole);
             }
             catch(Exception e){
