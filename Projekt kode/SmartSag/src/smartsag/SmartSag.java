@@ -1,60 +1,120 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package smartsag;
 
-/**
- *
- * @author Oliver
- */
+import Persistence.DataHandler;
+import java.util.HashMap;
+
 public class SmartSag {
 
     public final static String ROLES_XML_FILEPATH = "data/roles.xml";
+    public final static String TEST_XML_FILEPATH = "data/test.xml";
     public static int CURRENT_ROLE_ID;
     public static Role currentRole;
     
+    public static DataHandler dataHandlerRole;
+    public static DataHandler dataHandlerTest;
+    
+    public static RoleHandler roleHandler;
+    /**
+     * Main class <br>
+     * Currently used for testing.
+     * 
+     * 
+     * 
+     * @param args
+     * @throws Exception 
+     */
     public static void main(String[] args)throws Exception {
         
-        DataHandler dataHandler = new DataHandler(ROLES_XML_FILEPATH);
-        CURRENT_ROLE_ID = 0;
-        currentRole = dataHandler.getRole(CURRENT_ROLE_ID);
+        dataHandlerRole = new DataHandler(ROLES_XML_FILEPATH);
+        dataHandlerTest = new DataHandler(TEST_XML_FILEPATH);
+  
+        //Uncomment and pick one user:
         
-        int lastIDonFile = Integer.parseInt(dataHandler.getLastID());
-        System.out.println("Last role on roles xml file is= ");
-        System.out.println(dataHandler.getRole(lastIDonFile).toString());
+//        setUserToAdministrator();
+//        setUserToObserver();
         
-        RoleHandler roleHandler = new RoleHandler();
-        roleHandler.createRole(currentRole, ROLES_XML_FILEPATH, createNewRole());
-
-        lastIDonFile = Integer.parseInt(dataHandler.getLastID());
-        System.out.println("Last role on roles xml file is= ");
-        System.out.println(dataHandler.getRole(lastIDonFile).toString());      
+        //Prints information of current role
         
+//        printCurrentRoleInformation();
+        
+        //Uncomment and comment the methods below to test how they work.
+        
+//        createRole();
+//        editRole1();
+//        editRole2();
+//        printOneRoleInformation();
+//        printAllRoles();
+//        deleteRole(2);
+//        deleteLatestRole();
+        
+        
+        //Creates an entry on test.xml
+        //Showcases how all entries can be added
+        
+//        createEntry();
     }
     
-    private static Role createNewRole(){
-        
-        Role role = new Role();
-        
-        role.setName("SagsBehandler");
-        
-        role.setRoleCanCreate(true);
-        role.setRoleCanEdit(true);
-        role.setRoleCanRead(true);
-        role.setRoleCanDelete(true);
-        
-        role.setUserCanCreate(true);
-        role.setUserCanEdit(true);
-        role.setUserCanRead(true);
-        role.setUserCanDelete(true);
-        
-        role.setCaseCanCreate(true);
-        role.setCaseCanEdit(true);
-        role.setCaseCanRead(true);
-        role.setCaseCanDelete(true);
-        
-        return role;
+    private static void setUserToAdministrator(){
+        int admID = 0;
+        currentRole = new Role();
+        currentRole.setInformation(dataHandlerRole.getEntryInformation(admID));
+        roleHandler = new RoleHandler(admID);
     }
+    
+    private static void setUserToObserver(){
+        int obsID = 1;
+        currentRole = new Role();
+        currentRole.setInformation(dataHandlerRole.getEntryInformation(obsID));
+        roleHandler = new RoleHandler(obsID);
+    }
+    
+    private static void createRole(){
+        HashMap<String, String> newRole = new HashMap<>();
+        newRole.put(Tags.TAG_NAME, "Psykolog");
+        newRole.put(Tags.TAG_ROLE_CAN_CREATE, "0");
+        newRole.put(Tags.TAG_ROLE_CAN_EDIT, "1");
+        newRole.put(Tags.TAG_ROLE_CAN_READ, "1");
+        newRole.put(Tags.TAG_ROLE_CAN_DELETE, "0");
+        
+        roleHandler.createRole(newRole);
+    }
+    
+    private static void editRole1(){
+        roleHandler.editRoleValue(2, Tags.TAG_NAME, "Vikar");
+    }
+    
+    private static void editRole2(){
+        roleHandler.editRoleValue(2, Tags.TAG_NAME, "Sagsbehandler");
+    }
+    
+    private static void printCurrentRoleInformation(){
+        System.out.println(roleHandler.getRoleInformation(CURRENT_ROLE_ID).toString());
+    }
+    
+    private static void printOneRoleInformation(){
+        System.out.println(roleHandler.getRoleInformation(2));
+    }
+    
+    private static void printAllRoles(){
+        System.out.println(roleHandler.getAllRoleInformation().toString());
+    }
+    
+    private static void deleteLatestRole(){
+        int lastID = Integer.parseInt(dataHandlerRole.getLastID());
+        roleHandler.deleteRole(lastID);
+    }
+    
+    private static void deleteRole(int roleID){
+        roleHandler.deleteRole(roleID);
+    }
+    private static void createEntry(){
+        HashMap<String,String> newEntry = new HashMap<>();
+        newEntry.put(Tags.TAG_NAME, "Mike");
+        newEntry.put("Age", "40");
+        newEntry.put("Occupation", "Chemical Engineer");
+        
+        dataHandlerTest.createEntry(newEntry, TEST_XML_FILEPATH);
+    }
+    
 }

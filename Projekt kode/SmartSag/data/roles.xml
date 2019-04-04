@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><roles>
   
 
-<role RoleID="0">
+<role ID="0">
     <Name>Administrator</Name>
     <RoleCanCreate>true</RoleCanCreate>
-    <RoleCanEdit>false</RoleCanEdit>
+    <RoleCanEdit>true</RoleCanEdit>
     <RoleCanRead>true</RoleCanRead>
     <RoleCanDelete>true</RoleCanDelete>
     <UserCanCreate>true</UserCanCreate>
@@ -14,6 +14,36 @@
     <CaseCanCreate>false</CaseCanCreate>
     <CaseCanEdit>false</CaseCanEdit>
     <CaseCanRead>false</CaseCanRead>
+    <CaseCanDelete>true</CaseCanDelete>
+</role>
+<role ID="1">
+    <Name>Observer</Name>
+    <RoleCanCreate>true</RoleCanCreate>
+    <RoleCanEdit>true</RoleCanEdit>
+    <RoleCanRead>true</RoleCanRead>
+    <RoleCanDelete>true</RoleCanDelete>
+    <UserCanCreate>true</UserCanCreate>
+    <UserCanEdit>true</UserCanEdit>
+    <UserCanRead>true</UserCanRead>
+    <UserCanDelete>true</UserCanDelete>
+    <CaseCanCreate>true</CaseCanCreate>
+    <CaseCanEdit>true</CaseCanEdit>
+    <CaseCanRead>true</CaseCanRead>
+    <CaseCanDelete>true</CaseCanDelete>
+</role>
+<role ID="2">
+    <Name>Test</Name>
+    <RoleCanCreate>true</RoleCanCreate>
+    <RoleCanEdit>true</RoleCanEdit>
+    <RoleCanRead>true</RoleCanRead>
+    <RoleCanDelete>true</RoleCanDelete>
+    <UserCanCreate>true</UserCanCreate>
+    <UserCanEdit>true</UserCanEdit>
+    <UserCanRead>true</UserCanRead>
+    <UserCanDelete>true</UserCanDelete>
+    <CaseCanCreate>true</CaseCanCreate>
+    <CaseCanEdit>true</CaseCanEdit>
+    <CaseCanRead>true</CaseCanRead>
     <CaseCanDelete>true</CaseCanDelete>
 </role>
 </roles>
