@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><test>
+
+<person ID="0">
+    <name>Niko</name>
+    <workplace>sdu</workplace>
+    <age>31</age>
+</person>
+<person ID="1">
+    <name>Oliver</name>
+    <workplace>sdu</workplace>
+    <age>26</age>
+</person>
+</test>
