@@ -3,6 +3,9 @@ package smartsag;
 
 import Persistence.DataHandler;
 import java.util.HashMap;
+import smartsag.Cases.Case;
+import smartsag.Cases.CaseStatus;
+import smartsag.Cases.CaseTag;
 
 public class SmartSag {
 
@@ -15,6 +18,7 @@ public class SmartSag {
     public static DataHandler dataHandlerTest;
     
     public static RoleHandler roleHandler;
+    public static CaseHandler caseHandler;
     /**
      * Main class <br>
      * Currently used for testing.
@@ -28,7 +32,7 @@ public class SmartSag {
         
         dataHandlerRole = new DataHandler(ROLES_XML_FILEPATH);
         dataHandlerTest = new DataHandler(TEST_XML_FILEPATH);
-  
+        
         //Uncomment and pick one user:
         
 //        setUserToAdministrator();
@@ -53,6 +57,9 @@ public class SmartSag {
         //Showcases how all entries can be added
         
 //        createEntry();
+
+        //caseHandler = new CaseHandler();
+        //caseTests();
     }
     
     private static void setUserToAdministrator(){
@@ -115,6 +122,16 @@ public class SmartSag {
         newEntry.put("Occupation", "Chemical Engineer");
         
         dataHandlerTest.createEntry(newEntry, TEST_XML_FILEPATH);
+    }
+    
+    private static void caseTests() {
+        Case myCase = caseHandler.getCase(1);//caseHandler.createCase(1, 5, 22);
+        caseHandler.setCaseStatus(myCase.getID(), CaseStatus.Open);
+        //caseHandler.addCaseTag(myCase.getID(), CaseTag.TestTag);
+        //caseHandler.addCaseSupporter(myCase.getID(), 54);
+        //caseHandler.setCaseSupporterAsInactive(myCase.getID(), 54);
+        //caseHandler.assignCaseWorker(myCase.getID(), myCase.getCaseWorkerID(), 84);
+        //caseHandler.deleteCase(myCase.getID());
     }
     
 }
