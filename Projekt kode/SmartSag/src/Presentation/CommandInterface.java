@@ -54,8 +54,8 @@ public class CommandInterface {
         for(Command command : availableCommands) {
             String strCommand = command.getName();
             
-            for(CommandArgument argument : command.getArguments()) {
-                strCommand += " [" + argument.getDescription() + "]";
+            for(String argument : command.getArgumentNames()) {
+                strCommand += " [" + argument + "]";
             }
             
             System.out.println(strCommand);
@@ -78,7 +78,7 @@ public class CommandInterface {
             return;
         }
         else {
-            if(!command.parseCommand(rawArguments)) {
+            if(!command.canParseCommand(rawArguments)) {
                 System.out.println("Forkert antal af parametre");
                 return;
             }
@@ -92,16 +92,16 @@ public class CommandInterface {
     }
     
     private void initializeCommands() {
-        availableCommands.add(new Command("help", new ArrayList<CommandArgument>(), x -> commandHelp(x)));
-        availableCommands.add(new Command("quit", new ArrayList<CommandArgument>(), x -> commandQuit(x)));
-        availableCommands.add(new Command("create-case", Arrays.asList(new CommandArgument[] {
-            new CommandArgument("ApplicantID"),
-            new CommandArgument("ResidenceID"),
-            new CommandArgument("DepartmentID")
-        }), x -> commandCreateCase(x)));
-        availableCommands.add(new Command("delete-case", Arrays.asList(new CommandArgument[] {
-            new CommandArgument("CaseID")
-        }), x -> commandDeleteCase(x)));
+        availableCommands.add(new Command("help", new String[] { }, x -> commandHelp(x)));
+        availableCommands.add(new Command("quit", new String[] { }, x -> commandQuit(x)));
+        availableCommands.add(new Command("create-case", new String[] {
+            "ApplicantID",
+            "ResidenceID",
+            "DepartmentID"
+        }, x -> commandCreateCase(x)));
+        availableCommands.add(new Command("delete-case", new String[] {
+            "CaseID"
+        }, x -> commandDeleteCase(x)));
     }
     
     private void commandHelp(String[] arguments) {

@@ -31,6 +31,10 @@ public final class RoleHandler implements Tags, FilePathRoles {
         currentRole = new Role();
         currentRole.setInformation(dataHandler.getEntryInformation(RoleID));
     }
+    
+    public Role getCurrentRole() {
+        return currentRole;
+    }
 
     /**
      * Checks whether current role can create a new role and creates one. <br>

@@ -2,6 +2,7 @@
 package smartsag;
 
 import Persistence.DataHandler;
+import Presentation.CommandInterface;
 import java.util.HashMap;
 import smartsag.Cases.Case;
 import smartsag.Cases.CaseStatus;
@@ -33,6 +34,10 @@ public class SmartSag {
         dataHandlerRole = new DataHandler(ROLES_XML_FILEPATH);
         dataHandlerTest = new DataHandler(TEST_XML_FILEPATH);
         
+        caseHandler = new CaseHandler(); 
+         
+        CommandInterface commandInterface = new CommandInterface(); 
+        commandInterface.run(); 
         //Uncomment and pick one user:
         
 //        setUserToAdministrator();
