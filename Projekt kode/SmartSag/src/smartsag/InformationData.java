@@ -74,7 +74,7 @@ abstract class InformationData {
      * @param tag
      * @return boolean
      */
-    protected boolean hasInformation(String tag){
+    public boolean hasInformation(String tag){
         boolean hasInformation = false;
         if(information.containsKey(tag) == true){
             hasInformation = true;

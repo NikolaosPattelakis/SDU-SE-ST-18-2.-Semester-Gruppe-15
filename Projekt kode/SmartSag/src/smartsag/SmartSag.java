@@ -36,6 +36,8 @@ public class SmartSag {
         
         caseHandler = new CaseHandler(); 
          
+        setUserToAdministrator();
+        
         CommandInterface commandInterface = new CommandInterface(); 
         commandInterface.run(); 
         //Uncomment and pick one user:
@@ -62,9 +64,6 @@ public class SmartSag {
         //Showcases how all entries can be added
         
 //        createEntry();
-
-        //caseHandler = new CaseHandler();
-        //caseTests();
     }
     
     private static void setUserToAdministrator(){

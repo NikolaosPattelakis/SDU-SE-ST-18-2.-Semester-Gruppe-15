@@ -10,6 +10,7 @@ import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import smartsag.Cases.Case;
+import smartsag.RoleHandler;
 import smartsag.SmartSag;
 
 /**
@@ -94,12 +95,19 @@ public class CommandInterface {
     private void initializeCommands() {
         availableCommands.add(new Command("help", new String[] { }, x -> commandHelp(x)));
         availableCommands.add(new Command("quit", new String[] { }, x -> commandQuit(x)));
-        availableCommands.add(new Command("create-case", new String[] {
+        availableCommands.add(new Command("case-create", new String[] {
             "ApplicantID",
             "ResidenceID",
             "DepartmentID"
         }, x -> commandCreateCase(x)));
-        availableCommands.add(new Command("delete-case", new String[] {
+        availableCommands.add(new Command("case-view", new String[] {
+            "CaseID"
+        }, x -> commandViewCase(x)));
+        availableCommands.add(new Command("case-assign", new String[] {
+            "CaseID",
+            "CaseWorkerID"
+        }, x -> commandAssignCaseWorker(x)));
+        availableCommands.add(new Command("case-delete", new String[] {
             "CaseID"
         }, x -> commandDeleteCase(x)));
     }
@@ -119,17 +127,73 @@ public class CommandInterface {
         int residenceID = Integer.valueOf(arguments[1]);
         int departmentID = Integer.valueOf(arguments[2]);
         
-        Case createdCase = SmartSag.caseHandler.createCase(applicantID, residenceID, departmentID);
-        
-        System.out.println("Sagen er blevet oprettet!");
+        if (SmartSag.roleHandler.getCurrentRole().hasInformation(RoleHandler.TAG_CASE_CAN_CREATE)) {
+            Case createdCase = SmartSag.caseHandler.createCase(applicantID, residenceID, departmentID);
+            System.out.println("Sagen er blevet oprettet!");
+        }
+        else {
+            System.out.println("Du har ikke adgang til at oprette en sag");
+        }
     }
     
     private void commandDeleteCase(String[] arguments) {
         System.out.println("Forsøger at slette sagen...");
         
         int caseID = Integer.valueOf(arguments[0]);
-        SmartSag.caseHandler.deleteCase(caseID);
         
-        System.out.println("Sagen er blevet slettet!");
+        if (SmartSag.roleHandler.getCurrentRole().hasInformation(RoleHandler.TAG_CASE_CAN_DELETE)) {
+            SmartSag.caseHandler.deleteCase(caseID);
+            System.out.println("Sagen er blevet slettet!");
+        }
+        else {
+            System.out.println("Du har ikke adgang til at slette en sag");
+        }
+    }
+    
+    private void commandViewCase(String[] arguments) {
+        int caseID = Integer.valueOf(arguments[0]);
+        
+        if (SmartSag.roleHandler.getCurrentRole().hasInformation(RoleHandler.TAG_CASE_CAN_READ)) {
+            Case myCase = SmartSag.caseHandler.getCase(caseID);
+            
+            if(myCase == null) {
+                System.out.println("Kunne ikke finde en case med dette ID");
+                return;
+            }
+            
+            System.out.println("[Sagsoplysninger]");
+            System.out.println("ID: " + myCase.getID());
+            System.out.println("Ansøger ID: " + myCase.getApplicantID());
+            System.out.println("Bopæl ID: " + myCase.getResidenceID());
+            System.out.println("Afdeling ID: " + myCase.getDepartmentID());
+            System.out.println("Sagsbehandler ID: " + myCase.getCaseWorkerID());
+            System.out.println("Status: " + myCase.getStatus());
+            
+            // Vis lister af data...
+        }
+        else {
+            System.out.println("Du har ikke adgang til at se informationer om denne case");
+        }
+    }
+    
+    private void commandAssignCaseWorker(String[] arguments) {
+        int caseID = Integer.valueOf(arguments[0]);
+        int caseWorkerID = Integer.valueOf(arguments[1]);
+        
+        if (SmartSag.roleHandler.getCurrentRole().hasInformation(RoleHandler.TAG_CASE_CAN_EDIT)) {
+            Case myCase = SmartSag.caseHandler.getCase(caseID);
+            
+            if(myCase == null) {
+                System.out.println("Kunne ikke finde en case med dette ID");
+                return;
+            }
+            
+            SmartSag.caseHandler.assignCaseWorker(caseID, myCase.getCaseWorkerID(), caseWorkerID);
+            
+            System.out.println("Sagsbehandleren er blevet ændret");
+        }
+        else {
+            System.out.println("Du har ikke adgang til at ændre i denne case");
+        }
     }
 }
