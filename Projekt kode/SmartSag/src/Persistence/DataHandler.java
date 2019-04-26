@@ -11,6 +11,7 @@ import java.util.List;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+import smartsag.Information.TagsInformation;
 
 /**
  * Handles how data are written and read. <br>
@@ -50,16 +51,17 @@ public final class DataHandler extends XMLHandler {
      * Creates an entry on file with a specified tag and a numberedID.
      *
      * @param entryInformationMap
-     * @param tag
+     * @param infoType
+     * @param dataType
      */
-    public void createNumberedIDEntry(HashMap<String, String> entryInformationMap, String tag) {
+    public void createNumberedIDEntry(HashMap<String, String> entryInformationMap, String dataType) {
 
         Element root = this.document.getDocumentElement();
-        Element newEntry = this.document.createElement(tag);
+        Element newEntry = this.createAndGetElementMap(entryInformationMap, dataType);
         
         Attr id = this.document.createAttribute(DataHandler.TAG_ID);
         
-        String lastID = this.getLastID();
+        String lastID = Integer.toString(this.getLastNumberedID());
         String newID = "1";
         if(!lastID.isEmpty()) {
             newID = Integer.toString(Integer.parseInt(lastID) + 1);
@@ -68,9 +70,8 @@ public final class DataHandler extends XMLHandler {
         id.setValue(newID);
         newEntry.setAttributeNode(id);
 
-        newEntry.appendChild(this.createAndGetElementMap(entryInformationMap, tag));
-
         root.appendChild(newEntry);
+        this.document.normalize();
         this.saveFile();
     }
 
@@ -118,14 +119,12 @@ public final class DataHandler extends XMLHandler {
 
             Element root = this.document.getDocumentElement();
 
-            Element newEntry = this.document.createElement(tag);
+            Element newEntry = this.createAndGetElementMap(entryInformationMap, tag);
 
             Attr idAttribute = this.document.createAttribute(DataHandler.TAG_ID);
 
             idAttribute.setValue(newID);
             newEntry.setAttributeNode(idAttribute);
-            
-            newEntry.appendChild(this.createAndGetElementMap(entryInformationMap, tag));
             
             root.appendChild(newEntry);
             this.saveFile();
@@ -192,9 +191,9 @@ public final class DataHandler extends XMLHandler {
      * @param dataPoint
      * @param newValue
      */
-    public void editValue(String ID, String infoType, String dataPoint, String newValue) {
+    public void editValue(String ID, String dataPoint, String newValue) {
 
-        this.setExpressionAtPoint(ID, infoType, dataPoint);
+        this.setExpressionAtPoint(ID, dataPoint);
         this.editNode(newValue);
 
         this.saveFile();
@@ -224,9 +223,9 @@ public final class DataHandler extends XMLHandler {
      * @param dataPoint
      * @return
      */
-    public String getValue(String ID, String infoType, String dataPoint) {
+    public String getValue(String ID, String dataPoint) {
 
-        this.setExpressionAtPoint(ID, infoType, dataPoint);
+        this.setExpressionAtPoint(ID, dataPoint);
 
         String value = this.getStringFromXPathEvaluation();
 

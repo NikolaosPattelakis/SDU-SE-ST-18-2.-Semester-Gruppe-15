@@ -9,7 +9,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import smartsag.CaseHandler;
 import smartsag.Cases.Case;
+import smartsag.Role;
 import smartsag.RoleHandler;
 import smartsag.SmartSag;
 
@@ -21,11 +23,18 @@ public class CommandInterface {
     
     private List<Command> availableCommands;
     private boolean shouldQuit = false;
+    private final CaseHandler caseHandler;
+    private final RoleHandler roleHandler;
     
     public CommandInterface() {
         availableCommands = new ArrayList<Command>();
         
         initializeCommands();
+        
+        roleHandler = new RoleHandler(0);
+        Role role = roleHandler.getRole(0);
+        caseHandler = new CaseHandler(role);
+        
     }
     
     public void run() {
@@ -127,8 +136,8 @@ public class CommandInterface {
         int residenceID = Integer.valueOf(arguments[1]);
         int departmentID = Integer.valueOf(arguments[2]);
         
-        if (SmartSag.roleHandler.getCurrentRole().hasInformation(RoleHandler.TAG_CASE_CAN_CREATE)) {
-            Case createdCase = SmartSag.caseHandler.createCase(applicantID, residenceID, departmentID);
+        if (roleHandler.getCurrentRole().isCanCreateCase()) {
+            caseHandler.createCase(applicantID, residenceID, departmentID);
             System.out.println("Sagen er blevet oprettet!");
         }
         else {
@@ -141,8 +150,8 @@ public class CommandInterface {
         
         int caseID = Integer.valueOf(arguments[0]);
         
-        if (SmartSag.roleHandler.getCurrentRole().hasInformation(RoleHandler.TAG_CASE_CAN_DELETE)) {
-            SmartSag.caseHandler.deleteCase(caseID);
+        if (roleHandler.getCurrentRole().isCanDeleteCase()) {
+            caseHandler.deleteCase(caseID);
             System.out.println("Sagen er blevet slettet!");
         }
         else {
@@ -153,8 +162,9 @@ public class CommandInterface {
     private void commandViewCase(String[] arguments) {
         int caseID = Integer.valueOf(arguments[0]);
         
-        if (SmartSag.roleHandler.getCurrentRole().hasInformation(RoleHandler.TAG_CASE_CAN_READ)) {
-            Case myCase = SmartSag.caseHandler.getCase(caseID);
+        if (roleHandler.getCurrentRole().isCanReadCase()) {
+            
+            Case myCase = caseHandler.getCase(caseID);
             
             if(myCase == null) {
                 System.out.println("Kunne ikke finde en case med dette ID");
@@ -162,12 +172,12 @@ public class CommandInterface {
             }
             
             System.out.println("[Sagsoplysninger]");
-            System.out.println("ID: " + myCase.getID());
+            System.out.println("ID: " + myCase.getId());
             System.out.println("Ansøger ID: " + myCase.getApplicantID());
             System.out.println("Bopæl ID: " + myCase.getResidenceID());
             System.out.println("Afdeling ID: " + myCase.getDepartmentID());
             System.out.println("Sagsbehandler ID: " + myCase.getCaseWorkerID());
-            System.out.println("Status: " + myCase.getStatus());
+            
             
             // Vis lister af data...
         }
@@ -180,7 +190,7 @@ public class CommandInterface {
         int caseID = Integer.valueOf(arguments[0]);
         int caseWorkerID = Integer.valueOf(arguments[1]);
         
-        if (SmartSag.roleHandler.getCurrentRole().hasInformation(RoleHandler.TAG_CASE_CAN_EDIT)) {
+        if (roleHandler.getCurrentRole().isCanEditCase()) {
             Case myCase = SmartSag.caseHandler.getCase(caseID);
             
             if(myCase == null) {
@@ -188,7 +198,7 @@ public class CommandInterface {
                 return;
             }
             
-            SmartSag.caseHandler.assignCaseWorker(caseID, myCase.getCaseWorkerID(), caseWorkerID);
+            caseHandler.assignCaseWorker(caseID, caseWorkerID);
             
             System.out.println("Sagsbehandleren er blevet ændret");
         }

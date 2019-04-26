@@ -33,11 +33,21 @@ public final class Role extends InformationMap implements Tags {
     private boolean canEditUser = false;
     private boolean canDeleteUser = false;
 
-    protected Role(){}
-    
-    protected Role(String newName, String newDepartment) {
-        this.name = newName;
-        this.department = newDepartment;
+    protected Role(){
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @param department the department to set
+     */
+    public void setDepartment(String department) {
+        this.department = department;
     }
 
     /**

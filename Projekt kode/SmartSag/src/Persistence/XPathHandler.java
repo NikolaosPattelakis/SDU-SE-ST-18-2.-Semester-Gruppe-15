@@ -50,18 +50,15 @@ class XPathHandler implements XPathCommands {
     /**
      * Sets expression at a specific point, based on id, info type and data point.
      * @param id
-     * @param infoType
      * @param dataPoint 
      */
-    protected void setExpressionAtPoint(String id, String infoType, String dataPoint){
+    protected void setExpressionAtPoint(String id, String dataPoint){
         
         this.createXPath();
         this.expressionString = 
                 XPathHandler.XPATH_AT_ID + 
                 id + 
                 XPathHandler.XPATH_AT_ID_CONTINUE + 
-                infoType + 
-                XPathHandler.XPATH_CONTINUE + 
                 dataPoint;
         
     }

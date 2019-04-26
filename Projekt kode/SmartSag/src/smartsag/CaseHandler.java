@@ -1,154 +1,91 @@
 package smartsag;
 
-import smartsag.Cases.CaseStatus;
 import smartsag.Cases.Case;
-import smartsag.Cases.CaseTag;
 import Persistence.DataHandler;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import smartsag.Information.TagsInformation;
 
 /**
  * @author Sander Knudsen
  */
-
 public class CaseHandler implements TagsInformation {
-    private static int caseIDCounter = 0;
+
     private final DataHandler dataHandler;
-    
-    public CaseHandler() {
+    private final Role currentRole;
+
+    public CaseHandler(Role role) {
         dataHandler = new DataHandler("data/cases.xml");
-        
-        String lastID = dataHandler.getLastID();
-        if(!lastID.isEmpty()) {
-            caseIDCounter = Integer.parseInt(lastID);
+        currentRole = role;
+
+    }
+
+    public void createCase(int applicantID, int residenceID, int departmentID) {
+
+        if (currentRole.isCanCreateCase() == true) {
+            HashMap<String, String> caseData = this.createCaseMap(applicantID, residenceID, departmentID);
+            try {
+                dataHandler.createNumberedIDEntry(caseData, Tags.CASE_TAG);
+            } catch (Exception ex) {
+                Logger.getLogger(RoleHandler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         }
     }
-    
-    public Case createCase(int applicantID, int residenceID, int departmentID) {
-        Case newCase = new Case(++caseIDCounter, applicantID, residenceID, departmentID);
-        
+
+    /**
+     * Prepares and creates a HashMap for the case to be saved
+     *
+     * @param applicantID
+     * @param residenceID
+     * @param departmentID
+     * @return
+     */
+    protected HashMap<String, String> createCaseMap(int applicantID, int residenceID, int departmentID) {
+        Case newCase = new Case(applicantID, residenceID, departmentID);
+
         // The ':' character is used because if the element is empty, editNode() will crash upon trying to modify the element's value
         HashMap<String, String> caseData = new HashMap<>();
         caseData.put(Tags.CASE_TAG_APPLICANT, String.valueOf(applicantID));
         caseData.put(Tags.CASE_TAG_RESIDENCE, String.valueOf(residenceID));
         caseData.put(Tags.CASE_TAG_DEPARTMENT, String.valueOf(departmentID));
         caseData.put(Tags.CASE_TAG_CASE_WORKER, String.valueOf(newCase.getCaseWorkerID()));
-        caseData.put(Tags.CASE_TAG_STATUS, newCase.getStatus().name());
-        caseData.put(Tags.CASE_TAG_TAGS, ":");
-        caseData.put(Tags.CASE_TAG_INACTIVE_WORKERS, ":");
-        caseData.put(Tags.CASE_TAG_SUPPORTERS, ":");
-        caseData.put(Tags.CASE_TAG_INACTIVE_SUPPORTERS, ":");
-        
-        try {
-            dataHandler.createEntry(caseData, Tags.CASE_TAG);
-        } catch (Exception ex) {
-            Logger.getLogger(RoleHandler.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        return newCase;
-    }
-    
-    public void assignCaseWorker(int caseID, int currentWorkerID, int newWorkerID) {
-        editCaseValue(caseID, Tags.CASE_TAG_CASE_WORKER, String.valueOf(newWorkerID));
 
-        if(currentWorkerID != -1) {
-            String strWorkerID = String.valueOf(currentWorkerID);
-            String caseWorkerList = dataHandler.getEntryInformation(caseID).get(Tags.CASE_TAG_INACTIVE_WORKERS);
-            if(!caseWorkerList.contains(strWorkerID)) {
-                caseWorkerList += strWorkerID + ":";
-                editCaseValue(caseID, Tags.CASE_TAG_INACTIVE_WORKERS, caseWorkerList);
-            }
-        }
+        return caseData;
     }
-    
-    public void setCaseStatus(int caseID, CaseStatus status) {
-        editCaseValue(caseID, Tags.CASE_TAG_STATUS, status.name());
+
+    /**
+     * Assigns a new case worker.
+     *
+     * @param caseID
+     * @param newWorkerID
+     */
+    public void assignCaseWorker(int caseID, int newWorkerID) {
+        editCaseValue(caseID, Tags.CASE_TAG_CASE_WORKER, Integer.toString(newWorkerID));
     }
-    
-    public void addCaseTag(int caseID, CaseTag tag) {
-        String tagList = dataHandler.getEntryInformation(caseID).get(Tags.CASE_TAG_TAGS);
-        if(!tagList.contains(tag.name())) {
-            tagList += tag.name() + ":";
-            editCaseValue(caseID, Tags.CASE_TAG_TAGS, tagList);
-        }
-    }
-    
-    public void addCaseSupporter(int caseID, int supporterID) {
-        String strSupporterID = String.valueOf(supporterID);
-        String caseSupporterList = dataHandler.getEntryInformation(caseID).get(Tags.CASE_TAG_SUPPORTERS);
-        if(!caseSupporterList.contains(strSupporterID)) {
-            caseSupporterList += strSupporterID + ":";
-            editCaseValue(caseID, Tags.CASE_TAG_SUPPORTERS, caseSupporterList);
-        }
-    }
-    
-    public void setCaseSupporterAsInactive(int caseID, int supporterID) {
-        String strSupporterID = String.valueOf(supporterID);
-        String caseInactiveSupporterList = dataHandler.getEntryInformation(caseID).get(Tags.CASE_TAG_INACTIVE_SUPPORTERS);
-        if(!caseInactiveSupporterList.contains(strSupporterID)) {
-            caseInactiveSupporterList += strSupporterID + ":";
-            editCaseValue(caseID, Tags.CASE_TAG_INACTIVE_SUPPORTERS, caseInactiveSupporterList);
-        }
-        
-        String caseSupporterList = dataHandler.getEntryInformation(caseID).get(Tags.CASE_TAG_SUPPORTERS);
-        if(caseSupporterList.contains(strSupporterID)) {
-            caseSupporterList = caseSupporterList.replace(strSupporterID, "");
-            editCaseValue(caseID, Tags.CASE_TAG_SUPPORTERS, caseSupporterList);
-        }
-    }
-    
+
     public Case getCase(int caseID) {
-        HashMap<String, String> caseData = dataHandler.getEntryInformation(caseID);
-        
-        int applicantID = Integer.valueOf(caseData.get(Tags.CASE_TAG_APPLICANT));
-        int residenceID = Integer.valueOf(caseData.get(Tags.CASE_TAG_RESIDENCE));
-        int departmentID = Integer.valueOf(caseData.get(Tags.CASE_TAG_DEPARTMENT));
-        
-        Case myCase = new Case(caseID, applicantID, residenceID, departmentID);
-        myCase.setCaseWorkerID(Integer.valueOf(caseData.get(Tags.CASE_TAG_CASE_WORKER)));
-        myCase.setStatus(CaseStatus.valueOf(caseData.get(Tags.CASE_TAG_STATUS)));
-        
-        // Case tags
-        for(String tag : caseData.get(Tags.CASE_TAG_TAGS).split(":")) {
-            if(tag.isEmpty())
-                continue;
-            
-            myCase.getTagList().add(CaseTag.valueOf(tag));
-        }
-        
-        // Previous (inactive) case workers
-        for(String previousCaseWorkerID : caseData.get(Tags.CASE_TAG_INACTIVE_WORKERS).split(":")) {
-            if(previousCaseWorkerID.isEmpty())
-                continue;
-            
-            myCase.getPreviousCaseWorkerList().add(Integer.valueOf(previousCaseWorkerID));
-        }
-        
-        // Active supporters list
-        for(String supporterID : caseData.get(Tags.CASE_TAG_SUPPORTERS).split(":")) {
-            if(supporterID.isEmpty())
-                continue;
-            
-            myCase.getActiveSupporterList().add(Integer.valueOf(supporterID));
-        }
-        
-        // Previous (inactive) supporters
-        for(String previousSupporterID : caseData.get(Tags.CASE_TAG_INACTIVE_SUPPORTERS).split(":")) {
-            if(previousSupporterID.isEmpty())
-                continue;
-            
-            myCase.getPreviousSupporterList().add(Integer.valueOf(previousSupporterID));
-        }
-        
+        String id = Integer.toString(caseID);
+        int applicantID = Integer.valueOf(dataHandler.getValue(id, Tags.CASE_TAG_APPLICANT));
+        int residenceID = Integer.valueOf(dataHandler.getValue(id, Tags.CASE_TAG_RESIDENCE));
+        int departmentID = Integer.valueOf(dataHandler.getValue(id, Tags.CASE_TAG_DEPARTMENT));
+
+        Case myCase = new Case(applicantID, residenceID, departmentID);
+        myCase.setCaseWorkerID(Integer.parseInt(dataHandler.getValue(id, Tags.CASE_TAG_CASE_WORKER)));
+
         return myCase;
     }
-    
+
     public void deleteCase(int caseID) {
-        dataHandler.deleteNode(caseID);
+        if (currentRole.isCanDeleteCase()) {
+            dataHandler.deleteEntry(Integer.toString(caseID));
+        }
     }
-    
-    private void editCaseValue(int caseID, String elementName, String value) {
-        dataHandler.editNode(caseID, elementName, value);
+
+    private void editCaseValue(int caseID, String dataPoint, String value) {
+        if (currentRole.isCanEditCase()) {
+            dataHandler.editValue(Integer.toString(caseID), dataPoint, value);
+        }
     }
 }
