@@ -1,11 +1,11 @@
 
-package smartsag;
+package smartsag.Permissions;
 
 /**
  * Holds all the tags with the permissions a @Role can have.
  * 
  */
-interface TagsPermissions {
+public interface TagsPermissions {
 
     String TAG_ROLE_CAN_CREATE = "RoleCanCreate";
     String TAG_ROLE_CAN_EDIT = "RoleCanEdit";

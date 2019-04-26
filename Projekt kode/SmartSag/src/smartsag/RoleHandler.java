@@ -13,7 +13,7 @@ import java.util.logging.Logger;
  *
  */
 public final class RoleHandler implements Tags, FilePathRoles {
-
+    
     private final Role currentRole;
     private final DataHandler dataHandler;
 
@@ -23,13 +23,13 @@ public final class RoleHandler implements Tags, FilePathRoles {
      * of roles. <br>
      * Creates an instance of the current Role based on ID. <br>
      *
-     * @param RoleID, int <br>
+     * @param RoleID, Integer <br>
      * ID which is used by DataHandler to get current Role data.
      */
     public RoleHandler(int RoleID) {
         dataHandler = new DataHandler(RoleHandler.FILE_PATH_ROLES_XML);
         currentRole = new Role();
-        currentRole.setInformation(dataHandler.getEntryInformation(RoleID));
+        currentRole.setInformation(dataHandler.getEntryInformation(Integer.toString(RoleID)));
     }
 
     /**
@@ -39,16 +39,15 @@ public final class RoleHandler implements Tags, FilePathRoles {
      * Creates a role given an input of a HashMap<String, String>
      */
     public void createRole(HashMap<String, String> newRoleData) {
-
-        if (currentRole.hasInformation(RoleHandler.TAG_ROLE_CAN_CREATE)) {
-            if (Boolean.parseBoolean(currentRole.getInformation().get(RoleHandler.TAG_ROLE_CAN_CREATE))) {
-                try {
-                    dataHandler.createEntry(newRoleData, RoleHandler.TAG_ROLE);
-                } catch (Exception ex) {
-                    Logger.getLogger(RoleHandler.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        
+        if (currentRole.isCanCreateRole() == true) {
+            try {
+                dataHandler.createNumberedIDEntry(newRoleData, RoleHandler.TAG_ROLE);
+            } catch (Exception ex) {
+                Logger.getLogger(RoleHandler.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
     }
 
     /**
@@ -56,16 +55,17 @@ public final class RoleHandler implements Tags, FilePathRoles {
      *
      * @param roleIDToEdit, Integer <br>
      * ID of the role to be edited. <br>
+     * @param infoType
      * @param valueToEdit, String <br>
      * Value to be edited. <br>
      * @param newValue, String <br>
      * New value to be inserted.
      */
-    public void editRoleValue(int roleIDToEdit, String valueToEdit, String newValue) {
-        if (currentRole.hasInformation(RoleHandler.TAG_ROLE_CAN_EDIT)
-                && Boolean.parseBoolean(currentRole.getInformation().get(RoleHandler.TAG_ROLE_CAN_EDIT))
-                == true) {
-            dataHandler.editNode(roleIDToEdit, valueToEdit, newValue);
+    public void editRoleValue(int roleIDToEdit, String infoType, String valueToEdit, String newValue) {
+        
+        String id = Integer.toString(roleIDToEdit);
+        if (currentRole.isCanEditRole() == true) {
+            dataHandler.editValue(id, infoType, valueToEdit, newValue);
         }
     }
 
@@ -81,45 +81,25 @@ public final class RoleHandler implements Tags, FilePathRoles {
      */
     public HashMap<String, String> getRoleInformation(int roleIDToGet) {
         HashMap<String, String> roleInformation = new HashMap<>();
-        if (currentRole.hasInformation(RoleHandler.TAG_ROLE_CAN_READ)
-                && Boolean.parseBoolean(currentRole.getInformation().get(RoleHandler.TAG_ROLE_CAN_READ))
-                == true) {
-
-            roleInformation = dataHandler.getEntryInformation(roleIDToGet);
-
+        if (currentRole.isCanReadRole() == true) {
+            
+            roleInformation = dataHandler.getEntryInformation(Integer.toString(roleIDToGet));
+            
         }
         return roleInformation;
     }
 
     /**
-     * Checks whether current role can read a roles data. <br>
-     * Returns a List<HashMap<String, String>>, with all the roles.
-     *
-     * @return List<HashMap<String, String>>
-     */
-    public List<HashMap<String, String>> getAllRoleInformation() {
-        List<HashMap<String, String>> allRoleInformation = new ArrayList<>();
-        if (currentRole.hasInformation(RoleHandler.TAG_ROLE_CAN_READ)
-                && Boolean.parseBoolean(currentRole.getInformation().get(RoleHandler.TAG_ROLE_CAN_READ))
-                == true) {
-            allRoleInformation = dataHandler.getListOfEntries(RoleHandler.TAG_ROLE);
-        }
-        return allRoleInformation;
-    }
-
-    /**
      * Checks whether current role can delete a role. <br>
      * Checks whether the role is not the administrator role (ID = 0)
+     *
      * @param roleIDToDelete, Integer <br>
      * The ID of the role to be deleted.
      */
     public void deleteRole(int roleIDToDelete) {
-        if (currentRole.hasInformation(RoleHandler.TAG_ROLE_CAN_DELETE)
-                && Boolean.parseBoolean(currentRole.getInformation().get(RoleHandler.TAG_ROLE_CAN_DELETE))
-                && roleIDToDelete != 0
-                == true) {
-            dataHandler.deleteNode(roleIDToDelete);
+        String id = Integer.toString(roleIDToDelete);
+        if (currentRole.isCanDeleteRole() == true) {
+            dataHandler.deleteEntry(id);
         }
     }
-
 }

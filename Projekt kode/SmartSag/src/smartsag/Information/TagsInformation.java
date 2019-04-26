@@ -1,12 +1,12 @@
 
-package smartsag;
+package smartsag.Information;
 
 /**
  * Holds the tags of the basic information.
  * 
  * UNFINISHED INTERFACE
  */
-interface TagsInformation {
+public interface TagsInformation {
 
     String TAG_ID = "ID";
     String TAG_ROLE = "role";
