@@ -56,9 +56,14 @@ public final class DataHandler extends XMLHandler {
 
         Element root = this.document.getDocumentElement();
         Element newEntry = this.document.createElement(tag);
-
+        
         Attr id = this.document.createAttribute(DataHandler.TAG_ID);
-        String newID = Integer.toString(this.getLastNumberedID() + 1);
+        
+        String lastID = this.getLastID();
+        String newID = "1";
+        if(!lastID.isEmpty()) {
+            newID = Integer.toString(Integer.parseInt(lastID) + 1);
+        }
 
         id.setValue(newID);
         newEntry.setAttributeNode(id);
