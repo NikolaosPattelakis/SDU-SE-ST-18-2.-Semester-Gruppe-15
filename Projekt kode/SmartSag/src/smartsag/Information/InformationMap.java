@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package smartsag;
+package smartsag.Information;
 
 import java.util.HashMap;
 
@@ -11,12 +11,12 @@ import java.util.HashMap;
  * Abstract class, holds the variables that hold the basic data information.
  * 
  */
-abstract class InformationData {
+public abstract class InformationMap {
 
     private int id;
     private HashMap<String, String> information;
 
-    InformationData(){
+    protected InformationMap(){
         this.information = new HashMap<>();
     }
     
@@ -63,7 +63,7 @@ abstract class InformationData {
      * Removes information from the HashMap
      * @param keyTag 
      */
-    protected void removeInformation(String keyTag){
+    public void removeInformation(String keyTag){
         if(this.hasInformation(keyTag)== true){
         information.remove(keyTag);
         }
@@ -74,7 +74,7 @@ abstract class InformationData {
      * @param tag
      * @return boolean
      */
-    protected boolean hasInformation(String tag){
+    public boolean hasInformation(String tag){
         boolean hasInformation = false;
         if(information.containsKey(tag) == true){
             hasInformation = true;
