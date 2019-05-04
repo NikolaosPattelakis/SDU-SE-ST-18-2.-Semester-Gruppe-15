@@ -1,120 +1,73 @@
-
 package smartsag;
 
 import Persistence.DataHandler;
-import java.util.HashMap;
+import Presentation.CommandInterface;
+
 
 public class SmartSag {
 
     public final static String ROLES_XML_FILEPATH = "data/roles.xml";
-    public final static String TEST_XML_FILEPATH = "data/test.xml";
+    public final static String CASES_XML_FILEPATH = "data/cases.xml";
+
     public static int CURRENT_ROLE_ID;
     public static Role currentRole;
-    
+
     public static DataHandler dataHandlerRole;
-    public static DataHandler dataHandlerTest;
-    
+    public static DataHandler dataHandlerCase;
+
     public static RoleHandler roleHandler;
+    public static CaseHandler caseHandler;
+
     /**
      * Main class <br>
      * Currently used for testing.
-     * 
-     * 
-     * 
+     *
+     *
+     *
      * @param args
-     * @throws Exception 
+     * @throws Exception
      */
-    public static void main(String[] args)throws Exception {
-        
+    public static void main(String[] args) throws Exception {
+
         dataHandlerRole = new DataHandler(ROLES_XML_FILEPATH);
-        dataHandlerTest = new DataHandler(TEST_XML_FILEPATH);
-  
-        //Uncomment and pick one user:
         
-//        setUserToAdministrator();
-//        setUserToObserver();
+        //Example of command line interface with case handling
+        //User is Administrator
+        //User can edit and delete
+        //User cannot create and read
+        CommandInterface cli = new CommandInterface();
+        cli.run();
         
-        //Prints information of current role
+        //Examples of methods regarding role handling
         
-//        printCurrentRoleInformation();
+        setUserToKoordinator();
         
-        //Uncomment and comment the methods below to test how they work.
+        setUserToAdministrator();
         
-//        createRole();
-//        editRole1();
-//        editRole2();
-//        printOneRoleInformation();
-//        printAllRoles();
-//        deleteRole(2);
-//        deleteLatestRole();
+        roleHandler = new RoleHandler(CURRENT_ROLE_ID);
         
+        createRole();
         
-        //Creates an entry on test.xml
-        //Showcases how all entries can be added
-        
-//        createEntry();
+        deleteRole();
+    }
+    
+    private static void setUserToKoordinator(){
+        CURRENT_ROLE_ID = 1;
     }
     
     private static void setUserToAdministrator(){
-        int admID = 0;
-        currentRole = new Role();
-        currentRole.setInformation(dataHandlerRole.getEntryInformation(admID));
-        roleHandler = new RoleHandler(admID);
-    }
-    
-    private static void setUserToObserver(){
-        int obsID = 1;
-        currentRole = new Role();
-        currentRole.setInformation(dataHandlerRole.getEntryInformation(obsID));
-        roleHandler = new RoleHandler(obsID);
+        CURRENT_ROLE_ID = 0;
     }
     
     private static void createRole(){
-        HashMap<String, String> newRole = new HashMap<>();
-        newRole.put(Tags.TAG_NAME, "Psykolog");
-        newRole.put(Tags.TAG_ROLE_CAN_CREATE, "0");
-        newRole.put(Tags.TAG_ROLE_CAN_EDIT, "1");
-        newRole.put(Tags.TAG_ROLE_CAN_READ, "1");
-        newRole.put(Tags.TAG_ROLE_CAN_DELETE, "0");
-        
+        Role newRole = new Role();
+        newRole.setName("Vikar");
+        newRole.setName("Lumby");
         roleHandler.createRole(newRole);
     }
-    
-    private static void editRole1(){
-        roleHandler.editRoleValue(2, Tags.TAG_NAME, "Vikar");
-    }
-    
-    private static void editRole2(){
-        roleHandler.editRoleValue(2, Tags.TAG_NAME, "Sagsbehandler");
-    }
-    
-    private static void printCurrentRoleInformation(){
-        System.out.println(roleHandler.getRoleInformation(CURRENT_ROLE_ID).toString());
-    }
-    
-    private static void printOneRoleInformation(){
-        System.out.println(roleHandler.getRoleInformation(2));
-    }
-    
-    private static void printAllRoles(){
-        System.out.println(roleHandler.getAllRoleInformation().toString());
-    }
-    
-    private static void deleteLatestRole(){
-        int lastID = Integer.parseInt(dataHandlerRole.getLastID());
-        roleHandler.deleteRole(lastID);
-    }
-    
-    private static void deleteRole(int roleID){
+ 
+    private static void deleteRole(){
+        int roleID = 2;
         roleHandler.deleteRole(roleID);
     }
-    private static void createEntry(){
-        HashMap<String,String> newEntry = new HashMap<>();
-        newEntry.put(Tags.TAG_NAME, "Mike");
-        newEntry.put("Age", "40");
-        newEntry.put("Occupation", "Chemical Engineer");
-        
-        dataHandlerTest.createEntry(newEntry, TEST_XML_FILEPATH);
-    }
-    
 }

@@ -32,7 +32,7 @@ class XPathHandler implements XPathCommands {
      * 
      * @param ID 
      */
-    protected void setExpressionAtID(int ID) {
+    protected void setExpressionAtID(String ID) {
         this.createXPath();
         this.expressionString = XPathHandler.XPATH_AT_ID
                 + ID
@@ -46,32 +46,21 @@ class XPathHandler implements XPathCommands {
         this.createXPath();
         this.expressionString = XPathHandler.LAST_ID;
     }
-
+    
     /**
-     * Sets variable expressionString to find a node that contains a specific ID.
-     * @param ID 
+     * Sets expression at a specific point, based on id, info type and data point.
+     * @param id
+     * @param dataPoint 
      */
-    protected void setExpressionContainsID(int ID) {
+    protected void setExpressionAtPoint(String id, String dataPoint){
+        
         this.createXPath();
-        this.expressionString = XPathHandler.XPATH_CONTAINS_ID
-                + ID
-                + XPathHandler.XPATH_CONTAINS_ID_END
-                + XPathHandler.XPATH_TO_TEXT;
-
-    }
-
-    /**
-     * Sets variable expressionString to find a specific element at a specific node based on ID.
-     * @param ID
-     * @param element 
-     */
-    protected void setExpressionElementAtID(int ID, String element) {
-        this.createXPath();
-        this.expressionString = XPathHandler.XPATH_AT_ID
-                + ID
-                + XPathHandler.XPATH_CONTINUE
-                + element
-                + XPathHandler.XPATH_TO_TEXT;
+        this.expressionString = 
+                XPathHandler.XPATH_AT_ID + 
+                id + 
+                XPathHandler.XPATH_AT_ID_CONTINUE + 
+                dataPoint;
+        
     }
 
     /**
@@ -88,4 +77,7 @@ class XPathHandler implements XPathCommands {
         }
         return this.expressionXPath;
     }
+    
+    
+    
 }

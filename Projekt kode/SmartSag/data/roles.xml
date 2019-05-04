@@ -1,49 +1,33 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><roles>
-  
-
-<role ID="0">
-    <Name>Administrator</Name>
-    <RoleCanCreate>true</RoleCanCreate>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><root>
+  <role ID="0">
     <RoleCanEdit>true</RoleCanEdit>
-    <RoleCanRead>true</RoleCanRead>
-    <RoleCanDelete>true</RoleCanDelete>
-    <UserCanCreate>true</UserCanCreate>
-    <UserCanEdit>false</UserCanEdit>
-    <UserCanRead>false</UserCanRead>
     <UserCanDelete>true</UserCanDelete>
-    <CaseCanCreate>false</CaseCanCreate>
-    <CaseCanEdit>false</CaseCanEdit>
+    <RoleCanDelete>true</RoleCanDelete>
+    <UserCanEdit>true</UserCanEdit>
     <CaseCanRead>false</CaseCanRead>
+    <Name>Administrator</Name>
     <CaseCanDelete>true</CaseCanDelete>
-</role>
+    <RoleCanCreate>true</RoleCanCreate>
+    <UserCanCreate>true</UserCanCreate>
+    <CaseCanEdit>true</CaseCanEdit>
+    <UserCanRead>true</UserCanRead>
+    <RoleCanRead>true</RoleCanRead>
+    <CaseCanCreate>false</CaseCanCreate>
+</role>   
 <role ID="1">
-    <Name>Observer</Name>
-    <RoleCanCreate>true</RoleCanCreate>
-    <RoleCanEdit>true</RoleCanEdit>
-    <RoleCanRead>true</RoleCanRead>
-    <RoleCanDelete>true</RoleCanDelete>
-    <UserCanCreate>true</UserCanCreate>
-    <UserCanEdit>true</UserCanEdit>
-    <UserCanRead>true</UserCanRead>
-    <UserCanDelete>true</UserCanDelete>
-    <CaseCanCreate>true</CaseCanCreate>
-    <CaseCanEdit>true</CaseCanEdit>
-    <CaseCanRead>true</CaseCanRead>
+    <RoleCanEdit>false</RoleCanEdit>
+    <UserCanDelete>false</UserCanDelete>
+    <RoleCanDelete>false</RoleCanDelete>
+    <UserCanEdit>false</UserCanEdit>
+    <CaseCanRead>false</CaseCanRead>
+    <Name>Koordinator</Name>
     <CaseCanDelete>true</CaseCanDelete>
+    <RoleCanCreate>false</RoleCanCreate>
+    <UserCanCreate>false</UserCanCreate>
+    <CaseCanEdit>false</CaseCanEdit>
+    <UserCanRead>false</UserCanRead>
+    <DepartmentID>Odense</DepartmentID>
+    <RoleCanRead>false</RoleCanRead>
+    <CaseCanCreate>false</CaseCanCreate>
 </role>
-<role ID="2">
-    <Name>Test</Name>
-    <RoleCanCreate>true</RoleCanCreate>
-    <RoleCanEdit>true</RoleCanEdit>
-    <RoleCanRead>true</RoleCanRead>
-    <RoleCanDelete>true</RoleCanDelete>
-    <UserCanCreate>true</UserCanCreate>
-    <UserCanEdit>true</UserCanEdit>
-    <UserCanRead>true</UserCanRead>
-    <UserCanDelete>true</UserCanDelete>
-    <CaseCanCreate>true</CaseCanCreate>
-    <CaseCanEdit>true</CaseCanEdit>
-    <CaseCanRead>true</CaseCanRead>
-    <CaseCanDelete>true</CaseCanDelete>
-</role>
-</roles>
+</root>

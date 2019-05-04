@@ -1,8 +1,8 @@
-
 package Persistence;
 
 import smartsag.Tags;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
@@ -17,15 +17,15 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 /**
- * Handles data is stored and read on XML files.
- * Extends @XPathHandler <br>
+ * Handles data is stored and read on XML files. Extends @XPathHandler <br>
  * Implements @Tags <br>
- * 
+ *
  */
 class XMLHandler extends XPathHandler implements Tags {
 
@@ -36,7 +36,8 @@ class XMLHandler extends XPathHandler implements Tags {
      * Constructor. <br>
      * Takes an XML files path as input, that will be used on its instance.
      * Calls @initDocument to create a @Document based on the files path.
-     * @param filepath 
+     *
+     * @param filepath
      */
     protected XMLHandler(String filepath) {
         super();
@@ -65,9 +66,9 @@ class XMLHandler extends XPathHandler implements Tags {
      *
      * @param document
      */
-    protected void saveFile(Document document) {
-        DOMSource source = new DOMSource(document);
-        StreamResult result = new StreamResult(filepath);
+    protected void saveFile() {
+        DOMSource source = new DOMSource(this.document);
+        StreamResult result = new StreamResult(this.filepath);
 
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer;
@@ -82,17 +83,17 @@ class XMLHandler extends XPathHandler implements Tags {
     }
 
     /**
-     * Creates a List of nodes, based on a XPathExpression.
+     * Gets a List of nodes, based on a XPathExpression.
      *
      * @param xpathExpression
      * @param document
      * @return NodeList
      */
-    protected NodeList getNodeList(String xpathExpression, Document document){
+    protected NodeList getNodeList() {
 
         NodeList nodesList = null;
         try {
-            nodesList = (NodeList) this.getXPathExpression(xpathExpression).evaluate(document, XPathConstants.NODESET);
+            nodesList = (NodeList) this.xPath.evaluate(this.expressionString, this.document, XPathConstants.NODE);
         } catch (XPathExpressionException ex) {
             Logger.getLogger(XMLHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -100,17 +101,17 @@ class XMLHandler extends XPathHandler implements Tags {
     }
 
     /**
-     * Creates a node, based on an XPathExpression.
+     * Gets a node, based on an XPathExpression.
      *
      * @param xPathExpression
      * @param document
      * @return Node
      */
-    protected Node getNode(String xPathExpression, Document document){
+    protected Node getNode() {
 
         Node node = null;
         try {
-            node = (Node) this.getXPathExpression(xPathExpression).evaluate(document, XPathConstants.NODE);
+            node = (Node) this.xPath.evaluate(this.expressionString, this.document, XPathConstants.NODE);
         } catch (XPathExpressionException ex) {
             Logger.getLogger(XMLHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -118,35 +119,80 @@ class XMLHandler extends XPathHandler implements Tags {
     }
 
     /**
-     *Checks whether a node exists.
+     * Checks whether a node exists.
      *
      * @param newNode
      * @return
      */
-    protected boolean checkIfNodeExists(NodeList nodes){
-        return (nodes != null && nodes.getLength() > 0) == true;
+    protected boolean nodeExists() {
+        NodeList nodeList = this.getNodeList();
+        return (nodeList != null && nodeList.getLength() > 0) == true;
     }
 
     /**
-     * Obtains a specific value of a specific entry, based on an ID and a tag.
+     * Obtains a specific value of a specific entry, based on ID and info type and data point.
      *
-     * @param filepath
-     * @param ID
-     * @param tag
-     * @return String value
+     * @return 
      */
-    protected String getValue(int ID, String tag) {
-        String value = null;
+    protected String getStringFromXPathEvaluation() {
 
-        this.setExpressionElementAtID(ID, tag);
+        String value = null;
         
         try {
-            value = this.getNode(this.expressionString, this.document).getNodeValue();
-        } catch (Exception ex) {
-            Logger.getLogger(DataHandler.class.getName()).log(Level.SEVERE, null, ex);
+            value = this.xPath.evaluate(expressionString, this.document);
+        } catch (XPathExpressionException ex) {
+            Logger.getLogger(XMLHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         return value;
+
+    }
+    
+    /**
+     * Creates and returns an element with an entry name and an assigned value
+     * @param entryName
+     * @param value
+     * @return 
+     */
+    private Element createAndGetElementWithValue(String entryName, String value){
+        
+        Element newNode = this.document.createElement(entryName);
+        newNode.appendChild(this.document.createTextNode(value));
+        return newNode;
+    }
+    
+    /**
+     * Creates and returns an element with multiple entries.
+     * @param map
+     * @param elementName
+     * @return 
+     */
+    protected Element createAndGetElementMap(HashMap<String, String> map, String elementName){
+        Element subEntry = this.document.createElement(elementName);
+        for(String key : map.keySet()){
+            subEntry.appendChild(this.createAndGetElementWithValue(key, map.get(key)));
+        }
+        return subEntry;
     }
     
     
+    /**
+     * Edits a node with a new value.
+     * @param newValue 
+     */
+    protected void editNode(String newValue){
+        NodeList nodes = this.getNodeList();
+        nodes.item(0).setTextContent(newValue);
+    }
+    
+    /**
+     * Deletes a specific node.
+     */
+    protected void deleteNode(){
+        Node node = this.getNode();
+        
+        if(this.nodeExists()== true){
+        node.getParentNode().removeChild(node);
+    }
+    }
 }

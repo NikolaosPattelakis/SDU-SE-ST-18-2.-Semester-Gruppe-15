@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><root>
+    <Case ID="0">
+        
+    </Case>
+
+
+<Case ID="1">
+        <CaseWorkerID>0</CaseWorkerID>
+        <ApplicantID>20</ApplicantID>
+        <ResidenceID>2</ResidenceID>
+        <DepartmentID>50</DepartmentID>
+</Case>
+<Case ID="2">
+        <CaseWorkerID>8</CaseWorkerID>
+        <ApplicantID>5</ApplicantID>
+        <ResidenceID>87</ResidenceID>
+        <DepartmentID>8</DepartmentID>
+</Case>
+<Case ID="3">
+    <CaseWorkerID>-1</CaseWorkerID>
+    <ApplicantID>5</ApplicantID>
+    <ResidenceID>87</ResidenceID>
+    <DepartmentID>8</DepartmentID>
+</Case>
+</root>
