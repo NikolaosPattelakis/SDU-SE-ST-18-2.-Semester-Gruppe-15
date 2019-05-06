@@ -20,9 +20,9 @@ import java.util.logging.Logger;
 public class Database {
     
     Connection connection;
-    String url = "jdbc:mysql://localhost:3306/smartsag";
-    String username = "root";
-    String password = "smartsagSDU";
+    String url = "jdbc:postgresql://balarama.db.elephantsql.com:5432/unudfdlq";
+    String username = "unudfdlq";
+    String password = "UwPFfoHd-ZqUG6vSB-RALHC8NFDqmtQW";
     
     Statement statement;
     ResultSet resultSet;
@@ -32,6 +32,14 @@ public class Database {
     }
     
     private void openConnection(){
+        // Initialize driver
+        try {
+            Class.forName("org.postgresql.Driver");
+        }
+        catch (java.lang.ClassNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+        
         try{
         this.connection = DriverManager.getConnection(url, username, password);
         }
