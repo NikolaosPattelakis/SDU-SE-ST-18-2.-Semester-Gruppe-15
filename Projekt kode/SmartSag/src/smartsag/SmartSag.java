@@ -4,7 +4,6 @@ import Controller.Controller;
 import Model.Model;
 import View.View;
 
-
 public class SmartSag {
 
     /**
@@ -14,7 +13,6 @@ public class SmartSag {
      *
      *
      * @param args
-     * @throws Exception
      */
     public static void main(String[] args){
 
@@ -22,6 +20,7 @@ public class SmartSag {
         Model model = new Model();
         Controller controller = new Controller(view, model);
         
+        model.getUser();
     }
     
 }
