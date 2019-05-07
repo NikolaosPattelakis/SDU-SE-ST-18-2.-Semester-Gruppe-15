@@ -1,0 +1,3 @@
+url=jdbc:postgresql://balarama.db.elephantsql.com:5432/unudfdlq
+user=unudfdlq
+password=UwPFfoHd-ZqUG6vSB-RALHC8NFDqmtQW

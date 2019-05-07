@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model.POJO.Interfaces;
+package Model.Persistence;
 
 /**
  *
  * @author Lupo
  */
-public interface CPRInterface {
-    
-    public String getCPR();
-    public void setCPR(String cpr);
+public enum POJOType {
+    CITIZEN, CASE, DEPARTMENT, EMPLOYEE 
 }

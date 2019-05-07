@@ -12,5 +12,5 @@ package Model.POJO.Interfaces;
 public interface IdInterface{
     
     public int getID();
-    
+    public void setID(int id);
 }

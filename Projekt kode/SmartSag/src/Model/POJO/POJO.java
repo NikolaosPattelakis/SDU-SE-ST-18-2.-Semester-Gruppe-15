@@ -8,6 +8,7 @@ package Model.POJO;
 import Model.POJO.BasicInformation.UserBasicInformation;
 import Model.POJO.Interfaces.BuilderInterface;
 import Model.POJO.Interfaces.CPRInterface;
+import Model.POJO.Interfaces.DepartmentInterface;
 import Model.POJO.Interfaces.IdInterface;
 import Model.POJO.LoginInformation.LoginInformation;
 import Model.POJO.Permissions.UserPermissions;
@@ -17,10 +18,13 @@ import Model.POJO.Permissions.CasePermissions;
  *
  * @author Lupo
  */
-public final class POJO implements IdInterface, CPRInterface {
+public final class POJO implements IdInterface, CPRInterface, DepartmentInterface {
 
     private int ID;
-    private int CPR;
+    private String CPR;
+    
+    private String department;
+    private int departmentID;
 
     private UserBasicInformation basicInformation;
     private LoginInformation loginInformation;
@@ -28,27 +32,30 @@ public final class POJO implements IdInterface, CPRInterface {
     private CasePermissions casePermissions;
     private UserPermissions userPermissions;
 
-    private POJO(int ID) {
-        this.ID = ID;
-    }
+    private POJO() {}
 
     public static Builder builder() {
         return new Builder();
     }
 
     @Override
-    public int getCPR() {
+    public String getCPR() {
         return this.CPR;
     }
 
     @Override
-    public void setCPR(int cpr) {
+    public void setCPR(String cpr) {
         this.CPR = cpr;
     }
 
     @Override
     public int getID() {
         return this.ID;
+    }
+    
+    @Override
+    public void setID(int id){
+        this.ID = id;
     }
 
     /**
@@ -61,7 +68,7 @@ public final class POJO implements IdInterface, CPRInterface {
     /**
      * @param basicInformation the basicInformation to set
      */
-    public void setBasicInformation(UserBasicInformation basicInformation) {
+    public void setUserBasicInformation(UserBasicInformation basicInformation) {
         this.basicInformation = basicInformation;
     }
 
@@ -107,10 +114,34 @@ public final class POJO implements IdInterface, CPRInterface {
         this.userPermissions = userPermissions;
     }
 
+    @Override
+    public String getDepartment() {
+        return this.department;
+    }
+
+    @Override
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    @Override
+    public int getDepartmentID() {
+        return this.departmentID;
+    }
+
+    @Override
+    public void setDepartmentID(int ID) {
+        this.departmentID = ID;
+    }
+
     public static class Builder implements BuilderInterface<POJO> {
 
+        private POJO pojo;
         private int id;
-        private int cpr;
+        private String cpr;
+        
+        private String department;
+        private int departmentID;
 
         private UserBasicInformation userBasicInformation;
         private LoginInformation loginInformation;
@@ -123,19 +154,38 @@ public final class POJO implements IdInterface, CPRInterface {
 
         @Override
         public POJO build() {
-            return new POJO(this.id);
+            this.pojo = new POJO();
+            this.pojo.setID(id);
+            this.pojo.setCPR(cpr);
+            this.pojo.setDepartment(department);
+            this.pojo.setDepartmentID(departmentID);
+            this.pojo.setUserBasicInformation(userBasicInformation);
+            this.pojo.setLoginInformation(loginInformation);
+            this.pojo.setCasePermissions(casePermissions);
+            this.pojo.setUserPermissions(userPermissions);
+            return this.pojo;
         }
 
         public Builder setID(int id) {
             this.id = id;
             return this;
         }
-
-        public Builder setCPR(int cpr) {
+        
+        public Builder setCPR(String cpr) {
             this.cpr = cpr;
             return this;
         }
 
+        public Builder department(String department){
+            this.department = department;
+            return this;
+        }
+        
+        public Builder departmentID(int departmentID){
+            this.departmentID = departmentID;
+            return this;
+        }
+        
         public Builder userBasicInformation(UserBasicInformation information) {
             this.userBasicInformation = information;
             return this;

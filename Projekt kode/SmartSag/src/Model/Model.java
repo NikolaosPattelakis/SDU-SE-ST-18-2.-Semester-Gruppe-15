@@ -5,13 +5,16 @@
  */
 package Model;
 
-import Model.POJO.BasicInformation.Gender;
-import Model.POJO.BasicInformation.UserBasicInformation;
 import Model.POJO.POJO;
-import Model.POJO.LoginInformation.LoginInformation;
-import Model.Persistence.Database;
+import Model.Persistence.DAO;
+import Model.Persistence.DatabaseConnector;
+import Model.Persistence.POJOType;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -20,20 +23,47 @@ import java.sql.SQLException;
  */
 public class Model implements CaseModelInterface, UserModelInterface{
     
-    private Database database;
+    private DAO dao;
     
-    private POJO currentAccount;
+    private POJO currentUser;
+    private POJO user;
     
+    private int currentDepartment;
     
+    DatabaseConnector connector;
+    Connection connection;
+    PreparedStatement statement;
+    ResultSet rs;
     
-    private void setCurrentAccount() {
+    public Model(){
         
     }
     
-    public boolean checkIFIDExists(String username) throws SQLException{
-        return false;
-    }
+    
+    public boolean authenticateUser(String username, String password){
+        
+        connector = new DatabaseConnector();
+        connection = connector.getConnection();
 
+        try {
+            statement = connection.prepareStatement("select * from citizens where username=? and password=?");
+            
+            statement.setString(1, username);
+            statement.setString(2, password);
+            
+            rs = statement.executeQuery();
+
+            if (rs.next()) {
+                this.user = dao.getPOJO(POJOType.CITIZEN, rs);
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;    
+        
+    }
+    
     @Override
     public void getCase() {
        
@@ -41,35 +71,35 @@ public class Model implements CaseModelInterface, UserModelInterface{
 
     @Override
     public void createCase(POJO caseDAO) {
-        if(currentAccount.getCasePermissions().canCreate()== true){
+        if(currentUser.getCasePermissions().canCreate()== true){
             
         }
     }
 
     @Override
     public void editCase() {
-        if(currentAccount.getCasePermissions().canEdit()== true){
+        if(currentUser.getCasePermissions().canEdit()== true){
             
         }
     }
 
     @Override
     public void readFullCase() {
-        if(currentAccount.getCasePermissions().canReadFull()== true){
+        if(currentUser.getCasePermissions().canReadFull()== true){
             
         }
     }
 
     @Override
     public void readPartialCase() {
-        if(currentAccount.getCasePermissions().canReadPartial()== true){
+        if(currentUser.getCasePermissions().canReadPartial()== true){
             
         }
     }
 
     @Override
     public void deleteCase() {
-        if(currentAccount.getCasePermissions().canDelete()== true){
+        if(currentUser.getCasePermissions().canDelete()== true){
             
         }
     }
@@ -78,62 +108,40 @@ public class Model implements CaseModelInterface, UserModelInterface{
     
     @Override
     public POJO getUser() {
-        POJO userPOJO;
-        ResultSet rs = this.database.getResultSet("select * from users where id=2");
-        try{
-        userPOJO = POJO.builder().
-                            setID(rs.getInt("id")).
-                                loginInformation(LoginInformation.builder().
-                                        username(rs.getString("username")). 
-                                       password(rs.getString("password")).
-                                build()).
-                                userBasicInformation(UserBasicInformation.builder().
-                                        firstName(rs.getString("first_name")).
-                                        middleName(rs.getString("middle_name")).
-                                        lastName(rs.getString("last_name")).
-                                        gender(rs.getString("gender")).
-                                build()).
-                            build();
-            System.out.println(userPOJO.toString());
-        return userPOJO;
-        }
-        catch(Exception e){
-        return userPOJO = null;
-        }
-      
+        return this.user;
     }
 
     @Override
     public void createUser(POJO newUser) {
-        if(currentAccount.getUserPermissions().canCreate() == true){
+        if(currentUser.getUserPermissions().canCreate() == true){
             
         }
     }
 
     @Override
     public void editUser() {
-        if(currentAccount.getUserPermissions().canEdit()== true){
+        if(currentUser.getUserPermissions().canEdit()== true){
             
         }
     }
 
     @Override
     public void readFullUser() {
-        if(currentAccount.getUserPermissions().canReadFull()== true){
+        if(currentUser.getUserPermissions().canReadFull()== true){
             
         }
     }
 
     @Override
     public void readPartialUser() {
-        if(currentAccount.getUserPermissions().canReadPartial()== true){
+        if(currentUser.getUserPermissions().canReadPartial()== true){
             
         }
     }
 
     @Override
     public void deleteUser() {
-        if(currentAccount.getUserPermissions().canDelete()== true){
+        if(currentUser.getUserPermissions().canDelete()== true){
             
         }
     }

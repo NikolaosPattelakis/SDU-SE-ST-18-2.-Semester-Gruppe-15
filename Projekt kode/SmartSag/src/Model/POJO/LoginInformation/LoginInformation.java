@@ -65,7 +65,7 @@ public class LoginInformation implements LoginInterface {
 
         @Override
         public BuilderInterface<LoginInformation> password(String password) {
-            this.username = password;
+            this.password = password;
             return this;
         }
     

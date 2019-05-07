@@ -9,8 +9,11 @@ package Model.POJO.Interfaces;
  *
  * @author Lupo
  */
-public interface CPRInterface {
+public interface DepartmentInterface {
     
-    public String getCPR();
-    public void setCPR(String cpr);
+    
+    public String getDepartment();
+    public void setDepartment(String department);
+    public int getDepartmentID();
+    public void setDepartmentID(int ID);
 }
