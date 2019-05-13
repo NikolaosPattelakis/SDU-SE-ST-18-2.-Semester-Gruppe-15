@@ -3,19 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package DAO.Interfaces;
+
+import DTO.DTO;
 
 /**
  *
  * @author Lupo
  */
-public class View {
+public interface UpdateInterface {
     
-    String view1;
-    String view2;
-    String view3;
-          
-    public View(){
-        
-    }
+    public void update(DTO toUpdate);
 }

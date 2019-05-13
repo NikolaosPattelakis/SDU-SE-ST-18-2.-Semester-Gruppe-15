@@ -3,19 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package DAO.Interfaces;
+
+import DTO.DTO;
+import java.util.List;
 
 /**
  *
  * @author Lupo
  */
-public class View {
+public interface ReadAllInterface {
     
-    String view1;
-    String view2;
-    String view3;
-          
-    public View(){
-        
-    }
+    public List<DTO> readAll();
 }

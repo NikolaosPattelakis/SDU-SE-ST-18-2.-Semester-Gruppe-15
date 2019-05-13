@@ -5,151 +5,160 @@
  */
 package Model;
 
-import Model.POJO.POJO;
-import Model.Persistence.DAO;
-import Model.Persistence.DatabaseConnector;
-import Model.Persistence.POJOType;
+import DAO.DepartmentDAO;
+import DTO.DTO;
+import Model.DatabaseConnector;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import java.util.stream.Collectors;
 
 /**
  *
  * @author Lupo
  */
-public class Model implements CaseModelInterface, UserModelInterface{
+public class Model {
     
-    private DAO dao;
+    private final String databasePropertiesFilepath = "data/database.properties";
+    private final String storedProceduresFilepath = "data/storedProcedures.properties";
+    private final String configFilepath = "data/config.properties";
     
-    private POJO currentUser;
-    private POJO user;
+    private static Connection connection;
     
-    private int currentDepartment;
+    private final HashMap<String, String> storedProcedures;
     
-    DatabaseConnector connector;
-    Connection connection;
-    PreparedStatement statement;
-    ResultSet rs;
+    private DTO currentUser;
+    private int currentUserID;
+    private DTO currentDepartment;
+    private int currentDepartmentID;
     
-    public Model(){
-        
+    public Model() {
+        this.storedProcedures = new HashMap<>();
+        this.initConnection();
+        this.initStoredProcedures();
+        this.initCurrentDepartment();
     }
     
-    
-    public boolean authenticateUser(String username, String password){
-        
-        connector = new DatabaseConnector();
-        connection = connector.getConnection();
-
-        try {
-            statement = connection.prepareStatement("select * from citizens where username=? and password=?");
-            
-            statement.setString(1, username);
-            statement.setString(2, password);
-            
-            rs = statement.executeQuery();
-
-            if (rs.next()) {
-                this.user = dao.getPOJO(POJOType.CITIZEN, rs);
-                return true;
-            }
-        } catch (SQLException ex) {
+    private void initCurrentDepartment(){
+        Properties properties = new Properties();
+        String departmentID;
+        try{
+            FileInputStream fileInputStream = new FileInputStream(this.configFilepath);
+            properties.load(fileInputStream);
+        } catch(IOException ex){
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return false;    
+        departmentID = properties.getProperty("id");
+        this.setCurrentDepartment(new DepartmentDAO(this).read(departmentID));
+    }
+
+    private void initConnection() {
         
+        Properties properties = new Properties();
+        String driver;
+        String url;
+        String user;
+        String password;
+        FileInputStream fileInputStream;
+        try {
+            fileInputStream = new FileInputStream(this.databasePropertiesFilepath);
+            properties.load(fileInputStream);
+        } catch (IOException ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        driver = properties.getProperty("driver");
+        url = properties.getProperty("url");
+        user = properties.getProperty("user");
+        password = properties.getProperty("password");
+
+        DatabaseConnector.initConnection(url, user, password, driver);
+        connection = DatabaseConnector.getConnection();
+    }
+
+    private void initStoredProcedures() {
+        Properties properties = new Properties();
+        FileInputStream fileInputStream;
+        try {
+            fileInputStream = new FileInputStream(this.storedProceduresFilepath);
+            properties.load(fileInputStream);
+        } catch (IOException ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.storedProcedures.putAll(properties.entrySet().
+                stream().
+                collect(
+                        Collectors.toMap(
+                                e -> e.getKey().toString(),
+                                e -> e.getValue().toString()
+                        )));
     }
     
-    @Override
-    public void getCase() {
-       
+    public Connection getConnection(){
+        return connection;
     }
-
-    @Override
-    public void createCase(POJO caseDAO) {
-        if(currentUser.getCasePermissions().canCreate()== true){
-            
-        }
-    }
-
-    @Override
-    public void editCase() {
-        if(currentUser.getCasePermissions().canEdit()== true){
-            
-        }
-    }
-
-    @Override
-    public void readFullCase() {
-        if(currentUser.getCasePermissions().canReadFull()== true){
-            
-        }
-    }
-
-    @Override
-    public void readPartialCase() {
-        if(currentUser.getCasePermissions().canReadPartial()== true){
-            
-        }
-    }
-
-    @Override
-    public void deleteCase() {
-        if(currentUser.getCasePermissions().canDelete()== true){
-            
-        }
-    }
-
     
-    
-    @Override
-    public POJO getUser() {
-        return this.user;
+    public String getQuery(String input){
+        return this.storedProcedures.get(input);
     }
 
-    @Override
-    public void createUser(POJO newUser) {
-        if(currentUser.getUserPermissions().canCreate() == true){
-            
-        }
+    /**
+     * @return the currentUser
+     */
+    public DTO getCurrentUser() {
+        return currentUser;
     }
 
-    @Override
-    public void editUser() {
-        if(currentUser.getUserPermissions().canEdit()== true){
-            
-        }
+    /**
+     * @param currentUser the currentUser to set
+     */
+    public void setCurrentUser(DTO currentUser) {
+        this.currentUser = currentUser;
     }
 
-    @Override
-    public void readFullUser() {
-        if(currentUser.getUserPermissions().canReadFull()== true){
-            
-        }
+    /**
+     * @return the currentDepartment
+     */
+    public DTO getCurrentDepartment() {
+        return currentDepartment;
     }
 
-    @Override
-    public void readPartialUser() {
-        if(currentUser.getUserPermissions().canReadPartial()== true){
-            
-        }
+    /**
+     * @param currentDepartment the currentDepartment to set
+     */
+    public void setCurrentDepartment(DTO currentDepartment) {
+        this.currentDepartment = currentDepartment;
     }
 
-    @Override
-    public void deleteUser() {
-        if(currentUser.getUserPermissions().canDelete()== true){
-            
-        }
+    /**
+     * @return the currentUserID
+     */
+    public int getCurrentUserID() {
+        return currentUserID;
     }
 
-    
- 
-    
-    
-    
-    
+    /**
+     * @param currentUserID the currentUserID to set
+     */
+    public void setCurrentUserID(int currentUserID) {
+        this.currentUserID = currentUserID;
+    }
+
+    /**
+     * @return the currentDepartmentID
+     */
+    public int getCurrentDepartmentID() {
+        return currentDepartmentID;
+    }
+
+    /**
+     * @param currentDepartmentID the currentDepartmentID to set
+     */
+    public void setCurrentDepartmentID(int currentDepartmentID) {
+        this.currentDepartmentID = currentDepartmentID;
+    }
 }
