@@ -57,7 +57,7 @@ public class RoleDAO implements
         String getRoleQuery = model.getQuery("getRole");
         StatementController statementController = new StatementController();
         ResultSet resultSet = statementController.executeStatementWithSingleInput(model.getConnection(), getRoleQuery, roleID);
-        role = ResultSetToPojoConverter.getPOJO(DTOType.ROLE, resultSet);
+        role = ResultSetToPojoConverter.getDTO(DTOType.ROLE, resultSet);
         return role;
     }
 
@@ -67,7 +67,7 @@ public class RoleDAO implements
         String getAllRolesQuery = model.getQuery("getAllRoles");
         StatementController statementController = new StatementController();
         ResultSet resultSet = statementController.executeStatementWithNoInput(model.getConnection(), getAllRolesQuery);
-        roleList = ResultSetToPojoConverter.getPOJOList(DTOType.ROLE, resultSet);
+        roleList = ResultSetToPojoConverter.getDTOList(DTOType.ROLE, resultSet);
         return roleList;
     }
 

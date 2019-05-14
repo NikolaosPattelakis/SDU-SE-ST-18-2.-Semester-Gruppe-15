@@ -56,7 +56,7 @@ public class DepartmentDAO implements
         String getDepartmentQuery = model.getQuery("getDepartment");
         StatementController statementController = new StatementController();
         ResultSet resultSet = statementController.executeStatementWithSingleInput(model.getConnection(), getDepartmentQuery, departmentID);
-        DTO department = ResultSetToPojoConverter.getPOJO(DTOType.DEPARTMENT, resultSet);
+        DTO department = ResultSetToPojoConverter.getDTO(DTOType.DEPARTMENT, resultSet);
         return department;
     }
 
@@ -66,7 +66,7 @@ public class DepartmentDAO implements
         String getAllDepartments = model.getQuery("getAllDepartments");
         StatementController statementController = new StatementController();
         ResultSet resultSet = statementController.executeStatementWithNoInput(model.getConnection(), getAllDepartments);
-        departmentList = ResultSetToPojoConverter.getPOJOList(DTOType.DEPARTMENT, resultSet);
+        departmentList = ResultSetToPojoConverter.getDTOList(DTOType.DEPARTMENT, resultSet);
         return departmentList;
     }
 

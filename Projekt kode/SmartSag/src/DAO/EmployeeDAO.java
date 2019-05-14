@@ -9,20 +9,24 @@ import Model.Model;
 import DAO.Interfaces.UpdateInterface;
 import DAO.Interfaces.CreateInterface;
 import DAO.Interfaces.DeleteInterface;
+import DAO.Interfaces.LoginInterface;
 import DAO.Interfaces.ReadInterface;
 import DTO.DTO;
 import Model.ResultSetToPojoConverter;
 import Model.StatementController;
 import DTO.enums.DTOType;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Lupo
  */
-public final class EmployeeDAO implements ReadInterface, CreateInterface, DeleteInterface, UpdateInterface {
+public final class EmployeeDAO implements ReadInterface, CreateInterface, DeleteInterface, UpdateInterface, LoginInterface {
 
     Model model;
 
@@ -35,7 +39,7 @@ public final class EmployeeDAO implements ReadInterface, CreateInterface, Delete
         String getCitizenQuery = model.getQuery("getEmployee");
         StatementController statementController = new StatementController();
         ResultSet resultSet = statementController.executeStatementWithSingleInput(model.getConnection(), getCitizenQuery, username);
-        DTO employee = ResultSetToPojoConverter.getPOJO(DTOType.CITIZEN, resultSet);
+        DTO employee = ResultSetToPojoConverter.getDTO(DTOType.CITIZEN, resultSet);
         return employee;
     }
 
@@ -46,8 +50,6 @@ public final class EmployeeDAO implements ReadInterface, CreateInterface, Delete
         List<String> inputs = getParameters(objectToSave);
         statementController.executeStatementWithMultipleInputs(model.getConnection(), createEmployee, inputs);
     }
-
-    
 
     @Override
     public void delete(String employeeID) {
@@ -66,7 +68,7 @@ public final class EmployeeDAO implements ReadInterface, CreateInterface, Delete
             statementController.executeStatementWithMultipleInputs(model.getConnection(), createEmployee, inputs);
         }
     }
-    
+
     private List<String> getParameters(DTO employee) {
         List<String> parameters = new ArrayList<>();
         parameters.add(employee.getLoginInformation().getUsername());
@@ -75,5 +77,21 @@ public final class EmployeeDAO implements ReadInterface, CreateInterface, Delete
         parameters.add(employee.getBasicInformation().getMiddleName());
         parameters.add(employee.getBasicInformation().getLastName());
         return parameters;
+    }
+
+    @Override
+    public void login(String username, String password) {
+
+        String loginEmployeeQuery = model.getQuery("loginEmployee");
+        StatementController statementController = new StatementController();
+        List<String> input = new ArrayList<>();
+        input.add(username);
+        input.add(password);
+        input.add(this.model.getCurrentDepartment().getBasicInformation().getName());
+        ResultSet resultSet = statementController.executeStatementWithMultipleInputs(this.model.getConnection(), loginEmployeeQuery, input);
+
+        DTO currentUser = ResultSetToPojoConverter.getDTO(DTOType.EMPLOYEE, resultSet);
+        this.model.setCurrentUser(currentUser);
+
     }
 }

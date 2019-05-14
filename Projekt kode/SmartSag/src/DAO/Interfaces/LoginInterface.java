@@ -11,5 +11,5 @@ package DAO.Interfaces;
  */
 public interface LoginInterface {
     
-    public boolean login(String username, String password);
+    public void login(String username, String password);
 }

@@ -25,7 +25,7 @@ import java.util.logging.Logger;
  */
 public class ResultSetToPojoConverter {
 
-    public static List<DTO> getPOJOList(DTOType type, ResultSet rs) {
+    public static List<DTO> getDTOList(DTOType type, ResultSet rs) {
         List<DTO> pojoList = new ArrayList<>();
 
         try {
@@ -51,7 +51,7 @@ public class ResultSetToPojoConverter {
         return pojoList;
     }
 
-    public static DTO getPOJO(DTOType type, ResultSet rs) {
+    public static DTO getDTO(DTOType type, ResultSet rs) {
         DTO dto = DTO.builder().build();
         try {
             if (rs.next()) {
@@ -94,12 +94,6 @@ public class ResultSetToPojoConverter {
                             withLastName(rs.getString("last_name")).
                             withGender(rs.getString("gender")).
                             build()).
-                    withCasePermissions(PermissionsInformation.getBuilder().
-                            withCanCreate(false).
-                            withCanRead(true).
-                            withCanEdit(false).
-                            withCanDelete(true).
-                            build()).
                     build();
             return citizen;
         } catch (SQLException ex) {
@@ -122,25 +116,6 @@ public class ResultSetToPojoConverter {
                             withFirstName(rs.getString("first_name")).
                             withMiddleName(rs.getString("middle_name")).
                             withLastName(rs.getString("last_name")).
-                            withGender(rs.getString("gender")).
-                            build()).
-                    withCasePermissions(PermissionsInformation.getBuilder().
-                            withCanCreate(rs.getBoolean("case_can_reate")).
-                            withCanRead(rs.getBoolean("case_can_read")).
-                            withCanEdit(rs.getBoolean("case_can_edit")).
-                            withCanDelete(rs.getBoolean("case_can_delete")).
-                            build()).
-                    withUserPermissions(PermissionsInformation.getBuilder().
-                            withCanCreate(rs.getBoolean("user_can_create")).
-                            withCanRead(rs.getBoolean("user_can_read")).
-                            withCanEdit(rs.getBoolean("user_can_edit")).
-                            withCanDelete(rs.getBoolean("user_can_delete")).
-                            build()).
-                    withRolePermissions(PermissionsInformation.getBuilder().
-                            withCanCreate(rs.getBoolean("role_create")).
-                            withCanRead(rs.getBoolean("role_read")).
-                            withCanEdit(rs.getBoolean("role_edit")).
-                            withCanDelete(rs.getBoolean("role_delete")).
                             build()).
                     build();
             return employee;
@@ -154,7 +129,7 @@ public class ResultSetToPojoConverter {
         try {
             DTO department = DTO.builder().
                     withIDInformation(IDInformation.getBuilder().
-                            withDepartmentID(rs.getInt("departmentID")).
+                            withDepartmentID(rs.getInt("id")).
                             build()).
                     withBasicInformation(BasicInformation.builder().
                             withName(rs.getString("name")).

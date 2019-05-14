@@ -35,7 +35,6 @@ public class Model {
     private DTO currentUser;
     private int currentUserID;
     private DTO currentDepartment;
-    private int currentDepartmentID;
     
     public Model() {
         this.storedProcedures = new HashMap<>();
@@ -148,17 +147,4 @@ public class Model {
         this.currentUserID = currentUserID;
     }
 
-    /**
-     * @return the currentDepartmentID
-     */
-    public int getCurrentDepartmentID() {
-        return currentDepartmentID;
-    }
-
-    /**
-     * @param currentDepartmentID the currentDepartmentID to set
-     */
-    public void setCurrentDepartmentID(int currentDepartmentID) {
-        this.currentDepartmentID = currentDepartmentID;
-    }
 }

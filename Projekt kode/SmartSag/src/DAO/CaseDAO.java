@@ -59,9 +59,9 @@ public class CaseDAO implements
         List<String> input = new ArrayList<>();
         input.add(caseID);
         input.add(Integer.toString(this.model.getCurrentUserID()));
-        input.add(Integer.toString(this.model.getCurrentDepartmentID()));
+        input.add(Integer.toString(this.model.getCurrentDepartment().getIDInformation().getDepartmentID()));
         ResultSet resultSet = statementController.executeStatementWithMultipleInputs(model.getConnection(), getCaseQuery, input);
-        caseToRead = ResultSetToPojoConverter.getPOJO(DTOType.CASE, resultSet);
+        caseToRead = ResultSetToPojoConverter.getDTO(DTOType.CASE, resultSet);
         return caseToRead;
     }
 
@@ -72,9 +72,9 @@ public class CaseDAO implements
         StatementController statementController = new StatementController();
         List<String> input = new ArrayList<>();
         input.add(Integer.toString(this.model.getCurrentUserID()));
-        input.add(Integer.toString(this.model.getCurrentDepartmentID()));
+        input.add(Integer.toString(this.model.getCurrentDepartment().getIDInformation().getDepartmentID()));
         ResultSet resultSet = statementController.executeStatementWithMultipleInputs(model.getConnection(), getAllCases, input);
-        caseList = ResultSetToPojoConverter.getPOJOList(DTOType.CASE, resultSet);
+        caseList = ResultSetToPojoConverter.getDTOList(DTOType.CASE, resultSet);
         return caseList;
     }
 
