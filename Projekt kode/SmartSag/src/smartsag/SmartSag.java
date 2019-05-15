@@ -4,22 +4,26 @@ import DAO.CitizenDAO;
 import DAO.EmployeeDAO;
 import Domain.Controller;
 import Model.Model;
+import View.GUIManager;
 import View.View;
 import View.ViewBuilder;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
-public class SmartSag {
-
-    /**
-     * Main class <br>
-     * Currently used for testing.
-     *
-     *
-     *
-     * @param args
-     */
+public class SmartSag extends Application {
+    
+    private GUIManager guiManager;
+    
+    @Override
+    public void start(Stage stage) throws Exception {
+        guiManager = new GUIManager();
+        guiManager.Init(stage);
+    }
+    
     public static void main(String[] args) {
 
-        View view = new ViewBuilder().createView();
+        launch(args);
+        /*View view = new ViewBuilder().createView();
         Model model = new Model();
         Controller controller = new Controller(view, model);
 
@@ -35,7 +39,7 @@ public class SmartSag {
         password="kode1234";
         EmployeeDAO login2 = new EmployeeDAO(model);
         login2.login(username, password);
-        System.out.println(model.getCurrentUser().getBasicInformation().getFirstName());
+        System.out.println(model.getCurrentUser().getBasicInformation().getFirstName());*/
     }
 
 }
