@@ -24,4 +24,8 @@ public class ViewMainMedarbejderController extends ViewController implements Ini
         // TODO
     }    
     
+    @Override
+    public void onViewInit() {
+        
+    }
 }

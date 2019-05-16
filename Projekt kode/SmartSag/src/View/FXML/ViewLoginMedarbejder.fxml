@@ -37,12 +37,12 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <TextField layoutX="312.0" layoutY="220.0" prefHeight="45.0" prefWidth="179.0" promptText="Brugernavn">
+      <TextField layoutX="312.0" layoutY="220.0" prefHeight="45.0" prefWidth="179.0" promptText="Brugernavn" fx:id="txtUsername">
          <font>
             <Font size="18.0" />
          </font>
       </TextField>
-      <TextField layoutX="311.0" layoutY="278.0" prefHeight="45.0" prefWidth="179.0" promptText="Adgangskode">
+      <TextField layoutX="311.0" layoutY="278.0" prefHeight="45.0" prefWidth="179.0" promptText="Adgangskode" fx:id="txtPassword">
          <font>
             <Font size="18.0" />
          </font>

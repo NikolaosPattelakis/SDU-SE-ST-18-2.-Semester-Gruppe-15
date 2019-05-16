@@ -86,14 +86,14 @@
       </VBox>
       <VBox layoutX="261.0" layoutY="181.0" prefHeight="200.0" prefWidth="183.0">
          <children>
-            <TextField promptText="Fornavn" />
-            <TextField promptText="Efternavn" />
-            <TextField promptText="Adresse" />
-            <TextField promptText="Postnummer" />
-            <TextField promptText="By" />
-            <TextField promptText="Land" />
-            <TextField promptText="Email" />
-            <TextField promptText="Telefonnummer" />
+            <TextField editable="false" fx:id="txtFirstName" />
+            <TextField editable="false" fx:id="txtLastName" />
+            <TextField editable="false" fx:id="txtAddress" />
+            <TextField editable="false" fx:id="txtZipCode" />
+            <TextField editable="false" fx:id="txtCity" />
+            <TextField editable="false" fx:id="txtCountry" />
+            <TextField editable="false" fx:id="txtEmail" />
+            <TextField editable="false" fx:id="txtPhoneNumber" />
          </children>
       </VBox>
       <ImageView fitHeight="43.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">

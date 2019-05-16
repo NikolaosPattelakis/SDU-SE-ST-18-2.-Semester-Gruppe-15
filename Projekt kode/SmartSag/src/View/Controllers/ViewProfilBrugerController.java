@@ -5,12 +5,14 @@
  */
 package View.Controllers;
 
+import DTO.BasicInformation;
 import static View.Controllers.ViewController.guiManager;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -18,14 +20,44 @@ import javafx.fxml.Initializable;
  * @author Oliver
  */
 public class ViewProfilBrugerController extends ViewController implements Initializable {
-
-    /**
-     * Initializes the controller class.
-     */
+    
+    @FXML
+    private TextField txtFirstName;
+    
+    @FXML
+    private TextField txtLastName;
+    
+    @FXML
+    private TextField txtAddress;
+    
+    @FXML
+    private TextField txtZipCode;
+    
+    @FXML
+    private TextField txtCity;
+    
+    @FXML
+    private TextField txtCountry;
+    
+    @FXML
+    private TextField txtEmail;
+    
+    @FXML
+    private TextField txtPhoneNumber;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
+    
+    @Override
+    public void onViewInit() {
+        BasicInformation info = getModel().getCurrentUser().getBasicInformation();
+        txtFirstName.setText(info.getFirstName());
+        txtLastName.setText(info.getLastName());
+        txtEmail.setText(info.getEmail());
+        txtPhoneNumber.setText(info.getPhoneNumber());
+    }
     
     @FXML
     private void mainMenuHandler(ActionEvent event) {

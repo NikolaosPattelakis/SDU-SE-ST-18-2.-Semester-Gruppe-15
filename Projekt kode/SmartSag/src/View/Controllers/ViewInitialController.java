@@ -17,6 +17,11 @@ public class ViewInitialController extends ViewController implements Initializab
         // TODO
     }    
     
+    @Override
+    public void onViewInit() {
+        
+    }
+    
     @FXML
     private void handleCitizen(ActionEvent event) {
         guiManager.loadView(guiManager.getLoginBrugerPath());

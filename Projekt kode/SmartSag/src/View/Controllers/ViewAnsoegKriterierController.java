@@ -27,6 +27,11 @@ public class ViewAnsoegKriterierController extends ViewController implements Ini
         // TODO
     } 
     
+    @Override
+    public void onViewInit() {
+        
+    }
+    
     @FXML
     private void mainMenuHandler(ActionEvent event) {
         guiManager.loadView(guiManager.getMainBrugerPath());

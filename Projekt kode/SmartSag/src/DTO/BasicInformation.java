@@ -22,6 +22,9 @@ public class BasicInformation implements BasicInformationInterface {
     private String lastName;
 
     private Gender gender;
+    
+    private String email;
+    private String phoneNumber;
 
     private BasicInformation() {}
 
@@ -89,7 +92,25 @@ public class BasicInformation implements BasicInformationInterface {
         this.gender = Gender.valueOf(gender);
     }
 
+    @Override
+    public String getEmail() {
+        return email;
+    }
     
+    @Override
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
+    @Override
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+    
+    @Override
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
     public static class Builder implements BuilderInterface<BasicInformation> {
 
@@ -126,6 +147,16 @@ public class BasicInformation implements BasicInformationInterface {
 
         public Builder withGender(String gender) {
             this.informationPersonal.setGender(gender);
+            return this;
+        }
+        
+        public Builder withEmail(String email) {
+            this.informationPersonal.setEmail(email);
+            return this;
+        }
+        
+        public Builder withPhoneNumber(String phoneNumber) {
+            this.informationPersonal.setPhoneNumber(phoneNumber);
             return this;
         }
 

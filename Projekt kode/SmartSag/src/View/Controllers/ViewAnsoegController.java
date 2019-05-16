@@ -27,6 +27,11 @@ public class ViewAnsoegController extends ViewController implements Initializabl
         // TODO
     }  
     
+    @Override
+    public void onViewInit() {
+        
+    }
+    
     @FXML
     private void mainMenuHandler(ActionEvent event) {
         guiManager.loadView(guiManager.getMainBrugerPath());

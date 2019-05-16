@@ -29,4 +29,9 @@ public interface BasicInformationInterface {
     
     public Gender getGender();
     public void setGender(String gender);
+    
+    public String getEmail();
+    public void setEmail(String email);
+    public String getPhoneNumber();
+    public void setPhoneNumber(String phoneNumber);
 }

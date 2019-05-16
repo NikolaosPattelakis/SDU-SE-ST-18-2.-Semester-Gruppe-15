@@ -24,4 +24,8 @@ public class ViewInaktiveMedarbejderController extends ViewController implements
         // TODO
     }    
     
+    @Override
+    public void onViewInit() {
+        
+    }
 }

@@ -53,6 +53,9 @@ public final class CitizenDAO implements ReadInterface, LoginInterface {
 
         DTO currentUser = ResultSetToPojoConverter.getDTO(DTOType.CITIZEN, resultSet);
         this.model.setCurrentUser(currentUser);
-
+        
+        if(currentUser.getIDInformation() != null) {
+            this.model.setCurrentUserID(currentUser.getIDInformation().getCitizenID());
+        }
     }
 }

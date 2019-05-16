@@ -93,5 +93,8 @@ public final class EmployeeDAO implements ReadInterface, CreateInterface, Delete
         DTO currentUser = ResultSetToPojoConverter.getDTO(DTOType.EMPLOYEE, resultSet);
         this.model.setCurrentUser(currentUser);
 
+        if(currentUser.getIDInformation() != null) {
+            this.model.setCurrentUserID(currentUser.getIDInformation().getEmployeeID());
+        }
     }
 }

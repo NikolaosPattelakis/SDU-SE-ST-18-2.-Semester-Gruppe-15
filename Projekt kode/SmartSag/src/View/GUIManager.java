@@ -5,6 +5,7 @@
  */
 package View;
 
+import Model.Model;
 import View.Controllers.ViewController;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -49,6 +50,7 @@ public class GUIManager {
         PROFIL_BRUGER_FILEPATH
     };
     
+    private Model model;
     private Stage currentStage;
     private ViewController currentController;
     private final List<ViewController> viewControllers = new ArrayList<>();
@@ -56,6 +58,8 @@ public class GUIManager {
     public void Init(Stage stage) {
         currentStage = stage;
         currentStage.setTitle("SmartSag");
+        
+        model = new Model();
         
         ViewController.setManager(this);
         
@@ -85,10 +89,13 @@ public class GUIManager {
     public void loadView(String FXMLFile) {
         for (ViewController controller : viewControllers) {
             if (controller.getPath().equals(FXMLFile)) {
+                controller.onViewInit();
+                
                 currentStage.setScene(controller.getScene());
                 currentStage.setResizable(false);
                 currentController = controller;
                 currentController.getScene().getRoot().requestFocus();
+                break;
             }
         }
         currentStage.show();
@@ -100,6 +107,10 @@ public class GUIManager {
     
     public List<ViewController> getControllers() {
         return this.viewControllers;
+    }
+    
+    public Model getModel() {
+        return model;
     }
     
     public void setStage(Stage stage) {

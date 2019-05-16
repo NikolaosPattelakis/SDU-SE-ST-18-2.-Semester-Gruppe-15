@@ -35,6 +35,7 @@ public class ResultSetToPojoConverter {
                         pojoList.add(ResultSetToPojoConverter.resultSetToCitizen(rs));
                         break;
                     case CASE:
+                        pojoList.add(ResultSetToPojoConverter.resultSetToCase(rs));
                         break;
                     case EMPLOYEE:
                         pojoList.add(ResultSetToPojoConverter.resultSetToEmployee(rs));
@@ -93,6 +94,8 @@ public class ResultSetToPojoConverter {
                             withMiddleName(rs.getString("middle_name")).
                             withLastName(rs.getString("last_name")).
                             withGender(rs.getString("gender")).
+                            withEmail(rs.getString("email")).
+                            withPhoneNumber(rs.getString("phone_number")).
                             build()).
                     build();
             return citizen;
@@ -183,12 +186,12 @@ public class ResultSetToPojoConverter {
             DTO caseDTO = DTO.builder().
                     withIDInformation(IDInformation.getBuilder().
                             withID(rs.getInt("id")).
-                            withCitizenID(rs.getInt("citizenID")).
-                            withEmployeeID(rs.getInt("employeeID")).
-                            withDepartmentID(rs.getInt("departmentID")).
-                            withOpeningFormID(rs.getInt("openingFormID")).
+                            withCitizenID(rs.getInt("applicant_id")).
+                            withEmployeeID(rs.getInt("case_worker_id")).
+                            withDepartmentID(rs.getInt("department_id")).
+                            withOpeningFormID(rs.getInt("opening_form_id")).
                             build()).
-                    withCaseStatus(rs.getString("caseStatus")).
+                    withCaseStatus(rs.getString("case_status")).
                     build();
             return caseDTO;
         } catch (SQLException ex) {
