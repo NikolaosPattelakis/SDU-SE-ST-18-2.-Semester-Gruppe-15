@@ -35,7 +35,7 @@ public class ViewLoginMedarbejderController extends ViewController implements In
         String password = txtPassword.getText();
         
         if(username.isEmpty() || password.isEmpty()) {
-            showAlert("Du skal indtaste både brugernavn og kodeord");
+            showAlert("Du skal indtaste både brugernavn og kodeord.");
             return;
         }
         

@@ -34,7 +34,7 @@ public class ViewLoginBrugerController extends ViewController implements Initial
         String password = txtPassword.getText();
         
         if(cpr.isEmpty() || password.isEmpty()) {
-            showAlert("Du skal indtaste både CPR-nummer og kodeord");
+            showAlert("Du skal indtaste både CPR-nummer og kodeord.");
             return;
         }
         
@@ -42,7 +42,7 @@ public class ViewLoginBrugerController extends ViewController implements Initial
         try {
             numCPR = Integer.valueOf(cpr);
         } catch(Exception ex) {
-            showAlert("Dit CPR-nummer skal udelukkende bestå af tal");
+            showAlert("Dit CPR-nummer skal udelukkende bestå af tal.");
             return;
         }
         

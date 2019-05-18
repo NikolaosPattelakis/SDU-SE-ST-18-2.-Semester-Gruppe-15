@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package View;
 
 import Model.Model;
@@ -16,10 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-/**
- *
- * @author sande
- */
+
 public class GUIManager {
     private final static String INITIAL_FILEPATH = "FXML/ViewInitial.fxml";
     //private final static String ViewLoginAdmin_FILEPATH = "FXML/ViewLoginAdmin.fxml";
@@ -34,6 +27,9 @@ public class GUIManager {
     private final static String MAIN_BRUGER_FILEPATH = "FXML/ViewMainBruger.fxml";
     private final static String MAIN_MEDARBEJDER_FILEPATH = "FXML/ViewMainMedarbejder.fxml";
     private final static String PROFIL_BRUGER_FILEPATH = "FXML/ViewProfilBruger.fxml";
+    private final static String CASE_DATABASE_FILEPATH = "FXML/ViewCaseDatabase.fxml";
+    private final static String CREATE_CASE_FILEPATH = "FXML/ViewCreateNewCase.fxml";
+    private final static String CREATE_EMPLOYEE_FILEPATH = "FXML/ViewCreateNewEmployee.fxml";
     
     private final static String[] FILEPATHS = {
         INITIAL_FILEPATH,
@@ -47,7 +43,10 @@ public class GUIManager {
         INAKTIVE_MEDARBEJDER_FILEPATH,
         MAIN_BRUGER_FILEPATH,
         MAIN_MEDARBEJDER_FILEPATH,
-        PROFIL_BRUGER_FILEPATH
+        PROFIL_BRUGER_FILEPATH,
+        CASE_DATABASE_FILEPATH,
+        CREATE_CASE_FILEPATH,
+        CREATE_EMPLOYEE_FILEPATH
     };
     
     private Model model;
@@ -166,5 +165,17 @@ public class GUIManager {
     
     public String getProfilBrugerPath() {
         return PROFIL_BRUGER_FILEPATH;
+    }
+    
+    public String getCaseDatabasePath() {
+        return CASE_DATABASE_FILEPATH;
+    }
+    
+    public String getCreateNewCasePath() {
+        return CREATE_CASE_FILEPATH;
+    }
+    
+    public String getCreateNewEmployeePath() {
+        return CREATE_EMPLOYEE_FILEPATH;
     }
 }
