@@ -13,11 +13,8 @@ import Model.ResultSetToPojoConverter;
 import Model.StatementController;
 import DTO.enums.DTOType;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -42,8 +39,6 @@ public final class CitizenDAO implements ReadInterface, LoginInterface {
 
     @Override
     public void login(String username, String password) {
-        boolean loginSuccessful = false;
-
         String loginCitizenQuery = model.getQuery("loginCitizen");
         StatementController statementController = new StatementController();
         List<String> input = new ArrayList<>();

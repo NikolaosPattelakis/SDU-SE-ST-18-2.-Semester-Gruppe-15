@@ -35,6 +35,7 @@ public class Model {
     private DTO currentUser;
     private int currentUserID;
     private DTO currentDepartment;
+    private int currentDepartmentID;
     
     public Model() {
         this.storedProcedures = new HashMap<>();
@@ -54,6 +55,7 @@ public class Model {
         }
         departmentID = properties.getProperty("id");
         this.setCurrentDepartment(new DepartmentDAO(this).read(departmentID));
+        this.setCurrentDepartmentID(Integer.valueOf(departmentID));
     }
 
     private void initConnection() {
@@ -147,4 +149,11 @@ public class Model {
         this.currentUserID = currentUserID;
     }
 
+    public int getCurrentDepartmentID() {
+        return currentDepartmentID;
+    }
+    
+    public void setCurrentDepartmentID(int departmentID) {
+        this.currentDepartmentID = departmentID;
+    }
 }

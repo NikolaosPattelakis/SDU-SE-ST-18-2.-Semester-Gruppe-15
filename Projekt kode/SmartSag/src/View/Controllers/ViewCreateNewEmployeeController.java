@@ -16,7 +16,7 @@ import javafx.fxml.Initializable;
  *
  * @author Oliver
  */
-public class ViewCreateNewCase extends ViewController implements Initializable {
+public class ViewCreateNewEmployeeController extends ViewController implements Initializable {
     
     /**
      * Initializes the controller class.

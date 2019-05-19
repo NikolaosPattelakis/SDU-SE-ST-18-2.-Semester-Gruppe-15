@@ -16,7 +16,7 @@ import javafx.fxml.Initializable;
  *
  * @author Oliver
  */
-public class ViewCaseDatabase extends ViewController implements Initializable {
+public class ViewCaseDatabaseController extends ViewController implements Initializable {
     
     /**
      * Initializes the controller class.
