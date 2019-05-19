@@ -16,11 +16,8 @@ import Model.ResultSetToPojoConverter;
 import Model.StatementController;
 import DTO.enums.DTOType;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -94,7 +91,13 @@ public final class EmployeeDAO implements ReadInterface, CreateInterface, Delete
         this.model.setCurrentUser(currentUser);
 
         if(currentUser.getIDInformation() != null) {
+            // Login successful, now set the user ID and retrieve the employee's role
             this.model.setCurrentUserID(currentUser.getIDInformation().getEmployeeID());
+            
+            RoleDAO roleDAO = new RoleDAO(model);
+            DTO role = roleDAO.read(String.valueOf(currentUser.getIDInformation().getRoleID()));
+            
+            this.model.setCurrentRole(role);
         }
     }
 }

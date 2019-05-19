@@ -5,12 +5,17 @@
  */
 package View.Controllers;
 
+import DAO.CaseDAO;
+import DTO.DTO;
+import DTO.IDInformation;
+import DTO.enums.CaseStatus;
 import static View.Controllers.ViewController.guiManager;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 
 /**
  * FXML Controller class
@@ -18,10 +23,10 @@ import javafx.fxml.Initializable;
  * @author Oliver
  */
 public class ViewAnsoegController extends ViewController implements Initializable {
-
-    /**
-     * Initializes the controller class.
-     */
+    
+    @FXML
+    private Button btnSend;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -29,6 +34,11 @@ public class ViewAnsoegController extends ViewController implements Initializabl
     
     @Override
     public void onViewInit() {
+        
+    }
+    
+    @FXML
+    private void sendApplication(ActionEvent event) {
         
     }
     

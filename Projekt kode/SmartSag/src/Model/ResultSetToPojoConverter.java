@@ -110,6 +110,7 @@ public class ResultSetToPojoConverter {
             DTO employee = DTO.builder().
                     withIDInformation(IDInformation.getBuilder().
                             withEmployeeID(rs.getInt("id")).
+                            withRoleID(rs.getInt("role_id")).
                             build()).
                     withLoginInformation(LoginInformation.builder().
                             username(rs.getString("username")).
@@ -150,7 +151,7 @@ public class ResultSetToPojoConverter {
             DTO role = DTO.builder().
                     withIDInformation(IDInformation.getBuilder().
                             withRoleID(rs.getInt("id")).
-                            withDepartmentID(rs.getInt("departmentID")).
+                            withDepartmentID(rs.getInt("department_id")).
                             build()).
                     withBasicInformation(BasicInformation.builder().
                             withName(rs.getString("name")).

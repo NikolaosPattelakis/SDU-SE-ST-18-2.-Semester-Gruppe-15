@@ -5,22 +5,27 @@
  */
 package View.Controllers;
 
+import DAO.CaseDAO;
+import DTO.BasicInformation;
+import DTO.DTO;
+import DTO.IDInformation;
+import DTO.LoginInformation;
 import static View.Controllers.ViewController.guiManager;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TextField;
 
-/**
- *
- * @author Oliver
- */
 public class ViewCreateNewCaseController extends ViewController implements Initializable {
     
-    /**
-     * Initializes the controller class.
-     */
+    @FXML
+    private TextField txtCitizenCPR;
+    
+    @FXML
+    private TextField txtEmployeeUsername;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -33,7 +38,37 @@ public class ViewCreateNewCaseController extends ViewController implements Initi
     
     @FXML
     private void createHandler(ActionEvent event) {
-        //tba.
+        String citizenCPR = txtCitizenCPR.getText();
+        String employeeUsername = txtEmployeeUsername.getText();
+        
+        if(citizenCPR.isEmpty() || employeeUsername.isEmpty()) {
+            showAlert("Du skal indtaste både et CPR-nummer på borgeren og brugernavn på sagsbehandleren.");
+            return;
+        }
+        
+        int numCPR = 0;
+        try {
+            numCPR = Integer.valueOf(citizenCPR);
+        } catch(Exception ex) {
+            showAlert("CPR-nummeret skal udelukkende bestå af tal.");
+            return;
+        }
+        
+        DTO caseDTO = DTO.builder()
+                .withLoginInformation(LoginInformation.builder()
+                    .username(employeeUsername)
+                    .build())
+                .withBasicInformation(BasicInformation.builder()
+                        .withCPR(numCPR)
+                        .build())
+                .withIDInformation(IDInformation.getBuilder()
+                        .withDepartmentID(getModel().getCurrentDepartmentID())
+                        .build())
+                .build();
+        CaseDAO caseDAO = new CaseDAO(getModel());
+        caseDAO.create(caseDTO);
+        
+        showAlert("Sagen er blevet oprettet!");
     }
     
     @FXML

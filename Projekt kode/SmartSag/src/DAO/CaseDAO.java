@@ -92,11 +92,10 @@ public class CaseDAO implements
 
     private List<String> getParameters(DTO caseDTO) {
         List<String> parameters = new ArrayList<>();
-        parameters.add(Integer.toString(caseDTO.getIDInformation().getCitizenID()));
-        parameters.add(Integer.toString(caseDTO.getIDInformation().getEmployeeID()));
+        parameters.add(Integer.toString(caseDTO.getBasicInformation().getCPR()));
+        parameters.add(caseDTO.getLoginInformation().getUsername());
+        parameters.add("Beskrivelse af hvad sagen går ud på..."); // Create: 'CaseInformation'
         parameters.add(Integer.toString(caseDTO.getIDInformation().getDepartmentID()));
-        parameters.add(Integer.toString(caseDTO.getIDInformation().getOpeningFormID()));
-        parameters.add(caseDTO.getCaseStatus().toString());
         return parameters;
     }
 }
