@@ -17,6 +17,7 @@ public final class DTO{
     private IDInformation ID;
     private BasicInformation informationBasic;
     private LoginInformation loginInformation;
+    private CaseInformation caseInformation;
 
     private CaseStatus caseStatus;
     
@@ -67,6 +68,14 @@ public final class DTO{
         this.loginInformation = loginInformation;
     }
 
+    public CaseInformation getCaseInformation() {
+        return caseInformation;
+    }
+    
+    public void setCaseInformation(CaseInformation caseInformation) {
+        this.caseInformation = caseInformation;
+    }
+    
     /**
      * @return the caseStatus
      */
@@ -148,6 +157,11 @@ public final class DTO{
 
         public Builder withLoginInformation(LoginInformation information) {
             this.dto.setLoginInformation(information);
+            return this;
+        }
+        
+        public Builder withCaseInformation(CaseInformation information) {
+            this.dto.setCaseInformation(information);
             return this;
         }
         

@@ -103,17 +103,17 @@
             </VBox>
             <VBox layoutX="166.0" layoutY="33.0" prefHeight="277.0" prefWidth="183.0">
                <children>
-                  <TextField fx:id="txtFirstName" editable="false" promptText="Brugernavn" />
-                  <TextField fx:id="txtLastName" editable="false" promptText="Adgangskode" />
-                  <TextField fx:id="txtPhoneNumber21" editable="false" promptText="Afdeling" />
-                  <TextField fx:id="txtAddress" editable="false" promptText="Fornavn" />
-                  <TextField fx:id="txtZipCode" editable="false" promptText="Efternavn" />
-                  <TextField fx:id="txtCity" editable="false" promptText="Adresse" />
-                  <TextField fx:id="txtCountry" editable="false" promptText="Postnummer" />
-                  <TextField fx:id="txtEmail" editable="false" promptText="By" />
-                  <TextField fx:id="txtPhoneNumber" editable="false" promptText="Land" />
-                  <TextField fx:id="txtPhoneNumber1" editable="false" promptText="Email" />
-                  <TextField fx:id="txtPhoneNumber2" editable="false" promptText="Telefonnummer" />
+                  <TextField fx:id="txtUsername" />
+                  <TextField fx:id="txtPassword" />
+                  <TextField fx:id="txtDepartments" />
+                  <TextField fx:id="txtFirstName" />
+                  <TextField fx:id="txtLastName" />
+                  <TextField fx:id="txtAddress" />
+                  <TextField fx:id="txtZipCode" />
+                  <TextField fx:id="txtCity" />
+                  <TextField fx:id="txtCountry" />
+                  <TextField fx:id="txtEmail" />
+                  <TextField fx:id="txtPhoneNumber" />
                </children>
             </VBox>
             <Button layoutX="154.0" layoutY="329.0" mnemonicParsing="false" onAction="#createHandler" prefWidth="62.0" text="Opret" />

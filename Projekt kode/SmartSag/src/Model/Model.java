@@ -27,10 +27,14 @@ public class Model {
     private final String databasePropertiesFilepath = "data/database.properties";
     private final String storedProceduresFilepath = "data/storedProcedures.properties";
     private final String configFilepath = "data/config.properties";
+    private final String encryptionFilepath = "data/encryption.properties"; 
     
     private static Connection connection;
     
     private final HashMap<String, String> storedProcedures;
+    private String encryptionType; 
+    private String encryptionKey; 
+    private String encryptionSalt; 
     
     private DTO currentUser;
     private int currentUserID;
@@ -43,6 +47,7 @@ public class Model {
         this.initConnection();
         this.initStoredProcedures();
         this.initCurrentDepartment();
+        this.initEncryptionMode();
     }
     
     private void initCurrentDepartment(){
@@ -99,6 +104,21 @@ public class Model {
                                 e -> e.getValue().toString()
                         )));
     }
+    
+    private void initEncryptionMode(){ 
+         
+        Properties properties = new Properties(); 
+        FileInputStream fileInputStream; 
+        try { 
+            fileInputStream = new FileInputStream(this.encryptionFilepath); 
+            properties.load(fileInputStream); 
+        } catch (IOException ex) { 
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex); 
+        } 
+        this.encryptionType = properties.getProperty("type"); 
+        this.encryptionKey = properties.getProperty("key"); 
+        this.encryptionSalt = properties.getProperty("salt"); 
+    } 
     
     public Connection getConnection(){
         return connection;
@@ -165,4 +185,25 @@ public class Model {
     public void setCurrentRole(DTO role) {
         this.currentRole = role;
     }
+    
+    /** 
+     * @return the encryptionType 
+     */ 
+    public String getEncryptionType() { 
+        return encryptionType; 
+    } 
+ 
+    /** 
+     * @return the encryptionKey 
+     */ 
+    public String getEncryptionKey() { 
+        return encryptionKey; 
+    } 
+ 
+    /** 
+     * @return the encryptionSalt 
+     */ 
+    public String getEncryptionSalt() { 
+        return encryptionSalt; 
+    } 
 }

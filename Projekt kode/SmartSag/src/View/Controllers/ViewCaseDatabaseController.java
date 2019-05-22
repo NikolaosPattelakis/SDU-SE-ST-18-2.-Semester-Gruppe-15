@@ -29,6 +29,7 @@ public class ViewCaseDatabaseController extends ViewController implements Initia
     private ListView listCases;
     
     private ObservableList<String> observableList = FXCollections.observableArrayList();
+    private List<DTO> cases;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -38,7 +39,7 @@ public class ViewCaseDatabaseController extends ViewController implements Initia
     @Override
     public void onViewInit() {
         CaseDAO caseDAO = new CaseDAO(getModel());
-        List<DTO> cases = caseDAO.readAll();
+        cases = caseDAO.readAll();
         
         observableList.clear();
         for(DTO dto : cases) {
@@ -55,7 +56,27 @@ public class ViewCaseDatabaseController extends ViewController implements Initia
     
     @FXML
     private void openHandler(ActionEvent event) {
-        //tba.
+        showAlert("Beskrivelse af hvad sagen omhandler...");
+    }
+    
+    @FXML
+    private void statusChangeHandler(ActionEvent event) {
+        int itemIndex = listCases.getSelectionModel().getSelectedIndex();
+        if(itemIndex != -1) {
+            DTO theCase = cases.get(itemIndex);
+            
+            String nextStatus = "CLOSED";
+            if(theCase.getCaseStatus() == CaseStatus.CLOSED) {
+                nextStatus = "OPEN";
+            }
+            
+            theCase.setCaseStatus(nextStatus);
+            
+            CaseDAO caseDAO = new CaseDAO(getModel());
+            caseDAO.update(theCase);
+            
+            showAlert("Sagens status er blevet ændret, opdater venligst siden.");
+        }
     }
     
     @FXML

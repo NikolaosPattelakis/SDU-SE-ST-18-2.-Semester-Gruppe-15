@@ -73,6 +73,8 @@ public final class EmployeeDAO implements ReadInterface, CreateInterface, Delete
         parameters.add(employee.getBasicInformation().getFirstName());
         parameters.add(employee.getBasicInformation().getMiddleName());
         parameters.add(employee.getBasicInformation().getLastName());
+        parameters.add(Integer.toString(employee.getIDInformation().getRoleID()));
+        parameters.add("odense_kommune"); // Erstat med DepartmentName variabel
         return parameters;
     }
 

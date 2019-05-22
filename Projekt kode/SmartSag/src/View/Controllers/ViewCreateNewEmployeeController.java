@@ -5,12 +5,19 @@
  */
 package View.Controllers;
 
+import DAO.EmployeeDAO;
+import DTO.BasicInformation;
+import DTO.DTO;
+import DTO.IDInformation;
+import DTO.LoginInformation;
+import Encryption.Encryption;
 import static View.Controllers.ViewController.guiManager;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TextField;
 
 /**
  *
@@ -18,9 +25,18 @@ import javafx.fxml.Initializable;
  */
 public class ViewCreateNewEmployeeController extends ViewController implements Initializable {
     
-    /**
-     * Initializes the controller class.
-     */
+    @FXML
+    private TextField txtUsername;
+    
+    @FXML
+    private TextField txtPassword;
+    
+    @FXML
+    private TextField txtFirstName;
+    
+    @FXML
+    private TextField txtLastName;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -33,7 +49,39 @@ public class ViewCreateNewEmployeeController extends ViewController implements I
     
     @FXML
     private void createHandler(ActionEvent event) {
-        //tba.
+        String username = txtUsername.getText();
+        String password = txtPassword.getText();
+        String firstName = txtFirstName.getText();
+        String lastName = txtLastName.getText();
+        
+        if(username.isEmpty() || password.isEmpty() || firstName.isEmpty() || lastName.isEmpty()) {
+            showAlert("Du skal indstate et brugernavn, kodeord, fornavn og efternavn på medarbejderen.");
+            return;
+        }
+        
+        // Encrypt the password
+        Encryption encryption = new Encryption(getModel().getEncryptionType(), getModel().getEncryptionKey(), getModel().getEncryptionSalt());
+        String encryptedPassword = encryption.encryptData(password);
+        
+        DTO employeeDTO = DTO.builder()
+                .withLoginInformation(LoginInformation.builder()
+                        .username(username)
+                        .password(encryptedPassword)
+                        .build())
+                .withBasicInformation(BasicInformation.builder()
+                        .withFirstName(firstName)
+                        .withMiddleName("")
+                        .withLastName(lastName)
+                        .build())
+                .withIDInformation(IDInformation.getBuilder()
+                        .withRoleID(1)
+                        .build())
+                .build();
+        
+        EmployeeDAO employeeDAO = new EmployeeDAO(getModel());
+        employeeDAO.create(employeeDTO);
+        
+        showAlert("Medarbejderen er blevet oprettet!");
     }
     
     @FXML
