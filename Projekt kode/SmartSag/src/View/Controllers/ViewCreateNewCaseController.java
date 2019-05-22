@@ -38,6 +38,11 @@ public class ViewCreateNewCaseController extends ViewController implements Initi
     
     @FXML
     private void createHandler(ActionEvent event) {
+        if(!getModel().getCurrentRole().getCasePermissions().canCreate()) {
+            showAlert("Du har ikke tilladelse til at oprette en ny sag!");
+            return;
+        }
+        
         String citizenCPR = txtCitizenCPR.getText();
         String employeeUsername = txtEmployeeUsername.getText();
         

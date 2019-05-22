@@ -56,11 +56,21 @@ public class ViewCaseDatabaseController extends ViewController implements Initia
     
     @FXML
     private void openHandler(ActionEvent event) {
+        if(!getModel().getCurrentRole().getCasePermissions().canRead()) {
+            showAlert("Du har ikke tilladelse til at læse sagsoplysninger!");
+            return;
+        }
+        
         showAlert("Beskrivelse af hvad sagen omhandler...");
     }
     
     @FXML
     private void statusChangeHandler(ActionEvent event) {
+        if(!getModel().getCurrentRole().getCasePermissions().canEdit()) {
+            showAlert("Du har ikke tilladelse til at ændre i en sag!");
+            return;
+        }
+        
         int itemIndex = listCases.getSelectionModel().getSelectedIndex();
         if(itemIndex != -1) {
             DTO theCase = cases.get(itemIndex);

@@ -49,13 +49,18 @@ public class ViewCreateNewEmployeeController extends ViewController implements I
     
     @FXML
     private void createHandler(ActionEvent event) {
+        if(!getModel().getCurrentRole().getUserPermissions().canCreate()) {
+            showAlert("Du har ikke tilladelse til at oprette en medarbejder-konto!");
+            return;
+        }
+        
         String username = txtUsername.getText();
         String password = txtPassword.getText();
         String firstName = txtFirstName.getText();
         String lastName = txtLastName.getText();
         
         if(username.isEmpty() || password.isEmpty() || firstName.isEmpty() || lastName.isEmpty()) {
-            showAlert("Du skal indstate et brugernavn, kodeord, fornavn og efternavn på medarbejderen.");
+            showAlert("Du skal indtaste et brugernavn, kodeord, fornavn og efternavn på medarbejderen.");
             return;
         }
         
