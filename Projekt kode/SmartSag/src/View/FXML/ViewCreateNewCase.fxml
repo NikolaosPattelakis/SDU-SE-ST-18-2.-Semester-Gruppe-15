@@ -45,24 +45,18 @@
             </Label>
             <Button layoutX="480.0" layoutY="601.0" mnemonicParsing="false" onAction="#createHandler" prefHeight="25.0" prefWidth="83.0" text="Opret sag" />
             <TextArea layoutX="95.0" layoutY="89.0" prefHeight="499.0" prefWidth="853.0" promptText="Beskrivelse af sagen" />
-            <VBox layoutX="95.0" layoutY="35.0" prefHeight="50.0" prefWidth="178.0">
+            <VBox layoutX="95.0" layoutY="45.0" prefHeight="50.0" prefWidth="178.0">
                <children>
                   <Label prefHeight="25.0" text="Patientens CPR-nummer">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label prefHeight="25.0" text="Sagsbehandlers brugernavn">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
                </children>
             </VBox>
-            <VBox layoutX="273.0" layoutY="35.0" prefHeight="36.0" prefWidth="154.0">
+            <VBox layoutX="273.0" layoutY="45.0" prefHeight="36.0" prefWidth="154.0">
                <children>
                   <TextField fx:id="txtCitizenCPR" />
-                  <TextField fx:id="txtEmployeeUsername" />
                </children>
             </VBox>
          </children>

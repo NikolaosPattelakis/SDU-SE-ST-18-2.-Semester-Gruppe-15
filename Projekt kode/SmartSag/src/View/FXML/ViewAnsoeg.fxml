@@ -4,7 +4,7 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -30,7 +30,7 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <SplitMenuButton mnemonicParsing="false" prefHeight="43.0" text="Mine sager">
+            <MenuButton mnemonicParsing="false" prefHeight="43.0" text="Mine sager">
               <items>
                   <MenuItem mnemonicParsing="false" onAction="#applyHandler" text="Ansøg" />
                 <MenuItem mnemonicParsing="false" onAction="#activeHandler" text="Aktive" />
@@ -39,7 +39,7 @@
                <font>
                   <Font size="14.0" />
                </font>
-            </SplitMenuButton>
+            </MenuButton>
           <Button mnemonicParsing="false" onAction="#logoutHandler" prefHeight="43.0" prefWidth="99.0" text="Log ud">
                <font>
                   <Font size="14.0" />

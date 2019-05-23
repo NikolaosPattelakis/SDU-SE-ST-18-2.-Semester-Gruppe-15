@@ -64,22 +64,23 @@ public class ViewCreateNewEmployeeController extends ViewController implements I
             return;
         }
         
-        // Encrypt the password
-        Encryption encryption = new Encryption(getModel().getEncryptionType(), getModel().getEncryptionKey(), getModel().getEncryptionSalt());
-        String encryptedPassword = encryption.encryptData(password);
+        // Encrypt the password (Requires rework of the login check to work)
+        /*Encryption encryption = new Encryption(getModel().getEncryptionType(), getModel().getEncryptionKey(), getModel().getEncryptionSalt());
+        String encryptedPassword = encryption.encryptData(password);*/
         
         DTO employeeDTO = DTO.builder()
                 .withLoginInformation(LoginInformation.builder()
                         .username(username)
-                        .password(encryptedPassword)
+                        .password(password)
                         .build())
                 .withBasicInformation(BasicInformation.builder()
                         .withFirstName(firstName)
                         .withMiddleName("")
                         .withLastName(lastName)
+                        .withName(getModel().getCurrentDepartment().getBasicInformation().getName())
                         .build())
                 .withIDInformation(IDInformation.getBuilder()
-                        .withRoleID(1)
+                        .withRoleID(3)
                         .build())
                 .build();
         

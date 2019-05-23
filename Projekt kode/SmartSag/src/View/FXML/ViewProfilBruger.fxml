@@ -4,7 +4,7 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -24,13 +24,13 @@
         <buttons>
             <Button mnemonicParsing="false" onAction="#mainMenuHandler" prefHeight="43.0" text="Hovedmenu" />
             <Button mnemonicParsing="false" onAction="#profileHandler" prefHeight="43.0" text="Min profil" />
-            <SplitMenuButton mnemonicParsing="false" prefHeight="43.0" text="Mine sager">
+            <MenuButton mnemonicParsing="false" prefHeight="43.0" text="Mine sager">
               <items>
                   <MenuItem mnemonicParsing="false" onAction="#applyHandler" text="Ansøg" />
                 <MenuItem mnemonicParsing="false" onAction="#activeHandler" text="Aktive" />
                 <MenuItem mnemonicParsing="false" onAction="#inactiveHandler" text="Inaktive" />
               </items>
-            </SplitMenuButton>
+            </MenuButton>
           <Button mnemonicParsing="false" onAction="#logoutHandler" prefHeight="43.0" prefWidth="99.0" text="Log ud" />
         </buttons>
       </ButtonBar>

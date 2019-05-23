@@ -35,7 +35,7 @@
             <Image url="file:assets/Placeholder.png" />
          </image>
       </ImageView>
-      <Pane layoutX="433.0" layoutY="173.0" prefHeight="375.0" prefWidth="415.0" style="-fx-background-color: #9e9e9e;">
+      <Pane layoutX="433.0" layoutY="173.0" prefHeight="200.0" prefWidth="415.0" style="-fx-background-color: #9e9e9e;">
          <children>
             <Label layoutX="14.0" layoutY="1.0" text="Oprettelse af ny medarbejder">
                <font>
@@ -54,11 +54,6 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label prefHeight="25.0" prefWidth="93.0" text="Afdeling:">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
                   <Label prefHeight="25.0" prefWidth="61.0" text="Fornavn:">
                      <font>
                         <Font size="14.0" />
@@ -69,54 +64,17 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label prefHeight="25.0" text="Adresse:">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <Label prefHeight="25.0" text="Postnr.:">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <Label prefHeight="25.0" text="By:">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <Label prefHeight="25.0" text="Land:">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <Label prefHeight="25.0" text="Email:">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <Label prefHeight="25.0" text="Telefon:">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
                </children>
             </VBox>
             <VBox layoutX="166.0" layoutY="33.0" prefHeight="277.0" prefWidth="183.0">
                <children>
                   <TextField fx:id="txtUsername" />
                   <TextField fx:id="txtPassword" />
-                  <TextField fx:id="txtDepartments" />
                   <TextField fx:id="txtFirstName" />
                   <TextField fx:id="txtLastName" />
-                  <TextField fx:id="txtAddress" />
-                  <TextField fx:id="txtZipCode" />
-                  <TextField fx:id="txtCity" />
-                  <TextField fx:id="txtCountry" />
-                  <TextField fx:id="txtEmail" />
-                  <TextField fx:id="txtPhoneNumber" />
                </children>
             </VBox>
-            <Button layoutX="154.0" layoutY="329.0" mnemonicParsing="false" onAction="#createHandler" prefWidth="62.0" text="Opret" />
+            <Button layoutX="154.0" layoutY="150.0" mnemonicParsing="false" onAction="#createHandler" prefWidth="62.0" text="Opret" />
          </children>
       </Pane>
    </children>

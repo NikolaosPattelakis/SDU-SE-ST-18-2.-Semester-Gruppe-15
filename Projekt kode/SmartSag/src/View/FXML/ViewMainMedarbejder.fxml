@@ -22,7 +22,7 @@
                 <MenuItem mnemonicParsing="false" text="Inaktive" />
               </items>
             </MenuButton>
-            <Button mnemonicParsing="false" prefHeight="43.0" prefWidth="99.0" text="Log ud" />
+            <Button mnemonicParsing="false" prefHeight="43.0" prefWidth="99.0" text="Log ud" onAction="#logoutHandler" />
          </buttons>
       </ButtonBar>
       <ImageView fitHeight="43.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">

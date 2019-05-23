@@ -94,8 +94,6 @@ public class ResultSetToPojoConverter {
                             withMiddleName(rs.getString("middle_name")).
                             withLastName(rs.getString("last_name")).
                             withGender(rs.getString("gender")).
-                            withEmail(rs.getString("email")).
-                            withPhoneNumber(rs.getString("phone_number")).
                             build()).
                     build();
             return citizen;

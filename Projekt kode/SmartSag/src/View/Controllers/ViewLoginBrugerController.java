@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 
@@ -16,7 +17,7 @@ public class ViewLoginBrugerController extends ViewController implements Initial
     private TextField txtCPR;
     
     @FXML
-    private TextField txtPassword;
+    private PasswordField txtPassword;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

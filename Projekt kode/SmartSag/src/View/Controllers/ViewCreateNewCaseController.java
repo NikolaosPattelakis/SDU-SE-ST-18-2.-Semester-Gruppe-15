@@ -44,10 +44,9 @@ public class ViewCreateNewCaseController extends ViewController implements Initi
         }
         
         String citizenCPR = txtCitizenCPR.getText();
-        String employeeUsername = txtEmployeeUsername.getText();
         
-        if(citizenCPR.isEmpty() || employeeUsername.isEmpty()) {
-            showAlert("Du skal indtaste både et CPR-nummer på borgeren og brugernavn på sagsbehandleren.");
+        if(citizenCPR.isEmpty()) {
+            showAlert("Du skal indtaste et CPR-nummer på den relevante borger.");
             return;
         }
         
@@ -61,7 +60,7 @@ public class ViewCreateNewCaseController extends ViewController implements Initi
         
         DTO caseDTO = DTO.builder()
                 .withLoginInformation(LoginInformation.builder()
-                    .username(employeeUsername)
+                    .username(getModel().getCurrentUser().getLoginInformation().getUsername())
                     .build())
                 .withBasicInformation(BasicInformation.builder()
                         .withCPR(numCPR)

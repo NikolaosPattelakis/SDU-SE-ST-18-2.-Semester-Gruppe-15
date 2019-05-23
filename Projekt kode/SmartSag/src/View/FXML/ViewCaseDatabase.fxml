@@ -44,12 +44,6 @@
             <ListView layoutX="95.0" layoutY="59.0" prefHeight="529.0" prefWidth="853.0" fx:id="listCases" />
             <Button layoutX="400.0" layoutY="601.0" mnemonicParsing="false" onAction="#openHandler" text="Åben valgte sag" />
             <Button layoutX="540.0" layoutY="601.0" mnemonicParsing="false" onAction="#statusChangeHandler" text="Ændrer sagsstatus" />
-            <MenuButton layoutX="871.0" layoutY="28.0" mnemonicParsing="false" text="Afdeling">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-                <MenuItem mnemonicParsing="false" text="Action 2" />
-              </items>
-            </MenuButton>
          </children>
       </Pane>
    </children>
