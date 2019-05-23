@@ -35,7 +35,7 @@
             <Image url="file:assets/Placeholder.png" />
          </image>
       </ImageView>
-      <Pane layoutX="433.0" layoutY="173.0" prefHeight="200.0" prefWidth="415.0" style="-fx-background-color: #9e9e9e;">
+      <Pane layoutX="433.0" layoutY="173.0" prefHeight="220.0" prefWidth="415.0" style="-fx-background-color: #9e9e9e;">
          <children>
             <Label layoutX="14.0" layoutY="1.0" text="Oprettelse af ny medarbejder">
                <font>
@@ -59,7 +59,17 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
+                  <Label prefHeight="25.0" text="Mellemnavn:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
                   <Label prefHeight="25.0" text="Efternavn:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="25.0" text="Rolle ID:">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -71,10 +81,12 @@
                   <TextField fx:id="txtUsername" />
                   <TextField fx:id="txtPassword" />
                   <TextField fx:id="txtFirstName" />
+                  <TextField fx:id="txtMiddleName" />
                   <TextField fx:id="txtLastName" />
+                  <TextField fx:id="txtRoleID" />
                </children>
             </VBox>
-            <Button layoutX="154.0" layoutY="150.0" mnemonicParsing="false" onAction="#createHandler" prefWidth="62.0" text="Opret" />
+            <Button layoutX="154.0" layoutY="190.0" mnemonicParsing="false" onAction="#createHandler" prefWidth="62.0" text="Opret" />
          </children>
       </Pane>
    </children>

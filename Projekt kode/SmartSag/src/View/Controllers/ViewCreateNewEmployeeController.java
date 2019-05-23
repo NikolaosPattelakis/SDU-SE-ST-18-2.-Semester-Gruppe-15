@@ -35,7 +35,13 @@ public class ViewCreateNewEmployeeController extends ViewController implements I
     private TextField txtFirstName;
     
     @FXML
+    private TextField txtMiddleName;
+    
+    @FXML
     private TextField txtLastName;
+    
+    @FXML
+    private TextField txtRoleID;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -57,10 +63,20 @@ public class ViewCreateNewEmployeeController extends ViewController implements I
         String username = txtUsername.getText();
         String password = txtPassword.getText();
         String firstName = txtFirstName.getText();
+        String middleName = txtMiddleName.getText();
         String lastName = txtLastName.getText();
+        String roleID = txtRoleID.getText();
         
-        if(username.isEmpty() || password.isEmpty() || firstName.isEmpty() || lastName.isEmpty()) {
-            showAlert("Du skal indtaste et brugernavn, kodeord, fornavn og efternavn på medarbejderen.");
+        if(username.isEmpty() || password.isEmpty() || firstName.isEmpty() || middleName.isEmpty() || lastName.isEmpty() || roleID.isEmpty()) {
+            showAlert("Du skal indtaste værdier i alle felterne.");
+            return;
+        }
+        
+        int numRoleID = 0;
+        try {
+            numRoleID = Integer.valueOf(roleID);
+        } catch(Exception ex) {
+            showAlert("Rolle ID'et skal være et tal!");
             return;
         }
         
@@ -75,12 +91,12 @@ public class ViewCreateNewEmployeeController extends ViewController implements I
                         .build())
                 .withBasicInformation(BasicInformation.builder()
                         .withFirstName(firstName)
-                        .withMiddleName("")
+                        .withMiddleName(middleName)
                         .withLastName(lastName)
                         .withName(getModel().getCurrentDepartment().getBasicInformation().getName())
                         .build())
                 .withIDInformation(IDInformation.getBuilder()
-                        .withRoleID(3)
+                        .withRoleID(numRoleID)
                         .build())
                 .build();
         
