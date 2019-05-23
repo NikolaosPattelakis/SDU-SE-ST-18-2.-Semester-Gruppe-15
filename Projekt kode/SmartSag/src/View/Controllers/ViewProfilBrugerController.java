@@ -6,6 +6,7 @@
 package View.Controllers;
 
 import DTO.BasicInformation;
+import DTO.enums.Gender;
 import static View.Controllers.ViewController.guiManager;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -22,7 +23,16 @@ import javafx.scene.control.TextField;
 public class ViewProfilBrugerController extends ViewController implements Initializable {
     
     @FXML
+    private TextField txtCPR;
+    
+    @FXML
+    private TextField txtGender;
+    
+    @FXML
     private TextField txtFirstName;
+    
+    @FXML
+    private TextField txtMiddleName;
     
     @FXML
     private TextField txtLastName;
@@ -39,12 +49,6 @@ public class ViewProfilBrugerController extends ViewController implements Initia
     @FXML
     private TextField txtCountry;
     
-    @FXML
-    private TextField txtEmail;
-    
-    @FXML
-    private TextField txtPhoneNumber;
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -53,10 +57,12 @@ public class ViewProfilBrugerController extends ViewController implements Initia
     @Override
     public void onViewInit() {
         BasicInformation info = getModel().getCurrentUser().getBasicInformation();
+        
+        txtCPR.setText(String.valueOf(info.getCPR()));
+        txtGender.setText((info.getGender() == Gender.male) ? "Mand" : "Kvinde");
         txtFirstName.setText(info.getFirstName());
+        txtMiddleName.setText(info.getMiddleName());
         txtLastName.setText(info.getLastName());
-        txtEmail.setText(info.getEmail());
-        txtPhoneNumber.setText(info.getPhoneNumber());
     }
     
     @FXML
