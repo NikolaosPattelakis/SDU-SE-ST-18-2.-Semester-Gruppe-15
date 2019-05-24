@@ -5,12 +5,12 @@
  */
 package Model;
 
-import DTO.enums.DTOType;
-import DTO.BasicInformation;
-import DTO.LoginInformation;
-import DTO.DTO;
-import DTO.IDInformation;
-import DTO.PermissionsInformation;
+import smartsag.DTO.enums.DTOType;
+import Smartsag.DTO.BasicInformation;
+import Smartsag.DTO.LoginInformation;
+import Smartsag.DTO.DTO;
+import Smartsag.DTO.IDInformation;
+import Smartsag.DTO.PermissionsInformation;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
