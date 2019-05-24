@@ -12,8 +12,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author Lupo
+ * Class that handles the creation and maintenance of a connection to a database
+ * 
  */
 public class DatabaseConnector {
 
@@ -25,6 +25,13 @@ public class DatabaseConnector {
         return connection;
     }
     
+    /**
+     * Creates and sets an sql-database connection to a specific database, based on the given parameters.
+     * @param url
+     * @param user
+     * @param password
+     * @param driver 
+     */
     public static void initConnection(String url, String user, String password, String driver) {
         try {
             Class.forName(driver).newInstance();
@@ -37,6 +44,9 @@ public class DatabaseConnector {
         }
     }
     
+    /**
+     * Closes the established database connection.
+     */
     public static void closeConnection(){
         try {
             connection.close();

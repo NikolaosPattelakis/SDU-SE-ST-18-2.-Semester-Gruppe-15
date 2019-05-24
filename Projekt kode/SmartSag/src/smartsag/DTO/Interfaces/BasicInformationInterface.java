@@ -1,16 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package smartsag.DTO.Interfaces;
 
 import smartsag.DTO.enums.Gender;
-import smartsag.DTO.enums.Gender;
 
 /**
- *
- * @author Lupo
+ * 
+ * Interface holding the methods for getting and setting basic information.
  */
 public interface BasicInformationInterface {
     

@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Model.DAO.Interfaces;
-
 /**
- *
- * @author Lupo
+ * 
+ * An interface with the delete method that can be used by a DAO.
  */
 public interface DeleteInterface {
     

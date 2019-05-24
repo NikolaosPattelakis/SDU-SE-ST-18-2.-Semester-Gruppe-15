@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Model;
 
 import smartsag.DTO.enums.DTOType;
@@ -20,66 +16,83 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author Lupo
+ * Class that handles the conversion from sql result sets to specified DTOs. 
+ * 
  */
-public class ResultSetToPojoConverter {
+public class ResultSetToDTOConverter {
 
+    /**
+     * Given a resultset with multiple entries, returns a list with specific types of DTO based on input.
+     * @param type
+     * @param rs
+     * @return 
+     */
     public static List<DTO> getDTOList(DTOType type, ResultSet rs) {
-        List<DTO> pojoList = new ArrayList<>();
+        List<DTO> DTOList = new ArrayList<>();
 
         try {
             while (rs.next()) {
                 switch (type) {
                     case CITIZEN:
-                        pojoList.add(ResultSetToPojoConverter.resultSetToCitizen(rs));
+                        DTOList.add(ResultSetToDTOConverter.resultSetToCitizen(rs));
                         break;
                     case CASE:
-                        pojoList.add(ResultSetToPojoConverter.resultSetToCase(rs));
+                        DTOList.add(ResultSetToDTOConverter.resultSetToCase(rs));
                         break;
                     case EMPLOYEE:
-                        pojoList.add(ResultSetToPojoConverter.resultSetToEmployee(rs));
+                        DTOList.add(ResultSetToDTOConverter.resultSetToEmployee(rs));
                         break;
                     case DEPARTMENT:
-                        pojoList.add(ResultSetToPojoConverter.resultSetToDepartment(rs));
+                        DTOList.add(ResultSetToDTOConverter.resultSetToDepartment(rs));
                         break;
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ResultSetToPojoConverter.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ResultSetToDTOConverter.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return pojoList;
+        return DTOList;
     }
 
+    /**
+     * Given a resultset with a single entry, returns a DTO with specific type based on input.
+     * @param type
+     * @param rs
+     * @return 
+     */
     public static DTO getDTO(DTOType type, ResultSet rs) {
         DTO dto = DTO.builder().build();
         try {
             if (rs.next()) {
                 switch (type) {
                     case CITIZEN:
-                        dto = ResultSetToPojoConverter.resultSetToCitizen(rs);
+                        dto = ResultSetToDTOConverter.resultSetToCitizen(rs);
                         break;
                     case CASE:
-                        dto = ResultSetToPojoConverter.resultSetToCase(rs);
+                        dto = ResultSetToDTOConverter.resultSetToCase(rs);
                         break;
                     case EMPLOYEE:
-                        dto = ResultSetToPojoConverter.resultSetToEmployee(rs);
+                        dto = ResultSetToDTOConverter.resultSetToEmployee(rs);
                         break;
                     case DEPARTMENT:
-                        dto = ResultSetToPojoConverter.resultSetToDepartment(rs);
+                        dto = ResultSetToDTOConverter.resultSetToDepartment(rs);
                         break;
                     case ROLE:
-                        dto = ResultSetToPojoConverter.resultSetToRole(rs);
+                        dto = ResultSetToDTOConverter.resultSetToRole(rs);
                         break;
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ResultSetToPojoConverter.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ResultSetToDTOConverter.class.getName()).log(Level.SEVERE, null, ex);
         }
         return dto;
     }
 
+    /**
+     * Converts a result set to a DTO of type "citizen"
+     * @param rs
+     * @return 
+     */
     private static DTO resultSetToCitizen(ResultSet rs) {
         try {
 
@@ -98,11 +111,16 @@ public class ResultSetToPojoConverter {
                     build();
             return citizen;
         } catch (SQLException ex) {
-            Logger.getLogger(ResultSetToPojoConverter.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ResultSetToDTOConverter.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
+    /**
+     * * Converts a result set to a DTO of type "employee"
+     * @param rs
+     * @return 
+     */
     private static DTO resultSetToEmployee(ResultSet rs) {
         try {
             DTO employee = DTO.builder().
@@ -122,11 +140,16 @@ public class ResultSetToPojoConverter {
                     build();
             return employee;
         } catch (SQLException ex) {
-            Logger.getLogger(ResultSetToPojoConverter.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ResultSetToDTOConverter.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
+    /**
+     * * Converts a result set to a DTO of type "department"
+     * @param rs
+     * @return 
+     */
     private static DTO resultSetToDepartment(ResultSet rs) {
         try {
             DTO department = DTO.builder().
@@ -139,11 +162,16 @@ public class ResultSetToPojoConverter {
                     build();
             return department;
         } catch (SQLException ex) {
-            Logger.getLogger(ResultSetToPojoConverter.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ResultSetToDTOConverter.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
+    /**
+     * * Converts a result set to a DTO of type "role"
+     * @param rs
+     * @return 
+     */
     private static DTO resultSetToRole(ResultSet rs) {
         try {
             DTO role = DTO.builder().
@@ -175,11 +203,16 @@ public class ResultSetToPojoConverter {
                     build();
             return role;
         } catch (SQLException ex) {
-            Logger.getLogger(ResultSetToPojoConverter.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ResultSetToDTOConverter.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
+    /**
+     * * Converts a result set to a DTO of type "case"
+     * @param rs
+     * @return 
+     */
     private static DTO resultSetToCase(ResultSet rs) {
         try {
             DTO caseDTO = DTO.builder().
@@ -194,7 +227,7 @@ public class ResultSetToPojoConverter {
                     build();
             return caseDTO;
         } catch (SQLException ex) {
-            Logger.getLogger(ResultSetToPojoConverter.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ResultSetToDTOConverter.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Model;
 
 import java.sql.CallableStatement;
@@ -15,10 +10,16 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Lupo
+ * Class that handles the execution of various types of statements that will interact with a database.
  */
 public class StatementController {
 
+    /**
+     * Executes a statement with no query input.
+     * @param connection
+     * @param query
+     * @return ResultSet 
+     */
     public ResultSet executeStatementWithNoInput(Connection connection, String query) {
 
         try {
@@ -31,6 +32,13 @@ public class StatementController {
         return null;
     }
 
+    /**
+     * Executes a statement with a single query input.
+     * @param connection
+     * @param query
+     * @param input
+     * @return 
+     */
     public ResultSet executeStatementWithSingleInput(Connection connection, String query, String input) {
         try {
             CallableStatement statement = connection.prepareCall(query);
@@ -43,6 +51,14 @@ public class StatementController {
         return null;
     }
 
+    
+    /**
+     * Executes a statement with multiple query inputs.
+     * @param connection
+     * @param query
+     * @param input
+     * @return 
+     */
     public ResultSet executeStatementWithMultipleInputs(Connection connection, String query, List<String> input) {
         try {
             CallableStatement statement = connection.prepareCall(query);

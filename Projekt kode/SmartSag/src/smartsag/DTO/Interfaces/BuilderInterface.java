@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package smartsag.DTO.Interfaces;
 
 /**
  *
- * @author Lupo
+ * Generic type interface holding the build method.
+ * Implementing class will be of generic type and will return itself upon "build".
  */
 public interface BuilderInterface<O> {
     public O build();

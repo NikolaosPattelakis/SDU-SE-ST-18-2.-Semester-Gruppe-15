@@ -1,15 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Model.DAO;
 
 import Model.DAO.Interfaces.LoginInterface;
 import Model.Persistence;
 import Model.DAO.Interfaces.ReadInterface;
 import Smartsag.DTO.DTO;
-import Model.ResultSetToPojoConverter;
+import Model.ResultSetToDTOConverter;
 import Model.StatementController;
 import smartsag.DTO.enums.DTOType;
 import java.sql.ResultSet;
@@ -18,39 +13,49 @@ import java.util.List;
 
 /**
  *
- * @author Lupo
+* Data Access Object that handles the CRUD operations of a Data Transfer Object of type "Citizen"
  */
 public final class CitizenDAO implements ReadInterface, LoginInterface {
 
-    private final Persistence model;
+    private final Persistence persistence;
 
-    public CitizenDAO(Persistence model) {
-        this.model = model;
+    public CitizenDAO(Persistence persistence) {
+        this.persistence = persistence;
     }
 
+    /**
+     * Reads a specific citizen from the database.
+     * @param cpr
+     * @return 
+     */
     @Override
     public DTO read(String cpr) {
-        String getCitizenQuery = model.getQuery("getCitizen");
+        String getCitizenQuery = persistence.getQuery("getCitizen");
         StatementController statementController = new StatementController();
-        ResultSet resultSet = statementController.executeStatementWithSingleInput(model.getConnection(), getCitizenQuery, cpr);
-        DTO citizen = ResultSetToPojoConverter.getDTO(DTOType.CITIZEN, resultSet);
+        ResultSet resultSet = statementController.executeStatementWithSingleInput(persistence.getConnection(), getCitizenQuery, cpr);
+        DTO citizen = ResultSetToDTOConverter.getDTO(DTOType.CITIZEN, resultSet);
         return citizen;
     }
 
+    /**
+     * Sets up a specific citizen as the current user via a username and a password.
+     * @param username
+     * @param password 
+     */
     @Override
     public void login(String username, String password) {
-        String loginCitizenQuery = model.getQuery("loginCitizen");
+        String loginCitizenQuery = persistence.getQuery("loginCitizen");
         StatementController statementController = new StatementController();
         List<String> input = new ArrayList<>();
         input.add(username);
         input.add(password);
-        ResultSet resultSet = statementController.executeStatementWithMultipleInputs(this.model.getConnection(), loginCitizenQuery, input);
+        ResultSet resultSet = statementController.executeStatementWithMultipleInputs(this.persistence.getConnection(), loginCitizenQuery, input);
 
-        DTO currentUser = ResultSetToPojoConverter.getDTO(DTOType.CITIZEN, resultSet);
-        this.model.setCurrentUser(currentUser);
+        DTO currentUser = ResultSetToDTOConverter.getDTO(DTOType.CITIZEN, resultSet);
+        this.persistence.setCurrentUser(currentUser);
         
         if(currentUser.getIDInformation() != null) {
-            this.model.setCurrentUserID(currentUser.getIDInformation().getCitizenID());
+            this.persistence.setCurrentUserID(currentUser.getIDInformation().getCitizenID());
         }
     }
 }

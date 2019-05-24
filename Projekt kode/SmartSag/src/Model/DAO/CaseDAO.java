@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Model.DAO;
 
 import Model.DAO.Interfaces.CreateInterface;
@@ -13,7 +9,7 @@ import Model.DAO.Interfaces.UpdateInterface;
 import Smartsag.DTO.DTO;
 import smartsag.DTO.enums.DTOType;
 import Model.Persistence;
-import Model.ResultSetToPojoConverter;
+import Model.ResultSetToDTOConverter;
 import Model.StatementController;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -21,7 +17,7 @@ import java.util.List;
 
 /**
  *
- * @author Lupo
+ * Data Access Object that handles the CRUD operations of a Data Transfer Object of type "Case"
  */
 public class CaseDAO implements
         CreateInterface,
@@ -30,66 +26,92 @@ public class CaseDAO implements
         UpdateInterface,
         DeleteInterface {
 
-    Persistence model;
+    Persistence persistence;
 
-    public CaseDAO(Persistence model) {
-        this.model = model;
+    public CaseDAO(Persistence persistence) {
+        this.persistence = persistence;
     }
 
+    /**
+     * Creates a new case at the database.
+     * @param newCase 
+     */
     @Override
     public void create(DTO newCase) {
-        String createCasyQuery = model.getQuery("createCase");
+        String createCasyQuery = persistence.getQuery("createCase");
         StatementController statementController = new StatementController();
         List<String> parameterList = this.getParameters(newCase);
-        statementController.executeStatementWithMultipleInputs(model.getConnection(), createCasyQuery, parameterList);
+        statementController.executeStatementWithMultipleInputs(persistence.getConnection(), createCasyQuery, parameterList);
     }
 
+    /**
+     * Deletes a case at the database.
+     * @param deleteID 
+     */
     @Override
     public void delete(String deleteID) {
-        String deleteCaseID = model.getQuery("deleteCase");
+        String deleteCaseID = persistence.getQuery("deleteCase");
         StatementController statementController = new StatementController();
-        statementController.executeStatementWithSingleInput(model.getConnection(), deleteCaseID, deleteID);
+        statementController.executeStatementWithSingleInput(persistence.getConnection(), deleteCaseID, deleteID);
     }
 
+    /**
+     * Reads a single specific case from the database.
+     * @param caseID
+     * @return 
+     */
     @Override
     public DTO read(String caseID) {
         DTO caseToRead;
-        String getCaseQuery = model.getQuery("getCase");
+        String getCaseQuery = persistence.getQuery("getCase");
         StatementController statementController = new StatementController();
         List<String> input = new ArrayList<>();
         input.add(caseID);
-        input.add(Integer.toString(this.model.getCurrentUserID()));
-        input.add(Integer.toString(this.model.getCurrentDepartment().getIDInformation().getDepartmentID()));
-        ResultSet resultSet = statementController.executeStatementWithMultipleInputs(model.getConnection(), getCaseQuery, input);
-        caseToRead = ResultSetToPojoConverter.getDTO(DTOType.CASE, resultSet);
+        input.add(Integer.toString(this.persistence.getCurrentUserID()));
+        input.add(Integer.toString(this.persistence.getCurrentDepartment().getIDInformation().getDepartmentID()));
+        ResultSet resultSet = statementController.executeStatementWithMultipleInputs(persistence.getConnection(), getCaseQuery, input);
+        caseToRead = ResultSetToDTOConverter.getDTO(DTOType.CASE, resultSet);
         return caseToRead;
     }
 
+    /**
+     * Returns a list of cases from the database.
+     * @return 
+     */
     @Override
     public List<DTO> readAll() {
         List<DTO> caseList;
-        String getAllCases = model.getQuery("getAllCases");
+        String getAllCases = persistence.getQuery("getAllCases");
         StatementController statementController = new StatementController();
         List<String> input = new ArrayList<>();
-        input.add(Integer.toString(this.model.getCurrentUserID()));
-        input.add(Integer.toString(this.model.getCurrentDepartment().getIDInformation().getDepartmentID()));
-        ResultSet resultSet = statementController.executeStatementWithMultipleInputs(model.getConnection(), getAllCases, input);
-        caseList = ResultSetToPojoConverter.getDTOList(DTOType.CASE, resultSet);
+        input.add(Integer.toString(this.persistence.getCurrentUserID()));
+        input.add(Integer.toString(this.persistence.getCurrentDepartment().getIDInformation().getDepartmentID()));
+        ResultSet resultSet = statementController.executeStatementWithMultipleInputs(persistence.getConnection(), getAllCases, input);
+        caseList = ResultSetToDTOConverter.getDTOList(DTOType.CASE, resultSet);
         return caseList;
     }
 
+    /**
+     * Updates a case at the database.
+     * @param toUpdate 
+     */
     @Override
     public void update(DTO toUpdate) {
-        String updateCaseQuery = model.getQuery("updateCase");
+        String updateCaseQuery = persistence.getQuery("updateCase");
         StatementController statementController = new StatementController();
         List<String> input = new ArrayList<>();
         input.add(Integer.toString(toUpdate.getIDInformation().getID()));
         input.add(Integer.toString(toUpdate.getIDInformation().getEmployeeID()));
         input.add(Integer.toString(toUpdate.getIDInformation().getDepartmentID()));
         input.add(toUpdate.getCaseStatus().toString());
-        statementController.executeStatementWithMultipleInputs(model.getConnection(), updateCaseQuery, input);
+        statementController.executeStatementWithMultipleInputs(persistence.getConnection(), updateCaseQuery, input);
     }
 
+    /**
+     * Takes the parameters of the DTO and sets them as Strings in a list. 
+     * @param caseDTO
+     * @return 
+     */
     private List<String> getParameters(DTO caseDTO) {
         List<String> parameters = new ArrayList<>();
         parameters.add(Integer.toString(caseDTO.getBasicInformation().getCPR()));

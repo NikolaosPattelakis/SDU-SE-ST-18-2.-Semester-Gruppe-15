@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Model.DAO;
 
 import Model.Persistence;
@@ -12,7 +7,7 @@ import Model.DAO.Interfaces.DeleteInterface;
 import Model.DAO.Interfaces.LoginInterface;
 import Model.DAO.Interfaces.ReadInterface;
 import Smartsag.DTO.DTO;
-import Model.ResultSetToPojoConverter;
+import Model.ResultSetToDTOConverter;
 import Model.StatementController;
 import smartsag.DTO.enums.DTOType;
 import java.sql.ResultSet;
@@ -21,51 +16,74 @@ import java.util.List;
 
 /**
  *
- * @author Lupo
+ * Data Access Object that handles the CRUD operations of a Data Transfer Object of type "Employee"
+ * 
  */
 public final class EmployeeDAO implements ReadInterface, CreateInterface, DeleteInterface, UpdateInterface, LoginInterface {
 
-    Persistence model;
+    Persistence persistence;
 
-    public EmployeeDAO(Persistence model) {
-        this.model = model;
+    public EmployeeDAO(Persistence persistence) {
+        this.persistence = persistence;
     }
 
+    /**
+     * Reads a specific employee from the database.
+     * @param username
+     * @return 
+     */
     @Override
     public DTO read(String username) {
-        String getCitizenQuery = model.getQuery("getEmployee");
+        String getCitizenQuery = persistence.getQuery("getEmployee");
         StatementController statementController = new StatementController();
-        ResultSet resultSet = statementController.executeStatementWithSingleInput(model.getConnection(), getCitizenQuery, username);
-        DTO employee = ResultSetToPojoConverter.getDTO(DTOType.CITIZEN, resultSet);
+        ResultSet resultSet = statementController.executeStatementWithSingleInput(persistence.getConnection(), getCitizenQuery, username);
+        DTO employee = ResultSetToDTOConverter.getDTO(DTOType.CITIZEN, resultSet);
         return employee;
     }
 
+    /**
+     * Creates an employee at the database.
+     * @param objectToSave 
+     */
     @Override
     public void create(DTO objectToSave) {
-        String createEmployee = model.getQuery("createEmployee");
+        String createEmployee = persistence.getQuery("createEmployee");
         StatementController statementController = new StatementController();
         List<String> inputs = getParameters(objectToSave);
-        statementController.executeStatementWithMultipleInputs(model.getConnection(), createEmployee, inputs);
+        statementController.executeStatementWithMultipleInputs(persistence.getConnection(), createEmployee, inputs);
     }
 
+    /**
+     * Deletes a specific employee based on its ID at the database.
+     * @param employeeID 
+     */
     @Override
     public void delete(String employeeID) {
-        String deleteEmployee = model.getQuery("deleteEmployee");
+        String deleteEmployee = persistence.getQuery("deleteEmployee");
         StatementController statementController = new StatementController();
-        statementController.executeStatementWithSingleInput(model.getConnection(), deleteEmployee, employeeID);
+        statementController.executeStatementWithSingleInput(persistence.getConnection(), deleteEmployee, employeeID);
     }
 
+    /**
+     * Updates a specific employee at the database.
+     * @param toUpdate 
+     */
     @Override
     public void update(DTO toUpdate) {
         {
-            String createEmployee = model.getQuery("updateEmployee");
+            String createEmployee = persistence.getQuery("updateEmployee");
             StatementController statementController = new StatementController();
             List<String> inputs = getParameters(toUpdate);
             inputs.add(Integer.toString(toUpdate.getIDInformation().getEmployeeID()));
-            statementController.executeStatementWithMultipleInputs(model.getConnection(), createEmployee, inputs);
+            statementController.executeStatementWithMultipleInputs(persistence.getConnection(), createEmployee, inputs);
         }
     }
 
+    /**
+     * Takes the parameters of the DTO and sets them as Strings in a list.
+     * @param employee
+     * @return 
+     */
     private List<String> getParameters(DTO employee) {
         List<String> parameters = new ArrayList<>();
         parameters.add(employee.getLoginInformation().getUsername());
@@ -78,28 +96,33 @@ public final class EmployeeDAO implements ReadInterface, CreateInterface, Delete
         return parameters;
     }
 
+    /**
+     * Sets up a specific employee as the current user via a username and a password.
+     * @param username
+     * @param password 
+     */
     @Override
     public void login(String username, String password) {
 
-        String loginEmployeeQuery = model.getQuery("loginEmployee");
+        String loginEmployeeQuery = persistence.getQuery("loginEmployee");
         StatementController statementController = new StatementController();
         List<String> input = new ArrayList<>();
         input.add(username);
         input.add(password);
-        input.add(this.model.getCurrentDepartment().getBasicInformation().getName());
-        ResultSet resultSet = statementController.executeStatementWithMultipleInputs(this.model.getConnection(), loginEmployeeQuery, input);
+        input.add(this.persistence.getCurrentDepartment().getBasicInformation().getName());
+        ResultSet resultSet = statementController.executeStatementWithMultipleInputs(this.persistence.getConnection(), loginEmployeeQuery, input);
 
-        DTO currentUser = ResultSetToPojoConverter.getDTO(DTOType.EMPLOYEE, resultSet);
-        this.model.setCurrentUser(currentUser);
+        DTO currentUser = ResultSetToDTOConverter.getDTO(DTOType.EMPLOYEE, resultSet);
+        this.persistence.setCurrentUser(currentUser);
 
-        if(currentUser.getIDInformation() != null) {
+        if (currentUser.getIDInformation() != null) {
             // Login successful, now set the user ID and retrieve the employee's role
-            this.model.setCurrentUserID(currentUser.getIDInformation().getEmployeeID());
-            
-            RoleDAO roleDAO = new RoleDAO(model);
+            this.persistence.setCurrentUserID(currentUser.getIDInformation().getEmployeeID());
+
+            RoleDAO roleDAO = new RoleDAO(persistence);
             DTO role = roleDAO.read(String.valueOf(currentUser.getIDInformation().getRoleID()));
-            
-            this.model.setCurrentRole(role);
+
+            this.persistence.setCurrentRole(role);
         }
     }
 }

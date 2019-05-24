@@ -20,12 +20,23 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec; 
 import javax.crypto.spec.SecretKeySpec; 
 
+/**
+ * 
+ * Class that initiates and handles encryption.
+ * To be used in encrypting and decrypting data to and from the database.
+ */
 public class Encryption { 
  
     private Cipher cipher; 
     private Key key; 
     private IvParameterSpec ivSpec; 
  
+    /**
+     * Creates an encryption object with a specific type of encryption, a key and a salt for hashing.
+     * @param encryptionType
+     * @param encryptionKey
+     * @param salt 
+     */
     public Encryption(String encryptionType, String encryptionKey, String salt) { 
         this.initParameterSpec(); 
         try { 
@@ -33,15 +44,24 @@ public class Encryption {
         } catch (NoSuchAlgorithmException | NoSuchPaddingException ex) { 
             Logger.getLogger(Encryption.class.getName()).log(Level.SEVERE, null, ex); 
         } 
-        this.key = this.generateKey(encryptionKey, encryptionType, salt); 
+        this.key = this.generateKey(encryptionKey, salt); 
     } 
      
+    /**
+     * Initiates parameter spec to be used in the secret key.
+     */
     private void initParameterSpec(){ 
         byte[] ivByteArray = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; 
         this.ivSpec = new IvParameterSpec(ivByteArray); 
     } 
  
-    private Key generateKey(String encryptionKey, String encryptionType, String salt) { 
+    /**
+     * Generates a key based on inputs.
+     * @param encryptionKey
+     * @param salt
+     * @return 
+     */
+    private Key generateKey(String encryptionKey,String salt) { 
         SecretKeySpec generatedKey = null; 
         try { 
             SecretKeyFactory factory; 
@@ -57,6 +77,11 @@ public class Encryption {
         return generatedKey; 
     } 
  
+    /**
+     * Given a String, encrypt it and return the encrypted version.
+     * @param data
+     * @return 
+     */
     public String encryptData(String data) { 
         String encryptedValue = null; 
         try { 
@@ -70,6 +95,11 @@ public class Encryption {
         return encryptedValue; 
     } 
  
+    /**
+     * Given an encrypted String, decrypt it and return the decrypted version.
+     * @param data
+     * @return 
+     */
     public String decryptData(String data) { 
         String decryptedValue = null; 
         try { 

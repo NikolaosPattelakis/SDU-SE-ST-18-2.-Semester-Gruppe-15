@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Model.DAO;
 
 import Model.DAO.Interfaces.CreateInterface;
@@ -13,7 +8,7 @@ import Model.DAO.Interfaces.UpdateInterface;
 import Smartsag.DTO.DTO;
 import smartsag.DTO.enums.DTOType;
 import Model.Persistence;
-import Model.ResultSetToPojoConverter;
+import Model.ResultSetToDTOConverter;
 import Model.StatementController;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -21,7 +16,7 @@ import java.util.List;
 
 /**
  *
- * @author Lupo
+ * Data Access Object that handles the CRUD operations of a Data Transfer Object of type "Role"
  */
 public class RoleDAO implements
         CreateInterface,
@@ -36,6 +31,10 @@ public class RoleDAO implements
         this.model = model;
     }
 
+    /**
+     * Creates a new role at the database.
+     * @param newRole 
+     */
     @Override
     public void create(DTO newRole) {
         String createRoleQuery = model.getQuery("createRole");
@@ -44,6 +43,10 @@ public class RoleDAO implements
         statementController.executeStatementWithMultipleInputs(model.getConnection(), createRoleQuery, parameterList);
     }
 
+    /**
+     * Deletes a specific role based on id at the database.
+     * @param deleteID 
+     */
     @Override
     public void delete(String deleteID) {
         String deleteRoleQuery = model.getQuery("deleteRole");
@@ -51,26 +54,39 @@ public class RoleDAO implements
         statementController.executeStatementWithSingleInput(model.getConnection(), deleteRoleQuery, deleteID);
     }
 
+    /**
+     * Reads a specific role based on id from the database.
+     * @param roleID
+     * @return 
+     */
     @Override
     public DTO read(String roleID) {
         DTO role;
         String getRoleQuery = model.getQuery("getRole");
         StatementController statementController = new StatementController();
         ResultSet resultSet = statementController.executeStatementWithSingleInput(model.getConnection(), getRoleQuery, roleID);
-        role = ResultSetToPojoConverter.getDTO(DTOType.ROLE, resultSet);
+        role = ResultSetToDTOConverter.getDTO(DTOType.ROLE, resultSet);
         return role;
     }
 
+    /**
+     * Reads all roles from the database.
+     * @return 
+     */
     @Override
     public List<DTO> readAll() {
         List<DTO> roleList;
         String getAllRolesQuery = model.getQuery("getAllRoles");
         StatementController statementController = new StatementController();
         ResultSet resultSet = statementController.executeStatementWithNoInput(model.getConnection(), getAllRolesQuery);
-        roleList = ResultSetToPojoConverter.getDTOList(DTOType.ROLE, resultSet);
+        roleList = ResultSetToDTOConverter.getDTOList(DTOType.ROLE, resultSet);
         return roleList;
     }
 
+    /**
+     * Updates a specific role at the database.
+     * @param toUpdate 
+     */
     @Override
     public void update(DTO toUpdate) {
         String updateRoleQuery = model.getQuery("updateRole");
@@ -80,6 +96,11 @@ public class RoleDAO implements
         statementController.executeStatementWithMultipleInputs(model.getConnection(), updateRoleQuery, parameterList);
     }
 
+    /**
+     * Takes the parameters of the DTO and sets them as Strings in a list.
+     * @param role
+     * @return 
+     */
     private List<String> getParameters(DTO role) {
         List<String> parameters = new ArrayList<>();
         parameters.add(role.getBasicInformation().getName());

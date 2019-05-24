@@ -7,7 +7,6 @@ package Model;
 
 import Model.DAO.DepartmentDAO;
 import Smartsag.DTO.DTO;
-import Model.DatabaseConnector;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -19,11 +18,13 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
- *
- * @author Lupo
+ * Class that initiates and handles persistent data required by the program. 
+ * 
+ * 
  */
 public class Persistence {
     
+    //Filepaths for files where configuration and information needed for the initial program setup are saved.
     private final String databasePropertiesFilepath = "data/database.properties";
     private final String storedProceduresFilepath = "data/storedProcedures.properties";
     private final String configFilepath = "data/config.properties";
@@ -31,7 +32,10 @@ public class Persistence {
     
     private static Connection connection;
     
+    //Map containing the stored procedures of the database to be used.
     private final HashMap<String, String> storedProcedures;
+    
+    
     private String encryptionType; 
     private String encryptionKey; 
     private String encryptionSalt; 
@@ -50,6 +54,9 @@ public class Persistence {
         this.initEncryptionMode();
     }
     
+    /**
+     * Gets department id from file and sets up the current department.
+     */
     private void initCurrentDepartment(){
         Properties properties = new Properties();
         String departmentID;
@@ -59,11 +66,14 @@ public class Persistence {
         } catch(IOException ex){
             Logger.getLogger(Persistence.class.getName()).log(Level.SEVERE, null, ex);
         }
-        departmentID = properties.getProperty("id");
+        departmentID = properties.getProperty("departmentID");
         this.setCurrentDepartment(new DepartmentDAO(this).read(departmentID));
         this.setCurrentDepartmentID(Integer.valueOf(departmentID));
     }
 
+    /**
+     * Gets specific information required for setting up a sql-database connection and sets it up.
+     */
     private void initConnection() {
         
         Properties properties = new Properties();
@@ -87,6 +97,11 @@ public class Persistence {
         connection = DatabaseConnector.getConnection();
     }
 
+    /**
+     * Gets the calls of stored procedures in string form from file and saves it into a map for quick access. 
+     * These stored procedures will be used to interact with the database.
+     * 
+     */
     private void initStoredProcedures() {
         Properties properties = new Properties();
         FileInputStream fileInputStream;
@@ -105,6 +120,9 @@ public class Persistence {
                         )));
     }
     
+    /**
+     * Sets encryption variables from file.
+     */
     private void initEncryptionMode(){ 
          
         Properties properties = new Properties(); 
@@ -120,10 +138,19 @@ public class Persistence {
         this.encryptionSalt = properties.getProperty("salt"); 
     } 
     
+    /**
+     * Returns the persistent connection.
+     * @return 
+     */
     public Connection getConnection(){
         return connection;
     }
     
+    /**
+     * Returns a specific stored procedure persistent in map, based on input.
+     * @param input
+     * @return 
+     */
     public String getQuery(String input){
         return this.storedProcedures.get(input);
     }
@@ -170,18 +197,34 @@ public class Persistence {
         this.currentUserID = currentUserID;
     }
 
+    /**
+     * 
+     * @return the current department ID 
+     */
     public int getCurrentDepartmentID() {
         return currentDepartmentID;
     }
     
+    /**
+     * Sets the current department ID based on input.
+     * @param departmentID 
+     */
     public void setCurrentDepartmentID(int departmentID) {
         this.currentDepartmentID = departmentID;
     }
     
+    /**
+     * 
+     * @return the current Role
+     */
     public DTO getCurrentRole() {
         return currentRole;
     }
     
+    /**
+     * Sets the current role.
+     * @param role 
+     */
     public void setCurrentRole(DTO role) {
         this.currentRole = role;
     }

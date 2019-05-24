@@ -1,18 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Model.DAO.Interfaces;
 
 import Smartsag.DTO.DTO;
 
 /**
  *
- * @author Lupo
+ * An interface with the read method that can be used by a DAO.
  */
-public interface ReadInterface{
-    
+public interface ReadInterface {
+
     public DTO read(String input);
-    
+
 }

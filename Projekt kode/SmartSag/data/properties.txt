@@ -1,3 +1,0 @@
-url=jdbc:mysql://den1.mysql2.gear.host:3306/smartsag
-user=smartsag
-password=Am682_8M_cDD
