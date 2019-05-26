@@ -14,22 +14,22 @@ import javafx.stage.Stage;
 
 
 public class GUIManager {
-    private final static String INITIAL_FILEPATH = "FXML/ViewInitial.fxml";
+    private final static String INITIAL_FILEPATH = "View/FXML/ViewInitial.fxml";
     //private final static String ViewLoginAdmin_FILEPATH = "FXML/ViewLoginAdmin.fxml";
-    private final static String LOGIN_BRUGER_FILEPATH = "FXML/ViewLoginBruger.fxml";
-    private final static String LOGIN_MEDARBEJDER_FILEPATH = "FXML/ViewLoginMedarbejder.fxml";
-    private final static String AKTIVE_BRUGER_FILEPATH = "FXML/ViewAktiveBruger.fxml";
-    private final static String AKTIVE_MEDARBEJDER_FILEPATH = "FXML/ViewAktiveMedarbejder.fxml";
-    private final static String ANSOEG_FILEPATH = "FXML/ViewAnsoeg.fxml";
-    private final static String ANSOEGKRITERIER_FILEPATH = "FXML/ViewAnsoegKriterier.fxml";
-    private final static String INAKTIVE_BRUGER_FILEPATH = "FXML/ViewInaktiveBruger.fxml";
-    private final static String INAKTIVE_MEDARBEJDER_FILEPATH = "FXML/ViewInaktiveMedarbejder.fxml";
-    private final static String MAIN_BRUGER_FILEPATH = "FXML/ViewMainBruger.fxml";
-    private final static String MAIN_MEDARBEJDER_FILEPATH = "FXML/ViewMainMedarbejder.fxml";
-    private final static String PROFIL_BRUGER_FILEPATH = "FXML/ViewProfilBruger.fxml";
-    private final static String CASE_DATABASE_FILEPATH = "FXML/ViewCaseDatabase.fxml";
-    private final static String CREATE_CASE_FILEPATH = "FXML/ViewCreateNewCase.fxml";
-    private final static String CREATE_EMPLOYEE_FILEPATH = "FXML/ViewCreateNewEmployee.fxml";
+    private final static String LOGIN_BRUGER_FILEPATH = "View/FXML/ViewLoginBruger.fxml";
+    private final static String LOGIN_MEDARBEJDER_FILEPATH = "View/FXML/ViewLoginMedarbejder.fxml";
+    private final static String AKTIVE_BRUGER_FILEPATH = "View/FXML/ViewAktiveBruger.fxml";
+    private final static String AKTIVE_MEDARBEJDER_FILEPATH = "View/FXML/ViewAktiveMedarbejder.fxml";
+    private final static String ANSOEG_FILEPATH = "View/FXML/ViewAnsoeg.fxml";
+    private final static String ANSOEGKRITERIER_FILEPATH = "View/FXML/ViewAnsoegKriterier.fxml";
+    private final static String INAKTIVE_BRUGER_FILEPATH = "View/FXML/ViewInaktiveBruger.fxml";
+    private final static String INAKTIVE_MEDARBEJDER_FILEPATH = "View/FXML/ViewInaktiveMedarbejder.fxml";
+    private final static String MAIN_BRUGER_FILEPATH = "View/FXML/ViewMainBruger.fxml";
+    private final static String MAIN_MEDARBEJDER_FILEPATH = "View/FXML/ViewMainMedarbejder.fxml";
+    private final static String PROFIL_BRUGER_FILEPATH = "View/FXML/ViewProfilBruger.fxml";
+    private final static String CASE_DATABASE_FILEPATH = "View/FXML/ViewCaseDatabase.fxml";
+    private final static String CREATE_CASE_FILEPATH = "View/FXML/ViewCreateNewCase.fxml";
+    private final static String CREATE_EMPLOYEE_FILEPATH = "View/FXML/ViewCreateNewEmployee.fxml";
     
     private final static String[] FILEPATHS = {
         INITIAL_FILEPATH,
