@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package smartsag.Controller.FXMLControllers;
 
 import Model.DAO.CaseDAO;
@@ -18,6 +13,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 
+/*
+    FXML Controller class
+*/
 public class ViewCreateNewCaseController extends ViewController implements Initializable {
     
     @FXML
@@ -28,7 +26,7 @@ public class ViewCreateNewCaseController extends ViewController implements Initi
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+
     }    
     
     @Override
@@ -36,6 +34,10 @@ public class ViewCreateNewCaseController extends ViewController implements Initi
         
     }
     
+    /*
+        If the current employee has access to create new cases, creates a new case based on the entered information.
+        This feature is not fully implemented as the entered case description has not been handled.
+    */
     @FXML
     private void createHandler(ActionEvent event) {
         if(!getModel().getCurrentRole().getCasePermissions().canCreate()) {

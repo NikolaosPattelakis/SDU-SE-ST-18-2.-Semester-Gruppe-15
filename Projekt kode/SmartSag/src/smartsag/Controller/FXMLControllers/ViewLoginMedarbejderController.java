@@ -1,4 +1,3 @@
-
 package smartsag.Controller.FXMLControllers;
 
 import Model.DAO.EmployeeDAO;
@@ -10,7 +9,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 
-
+/*
+    FXML Controller class
+*/
 public class ViewLoginMedarbejderController extends ViewController implements Initializable {
     
     @FXML
@@ -21,7 +22,7 @@ public class ViewLoginMedarbejderController extends ViewController implements In
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+
     }    
     
     @Override
@@ -29,6 +30,9 @@ public class ViewLoginMedarbejderController extends ViewController implements In
         
     }
     
+    /*
+        Attempts to log in to an employee account based on the entered username and password information.
+    */
     @FXML
     private void proceedHandler(ActionEvent event) {
         String username = txtUsername.getText();

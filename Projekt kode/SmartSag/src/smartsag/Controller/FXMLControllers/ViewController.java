@@ -1,4 +1,3 @@
-
 package smartsag.Controller.FXMLControllers;
 
 import Model.Persistence;
@@ -7,6 +6,11 @@ import smartsag.Controller.GUIManager;
 import View.ViewEvents;
 import javafx.scene.control.Alert;
 
+/*
+    Base class for all FXML View Controllers.
+    This contains a reference to the GUIManager, Persistence model, Scene and path of the view FXML file.
+    Also contains a "showAlert" method that is commonly used to show a message to the user.
+*/
 public abstract class ViewController extends ViewEvents {
     
     protected static GUIManager guiManager;

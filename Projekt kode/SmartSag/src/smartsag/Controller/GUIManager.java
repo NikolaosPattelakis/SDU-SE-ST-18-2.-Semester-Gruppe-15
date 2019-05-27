@@ -12,10 +12,16 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import smartsag.Controller.FXMLControllers.ViewController;
 
+/*
+    Class that is responsible for initializing and managing the various Views used throughout the program.
+*/
 
 public class GUIManager {
+    
+    /*
+        FXML file paths used to load each view.
+    */
     private final static String INITIAL_FILEPATH = "../../View/FXML/ViewInitial.fxml";
-    //private final static String ViewLoginAdmin_FILEPATH = "FXML/ViewLoginAdmin.fxml";
     private final static String LOGIN_BRUGER_FILEPATH = "../../View/FXML/ViewLoginBruger.fxml";
     private final static String LOGIN_MEDARBEJDER_FILEPATH = "../../View/FXML/ViewLoginMedarbejder.fxml";
     private final static String AKTIVE_BRUGER_FILEPATH = "../../View/FXML/ViewAktiveBruger.fxml";
@@ -54,6 +60,9 @@ public class GUIManager {
     private ViewController currentController;
     private final List<ViewController> viewControllers = new ArrayList<>();
     
+    /*
+        Initializes the GUIManager with the specified Stage object on which the Views will be shown.
+    */
     public void Init(Stage stage) {
         currentStage = stage;
         currentStage.setTitle("SmartSag");
@@ -67,6 +76,9 @@ public class GUIManager {
         
     }
     
+    /*
+        Loads the Controller classes used by each View.
+    */
     private void loadControllers(){
         for (String path : FILEPATHS) {
             try {
@@ -85,6 +97,9 @@ public class GUIManager {
         }
     }
     
+    /*
+        Initializes and shows a given View on the screen, based on the path of the FXML file.
+    */
     public void loadView(String FXMLFile) {
         for (ViewController controller : viewControllers) {
             if (controller.getPath().equals(FXMLFile)) {
@@ -100,81 +115,114 @@ public class GUIManager {
         currentStage.show();
     }
     
-    public void setCurrentController(ViewController controller) {
-        currentController = controller;
-    }
-    
-    public List<ViewController> getControllers() {
-        return this.viewControllers;
-    }
-    
+    /*
+        Returns the current Persistence object being used by this class.
+    */
     public Persistence getModel() {
         return model;
     }
     
-    public void setStage(Stage stage) {
-        currentStage = stage;
-    }
-    public Stage getStage() {
-        return currentStage;
-    }
-    
+    /*
+        Returns the path for the initial view.
+    */
     public String getInitialPath() {
         return INITIAL_FILEPATH;
     }
     
+    /*
+        Returns the path for the Login view for a citizen.
+    */
     public String getLoginBrugerPath() {
         return LOGIN_BRUGER_FILEPATH;
     }
     
+    /*
+        Returns the path for the Login view for an employee.
+    */
     public String getLoginMedarbejderPath() {
         return LOGIN_MEDARBEJDER_FILEPATH;
     }
     
+    /*
+        Returns the path for the active cases view for a citizen.
+    */
     public String getAktiveBrugerPath() {
         return AKTIVE_BRUGER_FILEPATH;
     }
     
+    /*
+        Returns the path for the active cases view for an employee.
+    */
     public String getAktiveMedarbejderPath() {
         return AKTIVE_MEDARBEJDER_FILEPATH;
     }
     
+    /*
+        Returns the path for the case request view for a citizen.
+    */
     public String getAnsoegPath() {
         return ANSOEG_FILEPATH;
     }
     
+    /*
+        Returns the path for the case request criterias view for a citizen.
+    */
     public String getAnsoegKriterierPath() {
         return ANSOEGKRITERIER_FILEPATH;
     }
     
+    /*
+        Returns the path for the inactive cases view for a citizen.
+    */
     public String getInaktiveBrugerPath() {
         return INAKTIVE_BRUGER_FILEPATH;
     }
     
+    /*
+        Returns the path for the inactive cases view for an employee.
+    */
     public String getInaktiveMedarbejderPath() {
         return INAKTIVE_MEDARBEJDER_FILEPATH;
     }
     
+    /*
+        Returns the path for the main view for a citizen.
+    */
     public String getMainBrugerPath() {
         return MAIN_BRUGER_FILEPATH;
     }
     
+    /*
+        Returns the path for the main view for an employee.
+    */
     public String getMainMedarbejderPath() {
         return MAIN_MEDARBEJDER_FILEPATH;
     }
     
+    /*
+        Returns the path for the profile view for a citizen.
+    */
     public String getProfilBrugerPath() {
         return PROFIL_BRUGER_FILEPATH;
     }
     
+    /*
+        Returns the path for the case database view for an employee.
+    */
     public String getCaseDatabasePath() {
         return CASE_DATABASE_FILEPATH;
     }
     
+    /*
+        Returns the path for the case creation view for an employee.
+    */
     public String getCreateNewCasePath() {
         return CREATE_CASE_FILEPATH;
     }
     
+    /*
+        Returns the path for the employee creation view for an employee.
+    */
     public String getCreateNewEmployeePath() {
         return CREATE_EMPLOYEE_FILEPATH;
     }

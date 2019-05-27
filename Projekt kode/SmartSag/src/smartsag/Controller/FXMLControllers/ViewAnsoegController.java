@@ -1,14 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package smartsag.Controller.FXMLControllers;
 
-import Model.DAO.CaseDAO;
-import Smartsag.DTO.DTO;
-import Smartsag.DTO.IDInformation;
-import smartsag.DTO.enums.CaseStatus;
 import static smartsag.Controller.FXMLControllers.ViewController.guiManager;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -17,19 +8,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 
-/**
+/*
  * FXML Controller class
- *
- * @author Oliver
  */
 public class ViewAnsoegController extends ViewController implements Initializable {
     
-    @FXML
-    private Button btnSend;
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+
     }  
     
     @Override
@@ -71,5 +57,4 @@ public class ViewAnsoegController extends ViewController implements Initializabl
     private void logoutHandler(ActionEvent event) {
         guiManager.loadView(guiManager.getInitialPath());
     }
-    
 }

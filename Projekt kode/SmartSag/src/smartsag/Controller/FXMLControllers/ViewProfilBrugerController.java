@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package smartsag.Controller.FXMLControllers;
 
 import Smartsag.DTO.BasicInformation;
@@ -15,10 +10,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 
-/**
+/*
  * FXML Controller class
- *
- * @author Oliver
  */
 public class ViewProfilBrugerController extends ViewController implements Initializable {
     
@@ -51,9 +44,12 @@ public class ViewProfilBrugerController extends ViewController implements Initia
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
     }
     
+    /*
+        Sets the profile information in the view of the current citizen account.
+    */
     @Override
     public void onViewInit() {
         BasicInformation info = getModel().getCurrentUser().getBasicInformation();

@@ -1,4 +1,3 @@
-
 package smartsag.Controller.FXMLControllers;
 
 import Model.DAO.CitizenDAO;
@@ -10,7 +9,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-
+/*
+    FXML Controller class
+*/
 public class ViewLoginBrugerController extends ViewController implements Initializable {
 
     @FXML
@@ -21,7 +22,7 @@ public class ViewLoginBrugerController extends ViewController implements Initial
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+
     }
     
     @Override
@@ -29,6 +30,9 @@ public class ViewLoginBrugerController extends ViewController implements Initial
         
     }
     
+    /*
+        Attempts to log in to a citizen account based on the entered CPR and password information.
+    */
     @FXML
     private void proceedHandler(ActionEvent event) {
         String cpr = txtCPR.getText();

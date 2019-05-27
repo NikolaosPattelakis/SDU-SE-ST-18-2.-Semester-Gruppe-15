@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package smartsag.Controller.FXMLControllers;
 
 import Model.DAO.CaseDAO;
@@ -19,10 +14,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 
-/**
+/*
  * FXML Controller class
- *
- * @author Oliver
  */
 public class ViewAktiveBrugerController extends ViewController implements Initializable {
     
@@ -33,9 +26,12 @@ public class ViewAktiveBrugerController extends ViewController implements Initia
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+
     }   
     
+    /*
+        Reads all cases belonging to the current citizen and shows all the open cases in a ListView with their ID.
+    */
     @Override
     public void onViewInit() {
         CaseDAO caseDAO = new CaseDAO(getModel());
@@ -82,5 +78,4 @@ public class ViewAktiveBrugerController extends ViewController implements Initia
     private void logoutHandler(ActionEvent event) {
         guiManager.loadView(guiManager.getInitialPath());
     }
-    
 }

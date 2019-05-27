@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package smartsag.Controller.FXMLControllers;
 
 import Model.DAO.EmployeeDAO;
@@ -19,9 +14,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 
-/**
- *
- * @author Oliver
+/*
+ * FXML Controller class
  */
 public class ViewCreateNewEmployeeController extends ViewController implements Initializable {
     
@@ -45,7 +39,7 @@ public class ViewCreateNewEmployeeController extends ViewController implements I
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
     }    
     
     @Override
@@ -53,6 +47,9 @@ public class ViewCreateNewEmployeeController extends ViewController implements I
         
     }
     
+    /*
+        If the current employee has access to create accounts, creates a new employee account based on the entered information.
+    */
     @FXML
     private void createHandler(ActionEvent event) {
         if(!getModel().getCurrentRole().getUserPermissions().canCreate()) {

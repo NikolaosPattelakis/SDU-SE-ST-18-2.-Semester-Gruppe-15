@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package smartsag.Controller.FXMLControllers;
 
 import static smartsag.Controller.FXMLControllers.ViewController.guiManager;
@@ -12,10 +7,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
-/**
+/*
  * FXML Controller class
- *
- * @author Oliver
  */
 public class ViewAktiveMedarbejderController extends ViewController implements Initializable {
 
@@ -24,7 +17,7 @@ public class ViewAktiveMedarbejderController extends ViewController implements I
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+
     }    
     
     @Override
@@ -69,6 +62,6 @@ public class ViewAktiveMedarbejderController extends ViewController implements I
     
     @FXML
     private void updateCaseHandler(ActionEvent event) {
-        //Not sure yet.
+
     }
 }

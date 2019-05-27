@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package smartsag.Controller.FXMLControllers;
 
 import Model.DAO.CaseDAO;
@@ -19,9 +14,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 
-/**
- *
- * @author Oliver
+/*
+ * FXML Controller class
  */
 public class ViewCaseDatabaseController extends ViewController implements Initializable {
     
@@ -33,9 +27,12 @@ public class ViewCaseDatabaseController extends ViewController implements Initia
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+
     }    
     
+    /*
+        Reads all cases relevant for the current employee and shows them in a ListView with their ID and case status.
+    */
     @Override
     public void onViewInit() {
         CaseDAO caseDAO = new CaseDAO(getModel());
@@ -51,9 +48,13 @@ public class ViewCaseDatabaseController extends ViewController implements Initia
     
     @FXML
     private void departmentHandler(ActionEvent event) {
-        //tba.
+        
     }
     
+    /*
+        If the current employee has access to read case information, the information of the currently selected case should be shown.
+        This feature is not fully implemented.
+    */
     @FXML
     private void openHandler(ActionEvent event) {
         if(!getModel().getCurrentRole().getCasePermissions().canRead()) {
@@ -64,6 +65,9 @@ public class ViewCaseDatabaseController extends ViewController implements Initia
         showAlert("Beskrivelse af hvad sagen omhandler...");
     }
     
+    /*
+        If the current employee has access to change case information, the status of the current case should change to open if closed, and vice versa.
+    */
     @FXML
     private void statusChangeHandler(ActionEvent event) {
         if(!getModel().getCurrentRole().getCasePermissions().canEdit()) {
