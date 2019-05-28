@@ -10,9 +10,10 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import smartsag.Encryption.Encryption;
 
-/*
-    FXML Controller class
-*/
+/**
+ * FXML Controller class
+ * 
+ */
 public class ViewLoginBrugerController extends ViewController implements Initializable {
 
     @FXML
@@ -31,8 +32,8 @@ public class ViewLoginBrugerController extends ViewController implements Initial
         
     }
     
-    /*
-        Attempts to log in to a citizen account based on the entered CPR and password information.
+    /**
+      *  Attempts to log in to a citizen account based on the entered CPR and password information.
     */
     @FXML
     private void proceedHandler(ActionEvent event) {

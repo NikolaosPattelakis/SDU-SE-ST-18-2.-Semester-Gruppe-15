@@ -10,8 +10,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import smartsag.Encryption.Encryption;
 
-/*
-    FXML Controller class
+/**
+ * FXML Controller class
 */
 public class ViewLoginMedarbejderController extends ViewController implements Initializable {
     
@@ -31,8 +31,8 @@ public class ViewLoginMedarbejderController extends ViewController implements In
         
     }
     
-    /*
-        Attempts to log in to an employee account based on the entered username and password information.
+    /**
+      *  Attempts to log in to an employee account based on the entered username and password information.
     */
     @FXML
     private void proceedHandler(ActionEvent event) {

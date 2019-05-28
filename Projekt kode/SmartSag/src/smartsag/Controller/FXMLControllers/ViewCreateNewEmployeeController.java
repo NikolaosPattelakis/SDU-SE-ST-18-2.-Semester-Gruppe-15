@@ -14,7 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 
-/*
+/**
  * FXML Controller class
  */
 public class ViewCreateNewEmployeeController extends ViewController implements Initializable {
@@ -47,9 +47,11 @@ public class ViewCreateNewEmployeeController extends ViewController implements I
         
     }
     
-    /*
-        If the current employee has access to create accounts, creates a new employee account based on the entered information.
-    */
+    /**
+     * If the current employee has access to create accounts, creates a new employee account based on the entered information.
+     * Entered password is encrypted during the process.
+     * @param event 
+     */
     @FXML
     private void createHandler(ActionEvent event) {
         if(!getModel().getCurrentRole().getUserPermissions().canCreate()) {
@@ -77,7 +79,6 @@ public class ViewCreateNewEmployeeController extends ViewController implements I
             return;
         }
         
-        // Encrypt the password
         Encryption encryption = new Encryption(getModel().getEncryptionType(), getModel().getEncryptionKey(), getModel().getEncryptionSalt());
         String encryptedPassword = encryption.encryptData(password);
         

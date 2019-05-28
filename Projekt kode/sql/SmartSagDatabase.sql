@@ -28,7 +28,7 @@ CREATE TABLE `afdeling01` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +37,7 @@ CREATE TABLE `afdeling01` (
 
 LOCK TABLES `afdeling01` WRITE;
 /*!40000 ALTER TABLE `afdeling01` DISABLE KEYS */;
-INSERT INTO `afdeling01` VALUES (1,1),(2,2);
+INSERT INTO `afdeling01` VALUES (1,1),(2,2),(3,11),(4,11),(5,12);
 /*!40000 ALTER TABLE `afdeling01` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -202,7 +202,7 @@ DROP TABLE IF EXISTS `citizens`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `citizens` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `password` varchar(20) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
   `cpr` int(10) DEFAULT NULL,
   `first_name` varchar(255) DEFAULT NULL,
   `middle_name` varchar(255) DEFAULT NULL,
@@ -210,7 +210,7 @@ CREATE TABLE `citizens` (
   `gender` enum('male','female') DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `cpr` (`cpr`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -219,7 +219,7 @@ CREATE TABLE `citizens` (
 
 LOCK TABLES `citizens` WRITE;
 /*!40000 ALTER TABLE `citizens` DISABLE KEYS */;
-INSERT INTO `citizens` VALUES (1,'kode0000',101010101,'Test','Citizen','01','male');
+INSERT INTO `citizens` VALUES (1,'vTkR+fQhyA1AdDi/JNxgFQ==',1111111111,'Test','Citizen','01','male'),(2,'vTkR+fQhyA1AdDi/JNxgFQ==',1111111112,'Test','Citizen','02','female'),(3,'vTkR+fQhyA1AdDi/JNxgFQ==',1111111113,'Test','Citizen','03','female'),(4,'vTkR+fQhyA1AdDi/JNxgFQ==',1111111114,'Test','Citizen','04','female');
 /*!40000 ALTER TABLE `citizens` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -257,7 +257,7 @@ DROP TABLE IF EXISTS `employees`;
 CREATE TABLE `employees` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(20) DEFAULT NULL,
-  `password` varchar(20) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
   `first_name` varchar(255) DEFAULT NULL,
   `middle_name` varchar(255) DEFAULT NULL,
   `last_name` varchar(255) DEFAULT NULL,
@@ -275,7 +275,7 @@ CREATE TABLE `employees` (
 
 LOCK TABLES `employees` WRITE;
 /*!40000 ALTER TABLE `employees` DISABLE KEYS */;
-INSERT INTO `employees` VALUES (1,'username01','kode0001','User','Name','01',1),(2,'username02','kode0002','User','Name','02',10),(3,'username03','kode0003','User','Name','03',2),(4,'username04','kode0004','User','Name','04',9),(5,'username05','kode0005','User','Name','05',3),(6,'username06','kode0006','User','Name','06',8),(7,'username07','kode0007','User','Name','07',4),(8,'username08','kode0008','User','Name','08',7),(9,'username09','kode0009','User','Name','09',5),(10,'username10','kode0010','User','Name','10',6);
+INSERT INTO `employees` VALUES (1,'username01','+QS2nGYkwf79SGdaBDlv6Q==','User','Name','01',1),(2,'username02','NkrmSsGrRIlAXqG6Cw9UnA==','User','Name','02',10),(3,'username03','e/nKdykfLbQgM4OdBmE2sA==','User','Name','03',2),(4,'username04','jqa8lBd9XohFJFIinJIeqA==','User','Name','04',9),(5,'username05','9FWze/7buCBcjQcA1z+X4Q==','User','Name','05',3),(6,'username06','x3rJaR1wtLMgVDUuzu8OHA==','User','Name','06',8),(7,'username07','aGmyU1pT/v53y3aMOjluOg==','User','Name','07',4),(8,'username08','VunMtW4H7KOIrkM2YZmYWQ==','User','Name','08',7),(9,'username09','QInaifIxuKJ28AtBXelVKQ==','User','Name','09',5),(10,'username10','zqPCmZ9uJlrqrA88NWpuWg==','User','Name','10',6);
 /*!40000 ALTER TABLE `employees` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -318,6 +318,10 @@ LOCK TABLES `roles` WRITE;
 INSERT INTO `roles` VALUES (1,'Administrator',1,1,0,0,0,1,0,1,1,1,1,1,1),(2,'Administrator',2,1,0,0,0,1,0,1,1,1,1,1,1),(3,'Administrator',3,1,0,0,0,1,0,1,1,1,1,1,1),(4,'Administrator',4,1,0,0,0,1,0,1,1,1,1,1,1),(5,'Administrator',5,1,0,0,0,1,0,1,1,0,0,0,0),(6,'Sagsbehandler',5,1,1,1,1,0,0,0,0,0,0,0,0),(7,'Sagsbehandler',4,1,1,1,1,0,0,0,0,0,0,0,0),(8,'Sagsbehandler',3,1,1,1,1,0,0,0,0,0,0,0,0),(9,'Sagsbehandler',2,1,1,1,1,0,0,0,0,0,0,0,0),(10,'Sagsbehandler',1,1,1,1,1,0,0,0,0,0,0,0,0);
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping events for database 'smartsag'
+--
 
 --
 -- Dumping routines for database 'smartsag'
@@ -755,7 +759,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`SmartSagAdmin`@`localhost` PROCEDURE `login_citizen`(in cprCheck int(10), in passwordCheck varchar(20))
+CREATE DEFINER=`SmartSagAdmin`@`localhost` PROCEDURE `login_citizen`(in cprCheck int(10), in passwordCheck varchar(255))
 BEGIN
 select * from citizens
 where cpr=cprCheck AND password=passwordCheck;
@@ -777,7 +781,7 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`SmartSagAdmin`@`localhost` PROCEDURE `login_employee`(
 in usernameCheck varchar(20),
-in passwordCheck varchar(20),
+in passwordCheck varchar(255),
 in departmentCheck varchar(255) 
 )
 BEGIN
@@ -793,14 +797,14 @@ employees.middle_name,
 employees.last_name, 
 employees.role_id
 from employees 
-left join ",
-@table,
-" T on employees.id = T.id",
-" where employees.username='",
+where employees.username='",
 @username,
 "' and employees.password='",
 @password,
-"'"
+"'",
+" and exists (select 1 from ",
+@table,
+" t2 where t2.employee_id = employees.id)"
 );
 prepare statement from @command;
 execute statement;
@@ -944,4 +948,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-05-24 23:30:41
+-- Dump completed on 2019-05-29  0:31:54
