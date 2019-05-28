@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
+import smartsag.Encryption.Encryption;
 
 /*
     FXML Controller class
@@ -43,8 +44,11 @@ public class ViewLoginMedarbejderController extends ViewController implements In
             return;
         }
         
+        Encryption encryption = new Encryption(getModel().getEncryptionType(), getModel().getEncryptionKey(), getModel().getEncryptionSalt());
+        String encryptedPassword = encryption.encryptData(password);
+        
         EmployeeDAO employee = new EmployeeDAO(getModel());
-        employee.login(username, password);
+        employee.login(username, encryptedPassword);
         
         if(getModel().getCurrentUser().getIDInformation() == null) {
             showAlert("Login mislykkedes, check dine login-oplysninger.");
