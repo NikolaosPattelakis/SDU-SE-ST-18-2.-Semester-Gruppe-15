@@ -196,7 +196,6 @@ public class BasicInformation implements BasicInformationInterface {
         /**
          * Finalizes the construction of the class by building it.
          *
-         * @return
          */
         private Builder() {
             this.informationPersonal = new BasicInformation();
