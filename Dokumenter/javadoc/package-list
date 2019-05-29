@@ -1,0 +1,11 @@
+Model
+Model.DAO
+Model.DAO.Interfaces
+Smartsag.DTO
+View
+smartsag
+smartsag.Controller
+smartsag.Controller.FXMLControllers
+smartsag.DTO.Interfaces
+smartsag.DTO.enums
+smartsag.Encryption
